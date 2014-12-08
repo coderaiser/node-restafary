@@ -4,7 +4,7 @@
 
 ## Whot is?
 
-**RE**presentational **S**tate **t**ransfer is an abstraction of the architecture of the World Wide Web.
+**RE**presentational **S**tate **T**ransfer is an abstraction of the architecture of the World Wide Web.
 
 **C**reate **Read** **U**pdate **D**elete is four basic functions of persistent storage.
 

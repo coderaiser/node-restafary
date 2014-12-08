@@ -43,7 +43,7 @@ var restafary   = require('restafary');
     ip          = '0.0.0.0';
     
 app.use(restafary({
-    prefix: '/api/v1/fs
+    prefix: '/api/v1/fs'
 }));
 
 app.use(express.static(__dirname));

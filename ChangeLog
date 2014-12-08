@@ -1,3 +1,11 @@
+2014.12.08, v1.0.2
+
+feature:
+- (restafary) getMsg: always get basename
+- (package) v1.0.1
+- (restafary) when save send basename
+
+
 2014.12.08, v1.0.1
 
 feature:

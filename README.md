@@ -2,7 +2,7 @@
 
 **REST** for **CRUD** file operations.
 
-## Whot is?
+## What is it?
 
 **RE**presentational **S**tate **T**ransfer is an abstraction of the architecture of the World Wide Web.
 

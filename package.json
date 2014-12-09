@@ -4,6 +4,7 @@
   "description": "REST for CRUD file operations",
   "main": "lib/restafary.js",
   "dependencies": {
+    "ashify": "~1.0.0",
     "checkup": "~1.0.2",
     "execon": "~1.0.1",
     "files-io": "~1.2.1",

@@ -1,3 +1,13 @@
+2014.12.09, v1.0.4
+
+fix:
+- (restafary) onGet: path undefined
+
+feature:
+- (package) v1.0.3
+- (restafary) add onGet
+
+
 2014.12.09, v1.0.3
 
 feature:

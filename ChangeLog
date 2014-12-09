@@ -1,3 +1,11 @@
+2014.12.09, v1.0.3
+
+feature:
+- (restafary) add onGet
+- (package) v1.0.2
+- (restafary) getMsg: always get basename
+
+
 2014.12.08, v1.0.2
 
 feature:

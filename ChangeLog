@@ -1,3 +1,9 @@
+2014.12.19, v1.0.7
+
+feature:
+- (package) util-io -> try-catch
+
+
 2014.12.09, v1.0.6
 
 feature:

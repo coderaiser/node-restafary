@@ -1,3 +1,9 @@
+2014.12.23, v1.0.8
+
+fix:
+- (restafary) onGet: name
+
+
 2014.12.19, v1.0.7
 
 feature:

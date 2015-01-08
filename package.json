@@ -6,6 +6,7 @@
   "dependencies": {
     "ashify": "~1.0.0",
     "checkup": "~1.0.2",
+    "diff-match-patch": "~1.0.0",
     "execon": "~1.0.1",
     "files-io": "~1.2.1",
     "flop": "~1.0.26",

@@ -1,3 +1,9 @@
+2015.01.08, v1.0.11
+
+feature:
+- (package) add diff-match-patch from npm
+
+
 2014.12.25, v1.0.10
 
 fix:

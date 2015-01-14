@@ -1,3 +1,9 @@
+2015.01.14, v1.0.15
+
+fix:
+- (restafary) onGet: query === size -> get ok, insteed of size
+
+
 2015.01.14, v1.0.14
 
 fix:

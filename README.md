@@ -6,7 +6,7 @@
 
 **RE**presentational **S**tate **T**ransfer is an abstraction of the architecture of the World Wide Web.
 
-**C**reate **Read** **U**pdate **D**elete is four basic functions of persistent storage.
+**C**reate **R**ead **U**pdate **D**elete is 4 basic functions of persistent storage.
 
 ## Install
 

@@ -17,7 +17,7 @@
 |Name         |Method   |Query          |Body               |Description                    |
 |:------------|:--------|:--------------|:------------------|:------------------------------|
 |`fs`         |`GET`    |               |                   |get file or dir content        |
-|             |         |`size`         |                   |get dir or file size           |
+|             |         |`size`         |                   |get file or dir size           |
 |             |         |`time`         |                   |get time of file change        |
 |             |         |`hash`         |                   |get file hash                  |
 |             |         |`beautify`     |                   |beautify js, html, css         |

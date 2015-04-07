@@ -1,3 +1,9 @@
+2015.04.07, v1.2.1
+
+fix:
+- (restafary) pathToWin when root defined
+
+
 2015.04.07, v1.2.0
 
 feature:

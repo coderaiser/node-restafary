@@ -1,3 +1,9 @@
+2015.04.07, v1.2.5
+
+fix:
+- (restafary) middleware: rm path.join
+
+
 2015.04.07, v1.2.4
 
 feature:

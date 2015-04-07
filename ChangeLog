@@ -1,3 +1,9 @@
+2015.04.07, v1.2.7
+
+fix:
+- (restafary) pathToWin: middle -> onFS
+
+
 2015.04.07, v1.2.6
 
 feature:

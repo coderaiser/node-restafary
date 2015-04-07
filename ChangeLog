@@ -1,3 +1,9 @@
+2015.04.07, v1.2.2
+
+fix:
+- (restafary) onFS: path is undefined
+
+
 2015.04.07, v1.2.1
 
 fix:

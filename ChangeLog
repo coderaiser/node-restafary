@@ -1,3 +1,9 @@
+2015.06.08, v1.3.4
+
+fix:
+- (get) query could not be empty string
+
+
 2015.06.08, v1.3.3
 
 feature:

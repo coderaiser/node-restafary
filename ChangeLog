@@ -1,3 +1,9 @@
+2015.06.25, v1.3.11
+
+feature:
+- (delete) deleteFiles -> flop.delete
+
+
 2015.06.24, v1.3.10
 
 feature:

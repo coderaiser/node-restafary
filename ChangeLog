@@ -1,3 +1,9 @@
+2015.08.11, v1.3.14
+
+fix:
+- (restafary) onGet: p.data -> String(p.data)
+
+
 2015.07.03, v1.3.13
 
 feature:

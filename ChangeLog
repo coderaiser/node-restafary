@@ -1,3 +1,9 @@
+2015.08.11, v1.4.0
+
+feature:
+- (get) time: time -> time raw
+
+
 2015.08.11, v1.3.14
 
 fix:

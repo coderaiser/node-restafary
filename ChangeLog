@@ -1,3 +1,9 @@
+2015.08.12, v1.4.1
+
+fix:
+- fix(restafary) no check before write file/create directory on root
+
+
 2015.08.11, v1.4.0
 
 feature:

@@ -13,7 +13,7 @@
     "mellow": "~2.0.0",
     "minify": "~1.4.0",
     "patchfile": "~1.0.0",
-    "pipe-io": "~1.1.3",
+    "pipe-io": "~1.2.0",
     "ponse": "~1.4.1",
     "try-catch": "~1.0.0"
   },

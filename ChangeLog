@@ -1,3 +1,12 @@
+2015.08.24, v1.5.0
+
+fix:
+- feature(client) add prefix
+
+feature:
+- feature(client) add prefix
+
+
 2015.08.17, v1.4.2
 
 feature:

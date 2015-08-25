@@ -1,8 +1,5 @@
 2015.08.24, v1.5.0
 
-fix:
-- (client) add prefix
-
 feature:
 - (client) add prefix
 

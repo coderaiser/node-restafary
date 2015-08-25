@@ -1,22 +1,22 @@
 2015.08.24, v1.5.0
 
 fix:
-- feature(client) add prefix
+- (client) add prefix
 
 feature:
-- feature(client) add prefix
+- (client) add prefix
 
 
 2015.08.17, v1.4.2
 
 feature:
-- feature(package) pipe-io v1.2.0
+- (package) pipe-io v1.2.0
 
 
 2015.08.12, v1.4.1
 
 fix:
-- fix(restafary) no check before write file/create directory on root
+- (restafary) no check before write file/create directory on root
 
 
 2015.08.11, v1.4.0

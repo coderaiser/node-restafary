@@ -1,4 +1,4 @@
-# Restafary
+# Restafary [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL]
 
 **REST** for **CRUD** file operations.
 
@@ -55,3 +55,13 @@ server.listen(port, ip);
 ## License
 
 MIT
+
+[NPMIMGURL]:                https://img.shields.io/npm/v/restafary.svg?style=flat
+[BuildStatusIMGURL]:        https://img.shields.io/travis/coderaiser/node-restafary/master.svg?style=flat
+[DependencyStatusIMGURL]:   https://img.shields.io/gemnasium/coderaiser/node-restafary.svg?style=flat
+[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPMURL]:                   https://npmjs.org/package/restafary "npm"
+[BuildStatusURL]:           https://travis-ci.org/coderaiser/node-restafary  "Build Status"
+[DependencyStatusURL]:      https://gemnasium.com/coderaiser/node-restafary "Dependency Status"
+[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
+

@@ -17,9 +17,23 @@
     "ponse": "~1.4.1",
     "try-catch": "~1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "coveralls": "^2.11.9",
+    "express": "^4.13.4",
+    "freeport": "^1.0.5",
+    "jscs": "~2.11.0",
+    "jshint": "~2.9.1",
+    "nyc": "^6.1.1",
+    "pipe": "^1.1.0",
+    "request": "^2.69.0",
+    "tape": "^4.5.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test/*.js",
+    "jscs-fix": "jscs --esnext test src --fix",
+    "codestyle": "jshint lib test && jscs --esnext lib test",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc npm test"
   },
   "repository": {
     "type": "git",

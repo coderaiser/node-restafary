@@ -7,64 +7,62 @@ let freeport = require('freeport');
 let pipe = require('pipe-io');
 let restafary = require('..');
 
-test('restafary: path traversal beyond root', (t) => {
+let get = (path, root, fn) => {
     freeport((error, port) => {
-        t.notOk(error, 'should not be error');
-        t.ok(port, `port is ${port}`);
-        
         let app = express();
         let server = http.createServer(app);
         let ip = '127.0.0.1';
         
         app.use(restafary({
-            root: '/tmp'
+            root: root
         }));
         
         server.listen(port, ip, () => {
-            http.get(`http://127.0.0.1:${port}/fs..%2f..%2fetc/passwd`, (res) => {
-                pipe.getBody(res, (error, body) => {
-                    t.notOk(error, `should not be error: ${error}`);
-                    t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
+            http.get(`http://127.0.0.1:${port}/${path}`, (res) => {
+                fn(res, () => {
                     server.close();
-                    t.end();
                 });
-            }).on('error', (error) => {
-                t.notOk(error, `should not be error: ${error}`);
-                t.end();
             });
+        });
+    });
+}
+
+test('restafary: path traversal beyond root', (t) => {
+    get('fs..%2f..%2fetc/passwd', '/tmp', (res, cb) => {
+        pipe.getBody(res, (error, body) => {
+            cb();
+            t.notOk(error, `should not be error: ${error}`);
+            t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
+            t.end();
         });
     });
 });
 
 test('restafary: path traversal', (t) => {
-    freeport((error, port) => {
-        t.notOk(error, 'should not be error');
-        t.ok(port, `port is ${port}`);
-        
-        let app = express();
-        let server = http.createServer(app);
-        let ip = '127.0.0.1';
-        
-        app.use(restafary({
-            root: '/'
-        }));
-        
-        server.listen(port, ip, () => {
-            http.get(`http://127.0.0.1:${port}/fs/bin`, (res) => {
-                console.log(res.status);
-                pipe.getBody(res, (error, body) => {
-                    let fn = () => {
-                        JSON.parse(body);
-                    };
-                    t.notOk(error, `should not be error: ${error}`);
-                    t.doesNotThrow(fn, 'should not throw');
-                    server.close();
-                    t.end();
-                });
-            }).on('error', (error) => {
-                t.notOk(error, `should not be error: ${error}`);
-                t.end();
-            });
+    get('fs/bin', '/', (res, cb) => {
+        pipe.getBody(res, (error, body) => {
+            let fn = () => {
+                JSON.parse(body);
+            };
+            t.notOk(error, `should not be error: ${error}`);
+            t.doesNotThrow(fn, 'should not throw');
+            cb();
+            t.end();
         });
     });
 });
+
+test('restafary: path traversal, not default root', (t) => {
+    get('fs/local', '/usr', (res, cb) => {
+        pipe.getBody(res, (error, body) => {
+            let fn = () => {
+                JSON.parse(body);
+            };
+            t.notOk(error, `should not be error: ${error}`);
+            t.doesNotThrow(fn, 'should not throw');
+            cb();
+            t.end();
+        });
+    });
+});
+

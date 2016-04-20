@@ -25,7 +25,7 @@ let get = (path, root, fn) => {
             });
         });
     });
-}
+};
 
 test('restafary: path traversal beyond root', (t) => {
     get('fs..%2f..%2fetc/passwd', '/tmp', (res, cb) => {

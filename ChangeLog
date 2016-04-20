@@ -1,3 +1,9 @@
+2016.04.20, v1.6.3
+
+fix:
+- (restafary) onFS: path traversal, not default root
+
+
 2016.04.15, v1.6.2
 
 fix:

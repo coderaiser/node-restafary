@@ -1,3 +1,12 @@
+2016.04.21, v1.6.4
+
+fix:
+- (restafary) onFS: beyound root on windows
+
+feature:
+- (package) jscs v3.0.3
+
+
 2016.04.20, v1.6.3
 
 fix:

@@ -4,10 +4,12 @@
     "requireCapitalizedConstructors": false,
     "disallowTrailingWhitespace": "ignoreEmptyLines",
     "disallowTrailingComma": false,
+    "disallowUnusedVariables": true,
     "validateIndentation": false,
     "requireCurlyBraces": false,
     "requireVarDeclFirst": false,
     "requireMultipleVarDecl": false,
+    "requireUseStrict": true,
     "requireSpacesInAnonymousFunctionExpression": {
         "beforeOpeningCurlyBrace": true
     },

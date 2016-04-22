@@ -1,3 +1,9 @@
+2016.04.22, v1.6.5
+
+fix:
+- (restafary) onFS: handle dot folder
+
+
 2016.04.21, v1.6.4
 
 fix:

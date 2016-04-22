@@ -1,6 +1,7 @@
 'use strict';
 
 let http = require('http');
+let fs = require('fs');
 let express = require('express');
 let test = require('tape');
 let freeport = require('freeport');
@@ -66,3 +67,17 @@ test('restafary: path traversal, not default root', (t) => {
     });
 });
 
+test('restafary: path traversal: "."', (t) => {
+    let path = fs.readdirSync('.').filter((name) => {
+        return !/^\./.test(name);
+    })[0];
+    
+    get(`fs/${path}`, '.', (res, cb) => {
+        pipe.getBody(res, (error, body) => {
+            t.notOk(error, `should not be error: ${error}`);
+            t.ok(res.statusCode, 200, 'status code should be OK');
+            cb();
+            t.end();
+        });
+    });
+});

@@ -73,11 +73,8 @@ test('restafary: path traversal: "."', (t) => {
     })[0];
     
     get(`fs/${path}`, '.', (res, cb) => {
-        pipe.getBody(res, (error, body) => {
-            t.notOk(error, `should not be error: ${error}`);
-            t.ok(res.statusCode, 200, 'status code should be OK');
-            cb();
-            t.end();
-        });
+        t.ok(res.statusCode, 200, 'status code should be OK');
+        cb();
+        t.end();
     });
 });

@@ -1,18 +1,18 @@
 'use strict';
 
-let http = require('http');
-let fs = require('fs');
-let express = require('express');
-let test = require('tape');
-let freeport = require('freeport');
-let pipe = require('pipe-io');
-let restafary = require('..');
+const http = require('http');
+const fs = require('fs');
+const express = require('express');
+const test = require('tape');
+const freeport = require('freeport');
+const pipe = require('pipe-io');
+const restafary = require('..');
 
-let get = (path, root, fn) => {
+const get = (path, root, fn) => {
     freeport((error, port) => {
-        let app = express();
-        let server = http.createServer(app);
-        let ip = '127.0.0.1';
+        const app = express();
+        const server = http.createServer(app);
+        const ip = '127.0.0.1';
         
         app.use(restafary({
             root: root
@@ -42,7 +42,7 @@ test('restafary: path traversal beyond root', (t) => {
 test('restafary: path traversal', (t) => {
     get('fs/bin', '/', (res, cb) => {
         pipe.getBody(res, (error, body) => {
-            let fn = () => {
+            const fn = () => {
                 JSON.parse(body);
             };
             t.notOk(error, `should not be error: ${error}`);
@@ -56,7 +56,7 @@ test('restafary: path traversal', (t) => {
 test('restafary: path traversal, not default root', (t) => {
     get('fs/local', '/usr', (res, cb) => {
         pipe.getBody(res, (error, body) => {
-            let fn = () => {
+            const fn = () => {
                 JSON.parse(body);
             };
             t.notOk(error, `should not be error: ${error}`);
@@ -68,7 +68,7 @@ test('restafary: path traversal, not default root', (t) => {
 });
 
 test('restafary: path traversal: "."', (t) => {
-    let path = fs.readdirSync('.').filter((name) => {
+    const path = fs.readdirSync('.').filter((name) => {
         return !/^\./.test(name);
     })[0];
     

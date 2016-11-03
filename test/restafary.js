@@ -5,7 +5,7 @@ const fs = require('fs');
 const express = require('express');
 const test = require('tape');
 const freeport = require('freeport');
-const pipe = require('pipe-io');
+const pullout = require('pullout');
 const restafary = require('..');
 
 const get = (path, root, fn) => {
@@ -30,7 +30,7 @@ const get = (path, root, fn) => {
 
 test('restafary: path traversal beyond root', (t) => {
     get('fs..%2f..%2fetc/passwd', '/tmp', (res, cb) => {
-        pipe.getBody(res, (error, body) => {
+        pullout(res, 'string', (error, body) => {
             cb();
             t.notOk(error, `should not be error: ${error}`);
             t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
@@ -41,7 +41,7 @@ test('restafary: path traversal beyond root', (t) => {
 
 test('restafary: path traversal', (t) => {
     get('fs/bin', '/', (res, cb) => {
-        pipe.getBody(res, (error, body) => {
+        pullout(res, 'string', (error, body) => {
             const fn = () => {
                 JSON.parse(body);
             };
@@ -55,7 +55,7 @@ test('restafary: path traversal', (t) => {
 
 test('restafary: path traversal, not default root', (t) => {
     get('fs/local', '/usr', (res, cb) => {
-        pipe.getBody(res, (error, body) => {
+        pullout(res, 'string', (error, body) => {
             const fn = () => {
                 JSON.parse(body);
             };

@@ -13,8 +13,8 @@
     "mellow": "~2.0.0",
     "minify": "~2.0.0",
     "patchfile": "~1.0.0",
-    "pipe-io": "~1.2.0",
     "ponse": "~1.4.1",
+    "pullout": "^1.0.1",
     "try-catch": "~1.0.0"
   },
   "devDependencies": {

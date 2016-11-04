@@ -5,7 +5,7 @@ const fs = require('fs');
 const express = require('express');
 const test = require('tape');
 const freeport = require('freeport');
-const pullout = require('pullout');
+const pullout = require('pullout/legacy');
 const restafary = require('..');
 
 const get = (path, root, fn) => {

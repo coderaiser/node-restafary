@@ -31,7 +31,7 @@
   "scripts": {
     "test": "tape test/*.js",
     "jscs-fix": "jscs --esnext test src --fix",
-    "codestyle": "jshint lib test && jscs --esnext lib test",
+    "lint": "jshint lib test && jscs --esnext lib test",
     "report": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test"
   },

@@ -1,6 +1,6 @@
 {
   "name": "restafary",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "REST for CRUD file operations",
   "main": "lib/restafary.js",
   "dependencies": {

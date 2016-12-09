@@ -7,6 +7,10 @@ const test = require('tape');
 const freeport = require('freeport');
 const pullout = require('pullout/legacy');
 const restafary = require('..');
+const fixture = {
+    get: require(`${__dirname}/fixture/get`),
+    getRaw: require(`${__dirname}/fixture/get-raw`)
+};
 
 const get = (path, root, fn) => {
     freeport((error, port) => {
@@ -76,5 +80,41 @@ test('restafary: path traversal: "."', (t) => {
         t.ok(res.statusCode, 200, 'status code should be OK');
         cb();
         t.end();
+    });
+});
+
+test('restafary: get: "raw": status', (t) => {
+    get('fs/fixture/get-raw?raw', __dirname, (res, cb) => {
+        t.ok(res.statusCode, 200, 'status code should be OK');
+        cb();
+        t.end();
+    });
+});
+
+test('restafary: get: "raw": body', (t) => {
+    get('fs/fixture/get-raw?raw', __dirname, (res, cb) => {
+        pullout(res, 'string', (error, body) => {
+            t.deepEqual(fixture.getRaw, JSON.parse(body), 'should redrun raw data');
+            cb();
+            t.end();
+        });
+    });
+});
+
+test('restafary: get: status', (t) => {
+    get('fs/fixture/get', __dirname, (res, cb) => {
+        t.ok(res.statusCode, 200, 'status code should be OK');
+        cb();
+        t.end();
+    });
+});
+
+test('restafary: get: body', (t) => {
+    get('fs/fixture/get', __dirname, (res, cb) => {
+        pullout(res, 'string', (error, body) => {
+            t.deepEqual(fixture.get, JSON.parse(body), 'should redrun raw data');
+            cb();
+            t.end();
+        });
     });
 });

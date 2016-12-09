@@ -1,0 +1,12 @@
+{
+    "path": "/fixture/get-raw/",
+    "files": [
+        {
+            "name": "hello.txt",
+            "size": 6,
+            "date": "2016-12-09T10:56:39.985Z",
+            "owner": 1000,
+            "mode": 33204
+        }
+    ]
+}

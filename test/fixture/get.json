@@ -1,0 +1,12 @@
+{
+    "path": "/fixture/get/",
+    "files": [
+        {
+            "name": "hello.txt",
+            "size": "6b",
+            "date": "09.12.2016",
+            "owner": "coderaiser",
+            "mode": "rw- rw- r--"
+        }
+    ]
+}

@@ -17,6 +17,7 @@
 |Name         |Method   |Query          |Body               |Description                    |
 |:------------|:--------|:--------------|:------------------|:------------------------------|
 |`fs`         |`GET`    |               |                   |get file or dir content        |
+|             |         |`raw`          |                   |get file or raw dir content    |
 |             |         |`size`         |                   |get file or dir size           |
 |             |         |`time`         |                   |get time of file change        |
 |             |         |`hash`         |                   |get file hash                  |

@@ -91,10 +91,30 @@ test('restafary: get: "raw": status', (t) => {
     });
 });
 
-test('restafary: get: "raw": body', (t) => {
+test('restafary: get: "raw": body: name', (t) => {
     get('fs/fixture/get-raw?raw', __dirname, (res, cb) => {
         pullout(res, 'string', (error, body) => {
-            t.deepEqual(fixture.getRaw, JSON.parse(body), 'should redrun raw data');
+            t.deepEqual(fixture.getRaw.name, JSON.parse(body).name, 'should return raw data');
+            cb();
+            t.end();
+        });
+    });
+});
+
+test('restafary: get: "raw": body: size', (t) => {
+    get('fs/fixture/get-raw?raw', __dirname, (res, cb) => {
+        pullout(res, 'string', (error, body) => {
+            t.deepEqual(fixture.getRaw.size, JSON.parse(body).size, 'should return raw data');
+            cb();
+            t.end();
+        });
+    });
+});
+
+test('restafary: get: "raw": body: mode', (t) => {
+    get('fs/fixture/get-raw?raw', __dirname, (res, cb) => {
+        pullout(res, 'string', (error, body) => {
+            t.deepEqual(fixture.getRaw.mode, JSON.parse(body).mode, 'should return raw data');
             cb();
             t.end();
         });
@@ -109,12 +129,33 @@ test('restafary: get: status', (t) => {
     });
 });
 
-test('restafary: get: body', (t) => {
+test('restafary: get: body: name', (t) => {
     get('fs/fixture/get', __dirname, (res, cb) => {
         pullout(res, 'string', (error, body) => {
-            t.deepEqual(fixture.get, JSON.parse(body), 'should redrun raw data');
+            t.deepEqual(fixture.get.name, JSON.parse(body).name, 'should return data');
             cb();
             t.end();
         });
     });
 });
+
+test('restafary: get: body: size', (t) => {
+    get('fs/fixture/get', __dirname, (res, cb) => {
+        pullout(res, 'string', (error, body) => {
+            t.deepEqual(fixture.get.size, JSON.parse(body).size, 'should return data');
+            cb();
+            t.end();
+        });
+    });
+});
+
+test('restafary: get: body: mode', (t) => {
+    get('fs/fixture/get', __dirname, (res, cb) => {
+        pullout(res, 'string', (error, body) => {
+            t.deepEqual(fixture.get.mode, JSON.parse(body).mode, 'should return data');
+            cb();
+            t.end();
+        });
+    });
+});
+

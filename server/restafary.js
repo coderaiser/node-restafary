@@ -1,44 +1,39 @@
 'use strict';
 
-var DIR         = './',
-    
-    fs          = require('fs'),
-    path        = require('path'),
-    jonny       = require('jonny'),
-    mellow      = require('mellow'),
-    ponse       = require('ponse'),
-    WIN         = process.platform === 'win32',
-    CWD         = process.cwd(),
-    
-    Fs          = {};
-    
+const DIR = './';
+const fs = require('fs');
+const path = require('path');
+const jonny = require('jonny');
+const mellow = require('mellow');
+const ponse = require('ponse');
+const WIN = process.platform === 'win32';
+const CWD = process.cwd();
+const Fs = {};
+
 [
     'get',
     'put',
     'patch',
     'delete'
-].forEach(function(name) {
+].forEach((name) => {
     Fs[name] = require(DIR + 'fs/' + name);
 });
 
-module.exports = function(options) {
-    return middle.bind(null, options || {});
-};
+module.exports = (options) => middle.bind(null, options || {});
 
 function middle(options, req, res, next) {
-    var name, is,
-        isFile  = /^\/restafary\.js/.test(req.url),
-        prefix  = options.prefix || '/fs',
-        root    = options.root || '/',
-        
-        params  = {
-            request : req,
-            response: res,
-            root    : root
-        };
+    const isFile  = /^\/restafary\.js/.test(req.url);
+    const prefix  = options.prefix || '/fs';
+    const root    = options.root || '/';
     
-    name    = ponse.getPathName(req);
-    is      = !name.indexOf(prefix);
+    const params  = {
+        request : req,
+        response: res,
+        root    : root
+    };
+    
+    let name = ponse.getPathName(req);
+    const is = !name.indexOf(prefix);
     
     if (isFile)
         sendFile(req, res);
@@ -49,7 +44,7 @@ function middle(options, req, res, next) {
         
         params.name = name;
         
-        onFS(params, function(error, options, data) {
+        onFS(params, (error, options, data) => {
             params.gzip = !error;
             
             if (options.name)
@@ -86,9 +81,9 @@ function sendFile(request, response) {
 }
 
 function getMsg(name, req) {
-    var msg;
-    var query = ponse.getQuery(req);
-    var method = req.method.toLowerCase();
+    let msg;
+    const query = ponse.getQuery(req);
+    const method = req.method.toLowerCase();
     
     name = path.basename(name);
     
@@ -107,39 +102,36 @@ function getMsg(name, req) {
 }
 
 function checkPath(name, root) {
-    var ok,
-        drive   = name.split('/')[1],
-        isRoot  = root === '/',
-        isDrive = /^[a-z]$/i.test(drive);
-    
-    ok = !WIN || !isRoot || isDrive;
-    
+    const drive   = name.split('/')[1];
+    const isRoot  = root === '/';
+    const isDrive = /^[a-z]$/i.test(drive);
+
+    const ok = !WIN || !isRoot || isDrive;
+
     return ok;
 }
 
 function onFS(params, callback) {
-    var root,
-        rootWin,
-        pathOS,
-        pathWeb,
-        pathError       = 'Could not write file/create directory in root on windows!',
-        p               = params,
-        name            = p.name,
-        query           = ponse.getQuery(p.request),
-        optionsDefaults  = {
-            gzip: false,
-            name: '.txt'
-        };
+    const pathError       = 'Could not write file/create directory in root on windows!';
+    const p               = params;
+    const name            = p.name;
+    const query           = ponse.getQuery(p.request);
     
+    const optionsDefaults  = {
+        gzip: false,
+        name: '.txt'
+    };
+    
+    let root;
     if (typeof params.root === 'function')
         root = params.root();
     else
         root = params.root;
     
     root = handleDotFolder(root);
-    rootWin = root.replace('/', '\\');
-    pathOS  = mellow.pathToWin(name, root);
-    pathWeb = path.join(root, name);
+    const rootWin = root.replace('/', '\\');
+    const pathOS  = mellow.pathToWin(name, root);
+    const pathWeb = path.join(root, name);
     
     if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
@@ -149,19 +141,19 @@ function onFS(params, callback) {
         if (!checkPath(name, root))
             callback(pathError, optionsDefaults);
         else
-            Fs.put(query, pathOS, p.request, function(error) {
+            Fs.put(query, pathOS, p.request, (error) => {
                 callback(error, optionsDefaults);
             });
         break;
     
     case 'PATCH':
-        Fs.patch(path, p.request, function(error) {
+        Fs.patch(path, p.request, (error) => {
             callback(error, optionsDefaults);
         });
         break;
     
     case 'GET':
-        Fs.get(query, pathOS, function(error, data) {
+        Fs.get(query, pathOS, (error, data) => {
             onGet({
                 error: error,
                 name: p.name,
@@ -175,7 +167,7 @@ function onFS(params, callback) {
         break;
     
     case 'DELETE':
-        Fs.delete(query, pathOS, p.request, function(error) {
+        Fs.delete(query, pathOS, p.request, (error) => {
             callback(error, optionsDefaults);
         });
         break;
@@ -183,71 +175,69 @@ function onFS(params, callback) {
 }
 
 function onGet(p, callback) {
-    var str,
-        options = {},
-        isFile  = p.error && p.error.code === 'ENOTDIR',
-        isStr   = typeof p.data === 'string',
-        params  = {
-            gzip: true,
-            name: p.path,
-            request: p.request,
-            response: p.response,
-        };
+    let options = {};
+    const isFile  = p.error && p.error.code === 'ENOTDIR';
+    const isStr   = typeof p.data === 'string';
     
-    if (isFile) {
-        fs.realpath(p.path, function(error, path) {
+    const params  = {
+        gzip: true,
+        name: p.path,
+        request: p.request,
+        response: p.response,
+    };
+    
+    if (isFile)
+        return fs.realpath(p.path, (error, path) => {
             if (!error)
                 params.name = path;
             
             params.gzip = false;
             ponse.sendFile(params);
         });
-    } else {
-        if (!p.error)
-            if (/^(size|time|hash|beautify|minify)$/.test(p.query)) {
-                str = String(p.data);
-            } else {
-                p.data.path   = addSlashToEnd(p.name);
-                
-                if (p.name === '/')
-                    p.name += 'fs';
-                
-                options     = {
-                    name    : p.name + 'fs.json',
-                    query   : p.query
-                };
-                
-                if (isStr)
-                    str = p.data;
-                else
-                    str = jonny.stringify(p.data, null, 4);
-            }
         
-        callback(p.error, options, str);
-    }
+    if (p.error)
+        return callback(p.error, options);
+    
+    if (/^(size|time|hash|beautify|minify)$/.test(p.query))
+        return callback(p.error, options, String(p.data));
+    
+    p.data.path   = addSlashToEnd(p.name);
+    
+    if (p.name === '/')
+        p.name += 'fs';
+    
+    options     = {
+        name    : p.name + 'fs.json',
+        query   : p.query
+    };
+    
+    let str;
+    if (isStr)
+        str = p.data;
+    else
+        str = jonny.stringify(p.data, null, 4);
+    
+    callback(p.error, options, str);
 }
 
 function format(msg, name) {
-    var status = 'ok';
+    const status = 'ok';
     
     if (name)
         name = '("' + name + '")';
     
-    msg = msg + ': ' + status + name;
-    
-    return msg;
+    return msg + ': ' + status + name;
 }
 
 function addSlashToEnd(path) {
-    var length, isSlash;
+    if (!path)
+        return path;
     
-    if (path) {
-        length  = path.length - 1;
-        isSlash = path[length] === '/';
-        
-        if (!isSlash)
-            path += '/';
-    }
+    const length  = path.length - 1;
+    const isSlash = path[length] === '/';
+    
+    if (!isSlash)
+        path += '/';
     
     return path;
 }

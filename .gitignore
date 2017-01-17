@@ -1,4 +1,8 @@
 node_modules
 npm-debug.log
 
+dist
+legacy
+
 .nyc_output
+

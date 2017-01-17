@@ -16,14 +16,14 @@ module.exports  = function(query, name, readStream, callback) {
     
     getBody(readStream, function(error, files) {
         switch(query) {
-            default:
-                flop.delete(name, callback);
-                break;
+        default:
+            flop.delete(name, callback);
+            break;
                 
-            case 'files':
-                flop.delete(name, files, callback);
-                break;
-            }
+        case 'files':
+            flop.delete(name, files, callback);
+            break;
+        }
     });
 };
 

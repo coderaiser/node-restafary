@@ -2,7 +2,42 @@
   "name": "restafary",
   "version": "1.7.0",
   "description": "REST for CRUD file operations",
-  "main": "lib/restafary.js",
+  "main": "server/restafary.js",
+  "config": {
+    "plugins": "-p [ minifyify --map restafary.js.map --output dist/restafary.js.map ]",
+    "compile": {
+      "client": "-s restafary ./client/restafary.js --dg false -d -o dist/restafary.js"
+    }
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "scripts": {
+    "test": "tape 'test/*.js'",
+    "fix:jscs": "jscs --esnext client server test --fix",
+    "lint:js": "jshint server test && jscs --esnext server test",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc npm test",
+    "watch:test": "npm run watcher -- npm test",
+    "watcher": "nodemon -w test -w lib --exec",
+    "compile:client": "browserify $npm_package_config_compile_client $npm_package_config_plugins",
+    "compile:server": "babel server -d legacy/server",
+    "build": "redrun clean init legacy:* compile:*",
+    "wisdom": "npm run build",
+    "lint": "redrun lint:*",
+    "lint:client": "eslint --env browser client",
+    "lint:eslint": "eslint server test",
+    "init": "mkdirp dist legacy",
+    "clean": "rimraf legacy dist",
+    "legacy:index": "echo \"module.exports = require('./server/restafary');\" > legacy/index.js"
+  },
   "dependencies": {
     "ashify": "^1.0.0",
     "beautifile": "^1.0.0",
@@ -11,32 +46,29 @@
     "flop": "^1.5.0",
     "jonny": "^1.0.1",
     "mellow": "^2.0.0",
-    "minify": "^2.0.0",
     "patchfile": "^1.0.0",
     "ponse": "^1.4.1",
     "pullout": "^1.0.1",
     "try-catch": "^1.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.3.0",
     "coveralls": "^2.11.9",
+    "eslint": "^3.13.1",
     "express": "^4.13.4",
     "freeport": "^1.0.5",
     "jscs": "^3.0.3",
     "jshint": "^2.9.1",
+    "minifyify": "^7.3.4",
+    "mkdirp": "^0.5.1",
     "nodemon": "^1.11.0",
     "nyc": "^10.0.0",
     "pipe": "^1.1.0",
     "request": "^2.69.0",
     "tape": "^4.5.1"
-  },
-  "scripts": {
-    "test": "tape 'test/*.js'",
-    "jscs-fix": "jscs --esnext test src --fix",
-    "lint": "jshint lib test && jscs --esnext lib test",
-    "report": "nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc npm test",
-    "watch:test": "npm run watcher -- npm test",
-    "watcher": "nodemon -w test -w lib --exec"
   },
   "repository": {
     "type": "git",

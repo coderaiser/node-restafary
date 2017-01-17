@@ -12,14 +12,14 @@ var DIR         = './',
     
     Fs          = {};
     
-    [
-        'get',
-        'put',
-        'patch',
-        'delete'
-    ].forEach(function(name) {
-        Fs[name] = require(DIR + 'fs/' + name);
-    });
+[
+    'get',
+    'put',
+    'patch',
+    'delete'
+].forEach(function(name) {
+    Fs[name] = require(DIR + 'fs/' + name);
+});
 
 module.exports = function(options) {
     return middle.bind(null, options || {});
@@ -27,7 +27,7 @@ module.exports = function(options) {
 
 function middle(options, req, res, next) {
     var name, is,
-        isFile  = req.url === '/restafary.js',
+        isFile  = /^\/restafary\.js/.test(req.url),
         prefix  = options.prefix || '/fs',
         root    = options.root || '/',
         
@@ -73,14 +73,15 @@ function middle(options, req, res, next) {
     }
 }
 
-function sendFile(req, res) {
-    var name = __dirname + '/client.js';
+function sendFile(request, response) {
+    const url = request.url;
+    const name = path.join(__dirname, '..', 'dist', url);
     
     ponse.sendFile({
-        name: name,
+        name,
         gzip: true,
-        request: req,
-        response: res
+        request,
+        response,
     });
 }
 
@@ -153,7 +154,7 @@ function onFS(params, callback) {
             });
         break;
     
-     case 'PATCH':
+    case 'PATCH':
         Fs.patch(path, p.request, function(error) {
             callback(error, optionsDefaults);
         });

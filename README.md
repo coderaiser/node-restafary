@@ -33,16 +33,16 @@
 ## How to use?
 
 ```js
-var restafary   = require('restafary');
-    http        = require('http'),
-    express     = require('express'),
-    
-    app         = express(),
-    server      = http.createServer(app),
-    
-    port        = 1337,
-    ip          = '0.0.0.0';
-    
+const restafary = require('restafary');
+const http = require('http');
+const express = require('express');
+
+const app = express();
+const server = http.createServer(app);
+
+const port = 1337;
+const ip = '0.0.0.0';
+
 app.use(restafary({
     prefix: '/fs',  /* default                              */
     root: '/'       /* default, coud be string or function  */
@@ -51,6 +51,14 @@ app.use(restafary({
 app.use(express.static(__dirname));
 
 server.listen(port, ip);
+```
+
+## Environments
+
+In old `node.js` environments that supports `es5` only, `readify` could be used with:
+
+```js
+var readify = require('readify/legacy');
 ```
 
 ## License

@@ -1,10 +1,10 @@
 'use strict';
 
-var check = require('checkup');
-var pullout = require('pullout/legacy');
-var patch = require('patchfile');
-    
-module.exports  = function(name, readStream, options, callback) {
+const check = require('checkup');
+const pullout = require('pullout/legacy');
+const patch = require('patchfile');
+
+module.exports = (name, readStream, options, callback) => {
     if (!callback)
         callback = options;
     
@@ -13,11 +13,11 @@ module.exports  = function(name, readStream, options, callback) {
         .type('readStream', readStream, 'object')
         .type('callback', callback, 'function');
     
-    pullout(readStream, 'string', function(error, data) {
+    pullout(readStream, 'string', (error, data) => {
         if (error)
-            callback(error);
-        else
-            patch(name, data, options, callback);
+            return callback(error);
+        
+        patch(name, data, options, callback);
     });
 };
 

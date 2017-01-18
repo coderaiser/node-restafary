@@ -1,35 +1,28 @@
 'use strict';
 
-var check       = require('checkup');
-var pullout     = require('pullout/legacy');
-var tryCatch    = require('try-catch');
-var flop        = require('flop');
+const check = require('checkup');
+const pullout = require('pullout/legacy');
+const tryCatch = require('try-catch');
+const flop = require('flop');
 
-module.exports  = function(query, name, readStream, callback) {
+module.exports = (query, name, readStream, callback) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
         .type('callback', callback, 'function')
-        .check({
-            query: query
-        });
+        .check({query});
     
-    getBody(readStream, function(error, files) {
-        switch(query) {
-        default:
-            flop.delete(name, callback);
-            break;
-                
-        case 'files':
-            flop.delete(name, files, callback);
-            break;
-        }
+    getBody(readStream, (error, files) => {
+        if (query !== 'files')
+            return flop.delete(name, callback);
+        
+        flop.delete(name, files, callback);
     });
 };
 
 function getBody(readStream, callback) {
-    pullout(readStream, 'string', function(error, body) {
-        var obj;
+    pullout(readStream, 'string', (error, body) => {
+        let obj;
         
         if (!error)
             error = tryCatch(function() {

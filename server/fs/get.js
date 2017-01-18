@@ -1,19 +1,17 @@
 'use strict';
 
-var readStream      = require('fs').createReadStream,
-    check           = require ('checkup'),
-    minify          = require('minify'),
-    flop            = require('flop'),
-    ashify          = require('ashify'),
-    beautify        = require('beautifile');
+const readStream = require('fs').createReadStream;
+const check = require ('checkup');
+const minify = require('minify');
+const flop = require('flop');
+const ashify = require('ashify');
+const beautify = require('beautifile');
 
-module.exports      = function(query, name, callback) {
+module.exports = (query, name, callback) => {
     check
         .type('name', name, 'string')
         .type('callback', callback, 'function')
-        .check({
-            query: query
-        });
+        .check({query});
     
     switch (query) {
     default:

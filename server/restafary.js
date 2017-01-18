@@ -56,14 +56,13 @@ function middle(options, req, res, next) {
             if (options.query)
                 params.query = options.query;
             
-            if (error) {
-                ponse.sendError(error, params);
-            } else {
-                if (!data)
-                    data = getMsg(name, req);
-                
-                ponse.send(data, params);
-            }
+            if (error)
+                return ponse.sendError(error, params);
+            
+            if (!data)
+                data = getMsg(name, req);
+            
+            ponse.send(data, params);
         });
     }
 }

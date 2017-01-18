@@ -1,36 +1,14 @@
 'use strict';
 
-const http = require('http');
 const fs = require('fs');
-const express = require('express');
 const test = require('tape');
-const freeport = require('freeport');
 const pullout = require('pullout/legacy');
-const restafary = require('..');
 const fixture = {
     get: require(`${__dirname}/fixture/get`),
     getRaw: require(`${__dirname}/fixture/get-raw`)
 };
 
-const get = (path, root, fn) => {
-    freeport((error, port) => {
-        const app = express();
-        const server = http.createServer(app);
-        const ip = '127.0.0.1';
-        
-        app.use(restafary({
-            root: root
-        }));
-        
-        server.listen(port, ip, () => {
-            http.get(`http://127.0.0.1:${port}/${path}`, (res) => {
-                fn(res, () => {
-                    server.close();
-                });
-            });
-        });
-    });
-};
+const {get} = require('./before');
 
 test('restafary: path traversal beyond root', (t) => {
     get('fs..%2f..%2fetc/passwd', '/tmp', (res, cb) => {

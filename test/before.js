@@ -1,29 +1,51 @@
 'use strict';
 
 const http = require('http');
+
 const express = require('express');
+const request = require('request');
 const restafary = require('..');
-const currify = require('currify');
 
-const serve = currify(_serve);
+const getURL = (path, port) => `http://127.0.0.1:${port}/${path}`;
 
-module.exports.get = serve('get');
+module.exports.get = (path, root, fn) => {
+    serve(path, root, (port, close) => {
+        const url = getURL(path, port);
+        
+        request.get(url, (e, res, body) => {
+            fn(res, body, close);
+        });
+    });
+};
 
-function _serve(method, path, root, fn) {
+module.exports.del = (path, root, body, fn) => {
+    serve(path, root, (port, close) => {
+        const url = getURL(path, port);
+        const options = {
+            url,
+            body
+        };
+        
+        request.delete(options, (e, res, body) => {
+            fn(res, body, close);
+        });
+    });
+};
+
+function serve(path, root, fn) {
     const app = express();
     const server = http.createServer(app);
     
     app.use(restafary({
-        root: root
+        root
     }));
     
     server.listen(() => {
         const {port} = server.address();
         
-        http[method](`http://127.0.0.1:${port}/${path}`, (res) => {
-            fn(res, () => {
-                server.close();
-            });
+        fn(port, () => {
+            server.close();
         });
     });
 }
+

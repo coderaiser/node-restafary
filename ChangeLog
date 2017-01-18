@@ -1,3 +1,13 @@
+2017.01.18, v2.0.1
+
+fix:
+- (restafary) delete: parse body: always -> when query ?files present
+- (package) add minify back
+
+feature:
+- (package) redrun v5.9.5
+
+
 2017.01.17, v2.0.0
 
 feature:

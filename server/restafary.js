@@ -21,15 +21,17 @@ const Fs = {};
 
 module.exports = (options) => middle.bind(null, options || {});
 
-function middle(options, req, res, next) {
+function middle(options, request, response, next) {
+    const req = request;
+    const res = response;
     const isFile  = /^\/restafary\.js/.test(req.url);
     const prefix  = options.prefix || '/fs';
     const root    = options.root || '/';
     
     const params  = {
-        request : req,
-        response: res,
-        root    : root
+        root,
+        request,
+        response,
     };
     
     let name = ponse.getPathName(req);
@@ -154,13 +156,13 @@ function onFS(params, callback) {
     case 'GET':
         Fs.get(query, pathOS, (error, data) => {
             onGet({
-                error: error,
+                error,
                 name: p.name,
                 path: pathOS,
-                query: query,
+                query,
                 request: p.request,
                 response: p.response,
-                data: data
+                data
             }, callback);
         });
         break;
@@ -200,7 +202,7 @@ function onGet(p, callback) {
     if (/^(size|time|hash|beautify|minify)$/.test(p.query))
         return callback(p.error, options, String(p.data));
     
-    p.data.path   = addSlashToEnd(p.name);
+    p.data.path = addSlashToEnd(p.name);
     
     if (p.name === '/')
         p.name += 'fs';

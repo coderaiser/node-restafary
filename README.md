@@ -18,7 +18,7 @@
 |:------------|:--------|:--------------|:------------------|:------------------------------|
 |`fs`         |`GET`    |               |                   |get file or dir content        |
 |             |         |`sort`         |                   |sort dir content by `name`,    |
-|             |         |               |                   |`size`, or `time               |
+|             |         |               |                   |`size`, or `time`              |
 |             |         |`order`        |                   |order of sorting, can be:      |
 |             |         |               |                   |`asc` or `desc`                |
 |             |         |`raw`          |                   |get file or raw dir content    |

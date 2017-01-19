@@ -17,6 +17,10 @@
 |Name         |Method   |Query          |Body               |Description                    |
 |:------------|:--------|:--------------|:------------------|:------------------------------|
 |`fs`         |`GET`    |               |                   |get file or dir content        |
+|             |         |`sort`         |                   |sort dir content by `name`,    |
+|             |         |               |                   |`size`, or `time               |
+|             |         |`order`        |                   |order of sorting, can be:      |
+|             |         |               |                   |`asc` or `desc`                |
 |             |         |`raw`          |                   |get file or raw dir content    |
 |             |         |`size`         |                   |get file or dir size           |
 |             |         |`time`         |                   |get time of file change        |

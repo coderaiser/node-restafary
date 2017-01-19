@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require('fs');
+const calledWithDiff = require('./sinon-called-with-diff');
+const sinon = calledWithDiff(require('sinon'));
 const test = require('tape');
 const fixture = {
     get: require(`${__dirname}/fixture/get`),
@@ -8,6 +10,14 @@ const fixture = {
 };
 
 const {get} = require('./before');
+
+const stub = (name, fn) => {
+    require.cache[require.resolve(name)].exports = fn;
+};
+
+const clean = (name) => {
+    delete require.cache[require.resolve(name)];
+};
 
 test('restafary: path traversal beyond root', (t) => {
     get('fs..%2f..%2fetc/passwd', '/tmp', (res, body, cb) => {
@@ -109,6 +119,97 @@ test('restafary: get: body: size', (t) => {
 test('restafary: get: body: mode', (t) => {
     get('fs/fixture/get', __dirname, (res, body, cb) => {
         t.deepEqual(fixture.get.mode, JSON.parse(body).mode, 'should return data');
+        cb();
+        t.end();
+    });
+});
+
+test('restafary: get: sort by name', (t) => {
+    const expected = {
+        path: './',
+        files: [{
+            name: '.readify.js',
+            size: '3.46kb',
+            date: '12.01.2017',
+            owner: 'root',
+            mode: 'rw- rw- r--',
+        }, {
+            name: 'readdir.js',
+            size: '1.59kb',
+            date: '12.01.2017',
+            owner: 'root',
+            mode: 'rw- rw- r--',
+        }]
+    };
+    
+    clean('./before');
+    clean('..');
+    clean('../server/fs/get');
+    
+    const CALLBACK = 2;
+    const readify = sinon.stub()
+        .callsArgWithAsync(CALLBACK, null, expected);
+    
+    stub('readify', readify);
+    
+    const {get} = require('./before');
+    
+    get('fs/bin?sort=name', '/', (res, body, cb) => {
+        const order = 'asc';
+        const sort = 'name';
+        t.ok(readify.calledWith('/bin', {sort, order}), 'should call readify with sort "name"');
+        cb();
+        t.end();
+    });
+});
+
+test('restafary: get: sort by size', (t) => {
+    const expected = {
+        path: '',
+        files: []
+    };
+    
+    clean('./before');
+    clean('..');
+    clean('../server/fs/get');
+    
+    const readify = sinon.stub()
+        .callsArgWithAsync(2, null, expected);
+    
+    stub('readify', readify);
+    
+    const {get} = require('./before');
+    
+    get('fs/bin?sort=size', '/', (res, body, cb) => {
+        const order = 'asc';
+        const sort = 'size';
+        t.ok(readify.calledWith('/bin', {sort, order}), 'should call readify with sort "size"');
+        cb();
+        t.end();
+    });
+});
+
+test('restafary: get: sort by order', (t) => {
+    const expected = {
+        path: '',
+        files: []
+    };
+    
+    clean('./before');
+    clean('..');
+    clean('../server/fs/get');
+    
+    const readify = sinon.stub()
+        .callsArgWithAsync(2, null, expected);
+    
+    stub('readify', readify);
+    
+    const {get} = require('./before');
+    
+    get('fs/bin?order=desc&sort=time', '/', (res, body, cb) => {
+        const sort = 'time';
+        const order = 'desc';
+        t.ok(readify.calledWith('/bin', {sort, order}), 'should call readify with sort and order');
         cb();
         t.end();
     });

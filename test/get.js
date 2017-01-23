@@ -150,7 +150,7 @@ test('restafary: get: sort by name', (t) => {
     const readify = sinon.stub()
         .callsArgWithAsync(CALLBACK, null, expected);
     
-    stub('readify', readify);
+    stub('readify/legacy', readify);
     
     const {get} = require('./before');
     
@@ -176,7 +176,7 @@ test('restafary: get: sort by size', (t) => {
     const readify = sinon.stub()
         .callsArgWithAsync(2, null, expected);
     
-    stub('readify', readify);
+    stub('readify/legacy', readify);
     
     const {get} = require('./before');
     
@@ -202,7 +202,7 @@ test('restafary: get: sort by order', (t) => {
     const readify = sinon.stub()
         .callsArgWithAsync(2, null, expected);
     
-    stub('readify', readify);
+    stub('readify/legacy', readify);
     
     const {get} = require('./before');
     

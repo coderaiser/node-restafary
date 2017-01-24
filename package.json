@@ -29,7 +29,7 @@
     "watch:test": "npm run watcher -- npm test",
     "watcher": "nodemon -w test -w server --exec",
     "compile:client": "browserify $npm_package_config_compile_client $npm_package_config_plugins",
-    "compile:server": "babel server -d _server",
+    "compile:server": "babel server -d server_",
     "build": "redrun clean init legacy:* compile:*",
     "wisdom": "npm run build",
     "lint": "redrun lint:*",
@@ -37,7 +37,7 @@
     "lint:server": "eslint server test",
     "init": "mkdirp dist legacy",
     "clean": "rimraf legacy dist",
-    "legacy:index": "echo \"module.exports = require('../_server/restafary');\" > legacy/index.js"
+    "legacy:index": "echo \"module.exports = require('../server_/restafary');\" > legacy/index.js"
   },
   "dependencies": {
     "ashify": "^1.0.0",

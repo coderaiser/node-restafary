@@ -5,7 +5,6 @@ const readStream = require('fs').createReadStream;
 const check = require ('checkup');
 const minify = require('minify');
 const flop = require('flop');
-const readify = require('readify/legacy');
 const ashify = require('ashify');
 const beautify = require('beautifile');
 
@@ -20,7 +19,7 @@ module.exports = (query, name, callback) => {
         const sort = parsed.sort;
         const order = parsed.order || 'asc';
         
-        return readify(name, {sort, order}, callback);
+        return flop(name, {sort, order}, callback);
     }
         
     switch (query) {

@@ -19,7 +19,7 @@ module.exports = (query, name, callback) => {
         const sort = parsed.sort;
         const order = parsed.order || 'asc';
         
-        return flop(name, {sort, order}, callback);
+        return flop.read(name, {sort, order}, callback);
     }
         
     switch (query) {

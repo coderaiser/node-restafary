@@ -1,3 +1,13 @@
+2017.01.29, v2.1.2
+
+fix:
+- (get) readify -> flop: root on windows
+
+feature:
+- (package) _server -> server_
+- (travis) node_js v6
+
+
 2017.01.20, v2.1.1
 
 fix:

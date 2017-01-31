@@ -147,17 +147,17 @@ test('restafary: get: sort by name', (t) => {
     clean('../server/fs/get');
     
     const CALLBACK = 2;
-    const readify = sinon.stub()
+    const read = sinon.stub()
         .callsArgWithAsync(CALLBACK, null, expected);
     
-    stub('readify/legacy', readify);
+    stub('flop/legacy', {read});
     
     const {get} = require('./before');
     
     get('fs/bin?sort=name', '/', (res, body, cb) => {
         const order = 'asc';
         const sort = 'name';
-        t.ok(readify.calledWith('/bin', {sort, order}), 'should call readify with sort "name"');
+        t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "name"');
         cb();
         t.end();
     });
@@ -173,17 +173,17 @@ test('restafary: get: sort by size', (t) => {
     clean('..');
     clean('../server/fs/get');
     
-    const readify = sinon.stub()
+    const read = sinon.stub()
         .callsArgWithAsync(2, null, expected);
     
-    stub('readify/legacy', readify);
+    stub('flop/legacy', {read});
     
     const {get} = require('./before');
     
     get('fs/bin?sort=size', '/', (res, body, cb) => {
         const order = 'asc';
         const sort = 'size';
-        t.ok(readify.calledWith('/bin', {sort, order}), 'should call readify with sort "size"');
+        t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "size"');
         cb();
         t.end();
     });
@@ -199,17 +199,17 @@ test('restafary: get: sort by order', (t) => {
     clean('..');
     clean('../server/fs/get');
     
-    const readify = sinon.stub()
+    const read = sinon.stub()
         .callsArgWithAsync(2, null, expected);
     
-    stub('readify/legacy', readify);
+    stub('flop/legacy', {read});
     
     const {get} = require('./before');
     
     get('fs/bin?order=desc&sort=time', '/', (res, body, cb) => {
         const sort = 'time';
         const order = 'desc';
-        t.ok(readify.calledWith('/bin', {sort, order}), 'should call readify with sort and order');
+        t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort and order');
         cb();
         t.end();
     });

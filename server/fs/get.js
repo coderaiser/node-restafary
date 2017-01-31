@@ -4,7 +4,7 @@ const querystring = require('querystring');
 const readStream = require('fs').createReadStream;
 const check = require ('checkup');
 const minify = require('minify');
-const flop = require('flop');
+const flop = require('flop/legacy');
 const ashify = require('ashify');
 const beautify = require('beautifile');
 

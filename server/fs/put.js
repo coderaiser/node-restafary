@@ -1,7 +1,7 @@
 'use strict';
 
 const check = require('checkup');
-const flop = require('flop');
+const flop = require('flop/legacy');
 const files = require('files-io');
 
 module.exports = (query, name, readStream, callback) => {

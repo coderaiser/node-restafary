@@ -1,7 +1,7 @@
 'use strict';
 
 const check = require('checkup');
-const flop = require('flop');
+const flop = require('flop/legacy');
 const promisify = require('es6-promisify');
 const pullout = promisify(require('pullout/legacy'));
 const good = (fn) => (a) => fn(null, a);

@@ -32,7 +32,7 @@ function calledWith(...args) {
     
     const actual = this.args.pop();
     
-    write('wrong arguments');
+    write(`wrong arguments in ${this.func.name}`);
     writeObjectActual('actual:', actual);
     writeObjectExpected('expected:', args);
     

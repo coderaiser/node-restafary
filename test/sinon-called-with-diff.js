@@ -32,10 +32,9 @@ function calledWith(...args) {
     
     const actual = this.args.pop();
     
-    
     write('wrong arguments');
-    writeObject('actual:', actual);
-    writeObject('expected:', args);
+    writeObjectActual('actual:', actual);
+    writeObjectExpected('expected:', args);
     
     return false;
 }
@@ -44,8 +43,13 @@ function write(str) {
     process.stdout.write(chalk.red(str) + '\n');
 }
 
-function writeObject(str, object) {
+function writeObjectActual(str, object) {
     const json = JSON.stringify(object, null, 2);
-    process.stdout.write(str, chalk.yellow(json) + '\n');
+    console.log(str, chalk.yellow(json) + '\n');
+}
+
+function writeObjectExpected(str, object) {
+    const json = JSON.stringify(object, null, 2);
+    console.log(str, chalk.green(json) + '\n');
 }
 

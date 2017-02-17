@@ -27,6 +27,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
     "watch:test": "npm run watcher -- npm test",
+    "watch:lint": "npm run watcher -- npm run lint",
     "watcher": "nodemon -w test -w server --exec",
     "compile:client": "browserify $npm_package_config_compile_client $npm_package_config_plugins",
     "compile:server": "babel server -d server_",

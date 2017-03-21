@@ -6,7 +6,7 @@ const {del} = require('./before');
 test('restafary: delete: no fs', (t) => {
     del('123', '/tmp', null, (res, body, cb) => {
         cb();
-        t.equal(body, 'Cannot DELETE /123\n', 'should return error message');
+        t.ok(body.includes('Cannot DELETE /123'), 'should return error message');
         t.end();
     });
 });

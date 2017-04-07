@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const calledWithDiff = require('./sinon-called-with-diff');
+const calledWithDiff = require('sinon-called-with-diff');
 const sinon = calledWithDiff(require('sinon'));
 const test = require('tape');
 const fixture = {

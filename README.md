@@ -57,14 +57,6 @@ app.use(express.static(__dirname));
 server.listen(port, ip);
 ```
 
-## Environments
-
-In old `node.js` environments that supports `es5` only, `readify` could be used with:
-
-```js
-var readify = require('readify/legacy');
-```
-
 ## License
 
 MIT

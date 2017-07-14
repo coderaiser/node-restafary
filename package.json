@@ -47,7 +47,7 @@
     "checkup": "^1.3.0",
     "es6-promisify": "^5.0.0",
     "files-io": "^1.2.1",
-    "flop": "^2.0.0",
+    "flop": "^3.0.0",
     "jonny": "^1.0.1",
     "mellow": "^2.0.0",
     "minify": "^3.0.0",
@@ -56,7 +56,6 @@
     "pullout": "^1.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "babelify": "^7.3.0",
     "browserify": "^14.0.0",

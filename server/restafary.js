@@ -19,14 +19,16 @@ const Fs = {};
     Fs[name] = require(DIR + 'fs/' + name);
 });
 
+const isDev = process.env.NODE_ENV === 'development';
+
 module.exports = (options) => middle.bind(null, options || {});
 
 function middle(options, request, response, next) {
     const req = request;
     const res = response;
-    const isFile  = /^\/restafary\.js/.test(req.url);
-    const prefix  = options.prefix || '/fs';
-    const root    = options.root || '/';
+    const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
+    const prefix = options.prefix || '/fs';
+    const root = options.root || '/';
     
     const params  = {
         root,
@@ -37,9 +39,9 @@ function middle(options, request, response, next) {
     let name = ponse.getPathName(req);
     const is = !name.indexOf(prefix);
     
-    if (isFile)
+    if (isFile) {
         sendFile(req, res);
-    else if (!is) {
+    } else if (!is) {
         next();
     } else {
         name = name.replace(prefix, '') || '/';
@@ -70,12 +72,15 @@ function middle(options, request, response, next) {
 }
 
 function sendFile(request, response) {
-    const url = request.url;
-    const name = path.join(__dirname, '..', 'dist', url);
+    const dist = !isDev ? 'dist' : 'dist-dev';
+    request.url = path.join(__dirname, '..', dist, request.url);
+    
+    const gzip = true;
+    const name = request.url;
     
     ponse.sendFile({
         name,
-        gzip: true,
+        gzip,
         request,
         response,
     });
@@ -89,7 +94,7 @@ function getMsg(name, req) {
     name = path.basename(name);
     
     if (method !== 'put') {
-        msg     = method;
+        msg  = method;
     } else {
         if (query === 'dir')
             msg = 'make dir';
@@ -97,26 +102,26 @@ function getMsg(name, req) {
             msg = 'save';
     }
     
-    msg     = format(msg, name);
+    msg = format(msg, name);
     
     return msg;
 }
 
 function checkPath(name, root) {
-    const drive   = name.split('/')[1];
-    const isRoot  = root === '/';
+    const drive = name.split('/')[1];
+    const isRoot = root === '/';
     const isDrive = /^[a-z]$/i.test(drive);
-
+    
     const ok = !WIN || !isRoot || isDrive;
-
+    
     return ok;
 }
 
 function onFS(params, callback) {
-    const pathError       = 'Could not write file/create directory in root on windows!';
-    const p               = params;
-    const name            = p.name;
-    const query           = ponse.getQuery(p.request);
+    const pathError = 'Could not write file/create directory in root on windows!';
+    const p = params;
+    const name = p.name;
+    const query = ponse.getQuery(p.request);
     
     const optionsDefaults  = {
         gzip: false,

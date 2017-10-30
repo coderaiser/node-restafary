@@ -3,23 +3,12 @@
   "version": "3.0.0",
   "description": "REST for CRUD file operations",
   "main": "server/restafary.js",
-  "config": {
-    "plugins": "-p [ minifyify --map restafary.js.map --output dist/restafary.js.map ]",
-    "compile": {
-      "client": "-s restafary ./client/restafary.js --dg false -d -o dist/restafary.js"
-    }
-  },
   "engines": {
     "node": ">=4"
   },
   "babel": {
     "presets": [
-      "es2015"
-    ]
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
+      "env"
     ]
   },
   "scripts": {
@@ -32,14 +21,14 @@
     "watch:test": "npm run watcher -- npm test",
     "watch:lint": "npm run watcher -- npm run lint",
     "watcher": "nodemon -w test -w server --exec",
-    "compile:client": "browserify $npm_package_config_compile_client $npm_package_config_plugins",
-    "build": "redrun clean init compile:*",
+    "compile": "webpack --progress",
+    "compile:dev": "NODE_ENV=development npm run compile",
+    "build": "redrun clean compile*",
     "wisdom": "npm run build",
     "lint": "redrun lint:*",
     "lint:client": "eslint --env browser client",
     "lint:server": "eslint server test",
-    "init": "mkdirp dist",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist*"
   },
   "dependencies": {
     "ashify": "^1.0.0",
@@ -50,21 +39,20 @@
     "flop": "^3.0.0",
     "jonny": "^1.0.1",
     "mellow": "^2.0.0",
-    "minify": "^3.0.0",
+    "minify": "^3.0.2",
     "patchfile": "^1.0.0",
     "ponse": "^1.4.1",
     "pullout": "^1.0.1"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.18.0",
-    "babelify": "^7.3.0",
-    "browserify": "^14.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.0",
     "eslint": "^4.0.0",
     "express": "^4.13.4",
     "jscs": "^3.0.3",
     "jshint": "^2.9.1",
-    "minifyify": "^7.3.4",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.2",
@@ -73,7 +61,8 @@
     "request": "^2.79.0",
     "sinon": "^4.0.0",
     "sinon-called-with-diff": "^1.0.0",
-    "tape": "^4.5.1"
+    "tape": "^4.5.1",
+    "webpack": "^3.8.1"
   },
   "repository": {
     "type": "git",

@@ -145,21 +145,19 @@ function onFS(params, callback) {
     switch (p.request.method) {
     case 'PUT':
         if (!checkPath(name, root))
-            callback(pathError, optionsDefaults);
-        else
-            Fs.put(query, pathOS, p.request, (error) => {
-                callback(error, optionsDefaults);
-            });
-        break;
-    
-    case 'PATCH':
-        Fs.patch(path, p.request, (error) => {
+            return callback(pathError, optionsDefaults);
+        
+        return Fs.put(query, pathOS, p.request, (error) => {
             callback(error, optionsDefaults);
         });
-        break;
+    
+    case 'PATCH':
+        return Fs.patch(path, p.request, (error) => {
+            callback(error, optionsDefaults);
+        });
     
     case 'GET':
-        Fs.get(query, pathOS, (error, data) => {
+        return Fs.get(query, pathOS, (error, data) => {
             onGet({
                 error,
                 name: p.name,
@@ -170,13 +168,11 @@ function onFS(params, callback) {
                 data
             }, callback);
         });
-        break;
     
     case 'DELETE':
-        Fs.delete(query, pathOS, p.request, (error) => {
+        return Fs.delete(query, pathOS, p.request, (error) => {
             callback(error, optionsDefaults);
         });
-        break;
     }
 }
 

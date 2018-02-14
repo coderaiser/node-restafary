@@ -60,7 +60,7 @@
     "redrun": "^5.9.5",
     "request": "^2.79.0",
     "sinon": "^4.0.0",
-    "sinon-called-with-diff": "^1.0.0",
+    "sinon-called-with-diff": "^2.0.0",
     "tape": "^4.5.1",
     "webpack": "^3.8.1"
   },

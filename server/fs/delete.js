@@ -14,13 +14,13 @@ module.exports = (query, name, readStream, callback) => {
         .check({query});
         
     if (query !== 'files')
-        return flop.delete(name, callback);
+        return flop.remove(name, callback);
     
     getBody(readStream, (error, files) => {
         if (error)
             return callback(error);
         
-        flop.delete(name, files, callback);
+        flop.remove(name, files, callback);
     });
 };
 

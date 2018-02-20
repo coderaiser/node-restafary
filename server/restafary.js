@@ -3,7 +3,7 @@
 const DIR = './';
 const fs = require('fs');
 const path = require('path');
-const jonny = require('jonny');
+const jonny = require('jonny/legacy');
 const mellow = require('mellow');
 const ponse = require('ponse');
 const WIN = process.platform === 'win32';

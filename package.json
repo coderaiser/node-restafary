@@ -37,7 +37,7 @@
     "es6-promisify": "^6.0.0",
     "files-io": "^1.2.1",
     "flop": "^4.0.0",
-    "jonny": "^1.0.1",
+    "jonny": "^2.0.3",
     "mellow": "^2.0.0",
     "minify": "^3.0.2",
     "patchfile": "^1.0.0",

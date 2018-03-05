@@ -13,9 +13,6 @@
   },
   "scripts": {
     "test": "tape 'test/*.js'",
-    "fix:jscs": "jscs --esnext client server test --fix",
-    "lint:jshint": "jshint server test",
-    "lint:jscs": "jscs --esnext server test",
     "report": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
     "watch:test": "npm run watcher -- npm test",
@@ -52,8 +49,6 @@
     "coveralls": "^3.0.0",
     "eslint": "^4.0.0",
     "express": "^4.13.4",
-    "jscs": "^3.0.3",
-    "jshint": "^2.9.1",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.2",

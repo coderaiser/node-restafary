@@ -1,3 +1,12 @@
+2018.05.02, v3.1.1
+
+feature:
+- (package) ponse v2.0.0
+- (package) sinon v5.0.3
+- (package) files-io v2.0.0
+- (travis) add node v10
+
+
 2018.03.15, v3.1.0
 
 feature:

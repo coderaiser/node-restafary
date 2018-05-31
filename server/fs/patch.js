@@ -1,7 +1,7 @@
 'use strict';
 
 const check = require('checkup');
-const pullout = require('pullout/legacy');
+const pullout = require('pullout');
 const patch = require('patchfile');
 
 module.exports = (name, readStream, options, callback) => {

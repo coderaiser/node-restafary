@@ -3,7 +3,7 @@
 const check = require('checkup');
 const flop = require('flop');
 const promisify = require('es6-promisify').promisify;
-const pullout = promisify(require('pullout/legacy'));
+const pullout = promisify(require('pullout'));
 const good = (fn) => (a) => fn(null, a);
 
 module.exports = (query, name, readStream, callback) => {

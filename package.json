@@ -43,7 +43,7 @@
     "minify": "^3.0.2",
     "patchfile": "^1.0.0",
     "ponse": "^2.0.0",
-    "pullout": "^1.0.1"
+    "pullout": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

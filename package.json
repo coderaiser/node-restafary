@@ -59,7 +59,7 @@
     "pipe": "^1.1.0",
     "redrun": "^6.0.0",
     "request": "^2.79.0",
-    "sinon": "^5.0.3",
+    "sinon": "^6.0.0",
     "sinon-called-with-diff": "^2.0.0",
     "tape": "^4.5.1",
     "webpack": "^4.1.0",

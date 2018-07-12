@@ -19,112 +19,109 @@ const clean = (name) => {
     delete require.cache[require.resolve(name)];
 };
 
-test('restafary: path traversal beyond root', (t) => {
-    get('fs..%2f..%2fetc/passwd', '/tmp', (res, body, cb) => {
-        cb();
-        t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
-        t.end();
-    });
-});
-
-test('restafary: path traversal', (t) => {
-    get('fs/bin', '/', (res, body, cb) => {
-        const fn = () => {
-            JSON.parse(body);
-        };
-        t.doesNotThrow(fn, 'should not throw');
-        cb();
-        t.end();
-    });
-});
-
-test('restafary: path traversal, not default root', (t) => {
-    get('fs/local', '/usr', (res, body, cb) => {
-        const fn = () => JSON.parse(body);
-        
-        t.doesNotThrow(fn, 'should not throw');
-        cb();
-        t.end();
-    });
-});
-
-test('restafary: path traversal: "."', (t) => {
-    const path = fs.readdirSync('.').filter((name) => {
-        return !/^\./.test(name);
-    }).pop();
+test('restafary: path traversal beyond root', async (t) => {
+    const [e] = await get('fs..%2f..%2fetc/passwd', '/tmp');
+    const {response} = e;
+    const {body} = response;
     
-    get(`fs/${path}`, '.', (res, body, cb) => {
-        t.ok(res.statusCode, 200, 'status code should be OK');
-        cb();
-        t.end();
-    });
+    t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
+    t.end();
 });
 
-test('restafary: get: "raw": status', (t) => {
-    get('fs/fixture/get-raw?raw', __dirname, (res, body, cb) => {
-        t.ok(res.statusCode, 200, 'status code should be OK');
-        cb();
-        t.end();
-    });
+test('restafary: path traversal', async (t) => {
+    const [, response] = await get('fs/bin', '/');
+    const {body} = response;
+    
+    const fn = () => JSON.parse(body);
+    
+    t.doesNotThrow(fn, 'should not throw');
+    t.end();
 });
 
-test('restafary: get: "raw": body: name', (t) => {
-    get('fs/fixture/get-raw?raw', __dirname, (res, body, cb) => {
-        t.deepEqual(fixture.getRaw.name, JSON.parse(body).name, 'should return raw data');
-        cb();
-        t.end();
-    });
+test('restafary: path traversal, not default root', async (t) => {
+    const [, response] = await get('fs/local', '/usr');
+    const {body} = response;
+    const fn = () => JSON.parse(body);
+    
+    t.doesNotThrow(fn, 'should not throw');
+    t.end();
 });
 
-test('restafary: get: "raw": body: size', (t) => {
-    get('fs/fixture/get-raw?raw', __dirname, (res, body, cb) => {
-        t.deepEqual(fixture.getRaw.size, JSON.parse(body).size, 'should return raw data');
-        cb();
-        t.end();
-    });
+test('restafary: path traversal: "."', async (t) => {
+    const notRoot = (_) => !/^\./.test(_);
+    const path = fs.readdirSync('.')
+        .filter(notRoot)
+        .pop();
+    
+    const [, res] = await get(`fs/${path}`, '.');
+    
+    t.ok(res.statusCode, 200, 'status code should be OK');
+    t.end();
 });
 
-test('restafary: get: "raw": body: mode', (t) => {
-    get('fs/fixture/get-raw?raw', __dirname, (res, body, cb) => {
-        t.deepEqual(fixture.getRaw.mode, JSON.parse(body).mode, 'should return raw data');
-        cb();
-        t.end();
-    });
+test('restafary: get: "raw": status', async (t) => {
+    const [, res] = await get('fs/fixture/get-raw?raw', __dirname);
+    
+    t.ok(res.statusCode, 200, 'status code should be OK');
+    t.end();
 });
 
-test('restafary: get: status', (t) => {
-    get('fs/fixture/get', __dirname, (res, body, cb) => {
-        t.ok(res.statusCode, 200, 'status code should be OK');
-        cb();
-        t.end();
-    });
+test('restafary: get: "raw": body: name', async (t) => {
+    const [, res] = await get('fs/fixture/get-raw?raw', __dirname);
+    const {body} = res;
+    
+    t.deepEqual(fixture.getRaw.name, JSON.parse(body).name, 'should return raw data');
+    t.end();
 });
 
-test('restafary: get: body: name', (t) => {
-    get('fs/fixture/get', __dirname, (res, body, cb) => {
-        t.deepEqual(fixture.get.name, JSON.parse(body).name, 'should return data');
-        cb();
-        t.end();
-    });
+test('restafary: get: "raw": body: size', async (t) => {
+    const [, res] = await get('fs/fixture/get-raw?raw', __dirname);
+    const {body} = res;
+    
+    t.deepEqual(fixture.getRaw.size, JSON.parse(body).size, 'should return raw data');
+    t.end();
 });
 
-test('restafary: get: body: size', (t) => {
-    get('fs/fixture/get', __dirname, (res, body, cb) => {
-        t.deepEqual(fixture.get.size, JSON.parse(body).size, 'should return data');
-        cb();
-        t.end();
-    });
+test('restafary: get: "raw": body: mode', async (t) => {
+    const [, res] = await get('fs/fixture/get-raw?raw', __dirname);
+    const {body} = res;
+    
+    t.deepEqual(fixture.getRaw.mode, JSON.parse(body).mode, 'should return raw data');
+    t.end();
 });
 
-test('restafary: get: body: mode', (t) => {
-    get('fs/fixture/get', __dirname, (res, body, cb) => {
-        t.deepEqual(fixture.get.mode, JSON.parse(body).mode, 'should return data');
-        cb();
-        t.end();
-    });
+test('restafary: get: status', async (t) => {
+    const [, res] = await get('fs/fixture/get', __dirname);
+    
+    t.ok(res.statusCode, 200, 'status code should be OK');
+    t.end();
 });
 
-test('restafary: get: sort by name', (t) => {
+test('restafary: get: body: name', async (t) => {
+    const [, res] = await get('fs/fixture/get', __dirname);
+    const {body} = res;
+    
+    t.deepEqual(fixture.get.name, JSON.parse(body).name, 'should return data');
+    t.end();
+});
+
+test('restafary: get: body: size', async (t) => {
+    const [, res] = await get('fs/fixture/get', __dirname);
+    const {body} = res;
+    
+    t.deepEqual(fixture.get.size, JSON.parse(body).size, 'should return data');
+    t.end();
+});
+
+test('restafary: get: body: mode', async (t) => {
+    const [, res] = await get('fs/fixture/get', __dirname);
+    const {body} = res;
+    
+    t.deepEqual(fixture.get.mode, JSON.parse(body).mode, 'should return data');
+    t.end();
+});
+
+test('restafary: get: sort by name', async (t) => {
     const expected = {
         path: './',
         files: [{
@@ -146,24 +143,26 @@ test('restafary: get: sort by name', (t) => {
     clean('..');
     clean('../server/fs/get');
     
-    const CALLBACK = 2;
+    const callbackIndex = 2;
     const read = sinon.stub()
-        .callsArgWithAsync(CALLBACK, null, expected);
+        .callsArgWithAsync(callbackIndex, null, expected);
     
     stub('flop', {read});
     
     const {get} = require('./before');
+    await get('fs/bin?sort=name', '/');
     
-    get('fs/bin?sort=name', '/', (res, body, cb) => {
-        const order = 'asc';
-        const sort = 'name';
-        t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "name"');
-        cb();
-        t.end();
-    });
+    const [args] = read.args;
+    const fn = args[callbackIndex];
+    
+    const order = 'asc';
+    const sort = 'name';
+    
+    t.ok(read.calledWith('/bin', {sort, order}, fn), 'should call readify with sort "name"');
+    t.end();
 });
 
-test('restafary: get: sort by size', (t) => {
+test('restafary: get: sort by size', async (t) => {
     const expected = {
         path: '',
         files: []
@@ -173,23 +172,26 @@ test('restafary: get: sort by size', (t) => {
     clean('..');
     clean('../server/fs/get');
     
+    const callbackIndex = 2;
     const read = sinon.stub()
-        .callsArgWithAsync(2, null, expected);
+        .callsArgWithAsync(callbackIndex, null, expected);
     
     stub('flop', {read});
     
     const {get} = require('./before');
     
-    get('fs/bin?sort=size', '/', (res, body, cb) => {
-        const order = 'asc';
-        const sort = 'size';
-        t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "size"');
-        cb();
-        t.end();
-    });
+    await get('fs/bin?sort=size', '/');
+    
+    const [args] = read.args;
+    const fn = args[callbackIndex];
+    const order = 'asc';
+    const sort = 'size';
+    
+    t.ok(read.calledWith('/bin', {sort, order}, fn), 'should call readify with sort "size"');
+    t.end();
 });
 
-test('restafary: get: sort by order', (t) => {
+test('restafary: get: sort by order', async (t) => {
     const expected = {
         path: '',
         files: []
@@ -199,19 +201,23 @@ test('restafary: get: sort by order', (t) => {
     clean('..');
     clean('../server/fs/get');
     
+    const callbackIndex = 2;
     const read = sinon.stub()
-        .callsArgWithAsync(2, null, expected);
+        .callsArgWithAsync(callbackIndex, null, expected);
     
     stub('flop', {read});
     
     const {get} = require('./before');
     
-    get('fs/bin?order=desc&sort=time', '/', (res, body, cb) => {
-        const sort = 'time';
-        const order = 'desc';
-        t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort and order');
-        cb();
-        t.end();
-    });
+    await get('fs/bin?order=desc&sort=time', '/');
+    
+    const [args] = read.args;
+    const fn = args[callbackIndex];
+    
+    const sort = 'time';
+    const order = 'desc';
+    
+    t.ok(read.calledWith('/bin', {sort, order}, fn), 'should call readify with sort and order');
+    t.end();
 });
 

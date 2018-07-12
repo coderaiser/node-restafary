@@ -39,36 +39,35 @@ function middle(options, request, response, next) {
     let name = ponse.getPathName(req);
     const is = !name.indexOf(prefix);
     
-    if (isFile) {
-        sendFile(req, res);
-    } else if (!is) {
-        next();
-    } else {
-        name = name.replace(prefix, '') || '/';
+    if (isFile)
+        return sendFile(req, res);
+    
+    if (!is)
+        return next();
+    
+    name = name.replace(prefix, '') || '/';
+    params.name = name;
+    
+    onFS(params, (error, options, data) => {
+        params.gzip = !error;
         
-        params.name = name;
+        if (options.name)
+            params.name = options.name;
         
-        onFS(params, (error, options, data) => {
-            params.gzip = !error;
-            
-            if (options.name)
-                params.name = options.name;
-            
-            if (options.gzip !== undefined)
-                params.gzip = options.gzip;
-            
-            if (options.query)
-                params.query = options.query;
-            
-            if (error)
-                return ponse.sendError(error, params);
-            
-            if (!data)
-                data = getMsg(name, req);
-            
-            ponse.send(data, params);
-        });
-    }
+        if (options.gzip !== undefined)
+            params.gzip = options.gzip;
+        
+        if (options.query)
+            params.query = options.query;
+        
+        if (error)
+            return ponse.sendError(error, params);
+        
+        if (!data)
+            data = getMsg(name, req);
+        
+        ponse.send(data, params);
+    });
 }
 
 function sendFile(request, response) {
@@ -143,6 +142,11 @@ function onFS(params, callback) {
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
     
     switch (p.request.method) {
+    case 'OPTIONS':
+        p.response.setHeader('Access-Control-Allow-Origin', '*');
+        p.response.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+        return callback(null, optionsDefaults);
+    
     case 'PUT':
         if (!checkPath(name, root))
             return callback(pathError, optionsDefaults);

@@ -6,7 +6,6 @@ const express = require('express');
 const got = require('got');
 const tryToCatch = require('try-to-catch');
 const {promisify} = require('es6-promisify');
-
 const restafary = require('..');
 
 const getURL = (path, port) => `http://127.0.0.1:${port}/${path}`;
@@ -32,6 +31,9 @@ const serve = promisify((path, root, fn) => {
         });
     });
 });
+
+module.exports.getURL = getURL;
+module.exports.serve = serve;
 
 module.exports.get = async (path, root) => {
     const {port, done} = await serve(path, root);

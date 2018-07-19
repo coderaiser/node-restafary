@@ -10,7 +10,7 @@ const restafary = require('..');
 
 const getURL = (path, port) => `http://127.0.0.1:${port}/${path}`;
 
-const serve = promisify((path, root, fn) => {
+const serve = promisify((root, fn) => {
     const app = express();
     const server = http.createServer(app);
     
@@ -36,7 +36,7 @@ module.exports.getURL = getURL;
 module.exports.serve = serve;
 
 module.exports.get = async (path, root) => {
-    const {port, done} = await serve(path, root);
+    const {port, done} = await serve(root);
     const url = getURL(path, port);
     
     const [e, response] = await tryToCatch(got, url);
@@ -47,7 +47,7 @@ module.exports.get = async (path, root) => {
 };
 
 module.exports.del = async (path, root, body) => {
-    const {port, done} = await serve(path, root);
+    const {port, done} = await serve(root);
     const url = getURL(path, port);
     const [e, response] = await tryToCatch(got.delete, url, {body});
     

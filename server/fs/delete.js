@@ -2,7 +2,7 @@
 
 const check = require('checkup');
 const flop = require('flop');
-const promisify = require('es6-promisify').promisify;
+const {promisify} = require('util');
 const pullout = promisify(require('pullout'));
 const good = (fn) => (a) => fn(null, a);
 

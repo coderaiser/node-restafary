@@ -5,7 +5,7 @@ const http = require('http');
 const express = require('express');
 const got = require('got');
 const tryToCatch = require('try-to-catch');
-const {promisify} = require('es6-promisify');
+const {promisify} = require('util');
 const restafary = require('..');
 
 const getURL = (path, port) => `http://127.0.0.1:${port}/${path}`;

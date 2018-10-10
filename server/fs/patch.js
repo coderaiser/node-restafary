@@ -1,23 +1,21 @@
 'use strict';
 
-const check = require('checkup');
-const pullout = require('pullout');
-const patch = require('patchfile');
+const {
+    promisify,
+    callbackify,
+} = require('util');
 
-module.exports = (name, readStream, options, callback) => {
-    if (!callback)
-        callback = options;
-    
+const check = require('checkup');
+const pullout = promisify(require('pullout'));
+const patch = promisify(require('patchfile'));
+
+module.exports = callbackify(async (name, readStream, options) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
-        .type('callback', callback, 'function');
     
-    pullout(readStream, 'string', (error, data) => {
-        if (error)
-            return callback(error);
-        
-        patch(name, data, options, callback);
-    });
-};
+    const data = await pullout(readStream, 'string');
+    
+    return patch(name, data, options);
+});
 

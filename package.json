@@ -1,6 +1,6 @@
 {
   "name": "restafary",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "REST for CRUD file operations",
   "main": "server/restafary.js",
   "engines": {

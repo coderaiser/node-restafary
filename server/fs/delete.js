@@ -2,32 +2,32 @@
 
 const check = require('checkup');
 const flop = require('flop');
-const {promisify} = require('util');
-const pullout = promisify(require('pullout'));
-const good = (fn) => (a) => fn(null, a);
+const {
+    promisify,
+    callbackify,
+} = require('util');
 
-module.exports = (query, name, readStream, callback) => {
+const pullout = promisify(require('pullout'));
+const remove = promisify(flop.remove);
+
+module.exports = callbackify(async (query, name, readStream) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
-        .type('callback', callback, 'function')
         .check({query});
         
     if (query !== 'files')
-        return flop.remove(name, callback);
+        return await remove(name);
     
-    getBody(readStream, (error, files) => {
-        if (error)
-            return callback(error);
-        
-        flop.remove(name, files, callback);
-    });
-};
+    const files = await getBody(readStream);
+    
+    await remove(name, files);
+});
 
-function getBody(readStream, callback) {
-    pullout(readStream, 'string')
-        .then(JSON.parse)
-        .then(good(callback))
-        .catch(callback);
+async function getBody(readStream) {
+    const data = await pullout(readStream, 'string')
+    const json = JSON.parse(data);
+    
+    return json;
 }
 

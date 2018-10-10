@@ -1,28 +1,29 @@
 'use strict';
 
-const check = require('checkup');
-const flop = require('flop');
-const files = require('files-io');
+const {
+    callbackify,
+    promisify,
+} = require('util');
 
-module.exports = (query, name, readStream, callback) => {
+const check = require('checkup');
+const create = promisify(require('flop').create);
+const pipeFiles = promisify(require('files-io').pipe);
+
+module.exports = callbackify(async (query, name, readStream) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
-        .type('callback', callback, 'function')
         .check({query});
     
     switch(query) {
     default:
-        files.pipe(readStream, name, callback);
-        break;
+        return pipeFiles(readStream, name);
     
     case 'dir':
-        flop.create(name, callback);
-        break;
+        return create(name);
     
     case 'unzip':
-        files.pipe(readStream, name, {gunzip: true}, callback);
-        break;
+        return pipeFiles(readStream, name, {gunzip: true});
     }
-};
+});
 

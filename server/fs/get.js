@@ -1,17 +1,23 @@
 'use strict';
 
+const {
+    promisify,
+    callbackify,
+} = require('util');
+
 const querystring = require('querystring');
 const readStream = require('fs').createReadStream;
 const check = require ('checkup');
-const minify = require('minify');
+const minify = promisify(require('minify'));
 const flop = require('flop');
-const ashify = require('ashify');
-const beautify = require('beautifile');
+const ashify = promisify(require('ashify'));
+const beautify = promisify(require('beautifile'));
 
-module.exports = (query, name, callback) => {
+const read = promisify(flop.read);
+
+module.exports = callbackify(async (query, name) => {
     check
         .type('name', name, 'string')
-        .type('callback', callback, 'function')
         .check({query});
     
     if (/^(sort|order)/.test(query)) {
@@ -19,37 +25,30 @@ module.exports = (query, name, callback) => {
         const sort = parsed.sort;
         const order = parsed.order || 'asc';
         
-        return flop.read(name, {sort, order}, callback);
+        return read(name, {sort, order});
     }
-        
+    
     switch (query) {
     default:
-        flop.read(name, callback);
-        break;
+        return read(name);
     
     case 'raw':
-        flop.read(name, 'raw', callback);
-        break;
+        return read(name, 'raw');
     
     case 'size':
-        flop.read(name, 'size', callback);
-        break;
+        return read(name, 'size');
         
     case 'time':
-        flop.read(name, 'time raw', callback);
-        break;
+        return read(name, 'time raw');
     
     case 'beautify':
-        beautify(name, callback);
-        break;
+        return beautify(name);
     
     case 'minify':
-        minify(name, callback);
-        break;
+        return minify(name);
     
     case 'hash':
-        ashify(readStream(name), {algorithm: 'sha1', encoding: 'hex'}, callback);
-        break;
+        return ashify(readStream(name), {algorithm: 'sha1', encoding: 'hex'});
     }
-};
+});
 

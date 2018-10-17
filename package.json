@@ -41,7 +41,7 @@
     "jonny": "^2.0.3",
     "mellow": "^2.0.0",
     "minify": "^3.0.2",
-    "patchfile": "^1.0.0",
+    "patchfile": "^2.0.0",
     "ponse": "^2.0.0",
     "pullout": "^2.0.0"
   },

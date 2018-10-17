@@ -7,7 +7,7 @@ const {
 
 const check = require('checkup');
 const pullout = promisify(require('pullout'));
-const patch = promisify(require('patchfile'));
+const patch = require('patchfile');
 
 module.exports = callbackify(async (name, readStream, options) => {
     check

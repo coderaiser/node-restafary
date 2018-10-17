@@ -1,3 +1,10 @@
+2018.10.17, v5.0.1
+
+feature:
+- (package) sinon v7.0.0
+- (package) patchfile v2.0.0
+
+
 2018.10.10, v5.0.0
 
 feature:

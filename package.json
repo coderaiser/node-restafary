@@ -42,7 +42,7 @@
     "mellow": "^2.0.0",
     "minify": "^3.0.2",
     "patchfile": "^2.0.0",
-    "ponse": "^2.0.0",
+    "ponse": "^3.0.1",
     "pullout": "^2.0.0"
   },
   "devDependencies": {

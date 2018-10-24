@@ -17,7 +17,7 @@ module.exports = callbackify(async (query, name, readStream) => {
     
     switch(query) {
     default:
-        return pipeFiles(readStream, name);
+        return files.pipe(readStream, name);
     
     case 'dir':
         return create(name);

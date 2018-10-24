@@ -7,7 +7,7 @@ const {
 
 const check = require('checkup');
 const create = promisify(require('flop').create);
-const pipeFiles = promisify(require('files-io').pipe);
+const files = require('files-io');
 
 module.exports = callbackify(async (query, name, readStream) => {
     check
@@ -23,7 +23,9 @@ module.exports = callbackify(async (query, name, readStream) => {
         return create(name);
     
     case 'unzip':
-        return pipeFiles(readStream, name, {gunzip: true});
+        return files.pipe(readStream, name, {
+            gunzip: true
+        });
     }
 });
 

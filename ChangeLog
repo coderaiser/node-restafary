@@ -1,3 +1,9 @@
+2018.10.26, v5.0.4
+
+feature:
+- (package) rm unused es6-promisify
+
+
 2018.10.24, v5.0.3
 
 fix:

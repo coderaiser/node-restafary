@@ -5,7 +5,7 @@ const {
     callbackify,
 } = require('util');
 
-const querystring = require('querystring');
+const {parse} = require('querystring');
 const readStream = require('fs').createReadStream;
 const check = require ('checkup');
 const minify = promisify(require('minify'));
@@ -21,9 +21,10 @@ module.exports = callbackify(async (query, name) => {
         .check({query});
     
     if (/^(sort|order)/.test(query)) {
-        const parsed = querystring.parse(query);
-        const sort = parsed.sort;
-        const order = parsed.order || 'asc';
+        const {
+            sort,
+            order = 'asc',
+        } = parse(query);
         
         return read(name, {sort, order});
     }

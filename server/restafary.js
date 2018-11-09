@@ -93,7 +93,7 @@ function getMsg(name, req) {
     name = path.basename(name);
     
     if (method !== 'put') {
-        msg  = method;
+        msg = method;
     } else {
         if (query === 'dir')
             msg = 'make dir';

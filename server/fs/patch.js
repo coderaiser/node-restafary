@@ -1,12 +1,11 @@
 'use strict';
 
 const {
-    promisify,
     callbackify,
 } = require('util');
 
 const check = require('checkup');
-const pullout = promisify(require('pullout'));
+const pullout = require('pullout');
 const patch = require('patchfile');
 
 module.exports = callbackify(async (name, readStream, options) => {

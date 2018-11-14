@@ -7,7 +7,7 @@ const {
     callbackify,
 } = require('util');
 
-const pullout = promisify(require('pullout'));
+const pullout = require('pullout');
 const remove = promisify(flop.remove);
 
 module.exports = callbackify(async (query, name, readStream) => {

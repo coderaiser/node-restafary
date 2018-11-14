@@ -42,7 +42,7 @@
     "minify": "^4.0.0",
     "patchfile": "^2.0.0",
     "ponse": "^3.0.1",
-    "pullout": "^2.0.0"
+    "pullout": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -62,6 +62,7 @@
     "sinon-called-with-diff": "^3.0.0",
     "tape": "^4.5.1",
     "try-to-catch": "^1.0.2",
+    "try-to-tape": "^1.0.0",
     "webpack": "^4.1.0",
     "webpack-cli": "^3.0.1"
   },

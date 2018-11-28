@@ -9,7 +9,10 @@ const fixture = {
     getRaw: require(`${__dirname}/fixture/get-raw`)
 };
 
+const restafary = require('..');
 const {get} = require('./before');
+
+const {request} = require('serve-once')(restafary);
 
 const stub = (name, fn) => {
     require.cache[require.resolve(name)].exports = fn;
@@ -20,17 +23,23 @@ const clean = (name) => {
 };
 
 test('restafary: path traversal beyond root', async (t) => {
-    const [e] = await get('fs..%2f..%2fetc/passwd', '/tmp');
-    const {response} = e;
-    const {body} = response;
+    const root = '/tmp';
+    const {body} = await request.get('/fs..%2f..%2fetc/passwd', {
+        options: {
+            root,
+        }
+    });
     
     t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
     t.end();
 });
 
 test('restafary: path traversal', async (t) => {
-    const [, response] = await get('fs/bin', '/');
-    const {body} = response;
+    const {body} = await request.get('/fs/bin', {
+        options: {
+            root: '/'
+        }
+    });
     
     const fn = () => JSON.parse(body);
     

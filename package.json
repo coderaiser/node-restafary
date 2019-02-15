@@ -80,5 +80,8 @@
   "bugs": {
     "url": "https://github.com/coderaiser/node-restafary/issues"
   },
-  "homepage": "https://github.com/coderaiser/node-restafary"
+  "homepage": "https://github.com/coderaiser/node-restafary",
+  "publishConfig": {
+    "access": "public"
+  }
 }

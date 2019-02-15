@@ -1,3 +1,13 @@
+2019.02.15, v5.0.8
+
+fix:
+- (restafary) can not read ###files (coderaiser/cloudcmd#223)
+
+feature:
+- (restafary) redrun -> madrun
+- (package) sinon, sinon-called-with-diff -> @cloudcmd/stub
+
+
 2018.11.14, v5.0.7
 
 fix:

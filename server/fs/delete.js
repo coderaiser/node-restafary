@@ -25,7 +25,7 @@ module.exports = callbackify(async (query, name, readStream) => {
 });
 
 async function getBody(readStream) {
-    const data = await pullout(readStream, 'string')
+    const data = await pullout(readStream, 'string');
     const json = JSON.parse(data);
     
     return json;

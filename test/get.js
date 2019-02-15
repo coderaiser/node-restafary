@@ -4,7 +4,7 @@ const fs = require('fs');
 const test = require('supertape');
 const fixture = {
     get: require(`${__dirname}/fixture/get`),
-    getRaw: require(`${__dirname}/fixture/get-raw`)
+    getRaw: require(`${__dirname}/fixture/get-raw`),
 };
 
 const stub = require('@cloudcmd/stub');
@@ -23,7 +23,7 @@ test('restafary: path traversal beyond root', async (t) => {
     const {body} = await request.get('/fs..%2f..%2fetc/passwd', {
         options: {
             root,
-        }
+        },
     });
     
     t.equal(body, 'Path /etc/passwd beyond root /tmp!', 'should return beyond root message');
@@ -33,8 +33,8 @@ test('restafary: path traversal beyond root', async (t) => {
 test('restafary: path traversal', async (t) => {
     const {body} = await request.get('/fs/bin', {
         options: {
-            root: '/'
-        }
+            root: '/',
+        },
     });
     
     const fn = () => JSON.parse(body);
@@ -46,8 +46,8 @@ test('restafary: path traversal', async (t) => {
 test('restafary: path traversal, not default root', async (t) => {
     const {body} = await request.get('/fs/local', {
         options: {
-            root: '/usr'
-        }
+            root: '/usr',
+        },
     });
     const fn = () => JSON.parse(body);
     
@@ -144,7 +144,7 @@ test('restafary: get: sort by name', async (t) => {
             date: '12.01.2017',
             owner: 'root',
             mode: 'rw- rw- r--',
-        }]
+        }],
     };
     
     const read = stub((a, b, f) => {
@@ -207,7 +207,7 @@ test('restafary: get: sort by size', async (t) => {
 test('restafary: get: sort by order', async (t) => {
     const expected = {
         path: '',
-        files: []
+        files: [],
     };
     
     const read = stub((a, b, f) => {

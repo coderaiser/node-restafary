@@ -19,7 +19,7 @@ test('restafary: delete: path: ENOENT', async (t) => {
     const {body} = response;
     const expected = `ENOENT: no such file or directory, unlink '${root}'`;
     
-    t.equal(body, expected,  'should return error message');
+    t.equal(body, expected, 'should return error message');
     t.end();
 });
 
@@ -30,7 +30,7 @@ test('restafary: delete: files: parse error', async (t) => {
     const [e] = await del('fs?files', root, body);
     const expected = 'Unexpected token a in JSON at position 1';
     
-    t.equal(e.response.body, expected,  'should return error message');
+    t.equal(e.response.body, expected, 'should return error message');
     t.end();
 });
 

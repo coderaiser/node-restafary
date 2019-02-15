@@ -10,11 +10,11 @@ const {
 } = require('./before');
 
 test('restafary: http method: options', async (t) => {
-    const {port, done}  = await serve(__dirname);
+    const {port, done} = await serve(__dirname);
     const url = getURL('fs', port);
     
     const [, response] = await tryToCatch(got, url, {
-        method: 'OPTIONS'
+        method: 'OPTIONS',
     });
     
     const {headers} = response;

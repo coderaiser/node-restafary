@@ -14,7 +14,7 @@ const Fs = {};
     'get',
     'put',
     'patch',
-    'delete'
+    'delete',
 ].forEach((name) => {
     Fs[name] = require(DIR + 'fs/' + name);
 });
@@ -30,7 +30,7 @@ function middle(options, request, response, next) {
     const prefix = options.prefix || '/fs';
     const root = options.root || '/';
     
-    const params  = {
+    const params = {
         root,
         request,
         response,
@@ -119,12 +119,12 @@ function checkPath(name, root) {
 function onFS(params, callback) {
     const pathError = 'Could not write file/create directory in root on windows!';
     const p = params;
-    const name = p.name;
+    const {name} = p;
     const query = ponse.getQuery(p.request);
     
-    const optionsDefaults  = {
+    const optionsDefaults = {
         gzip: false,
-        name: '.txt'
+        name: '.txt',
     };
     
     let root;
@@ -135,7 +135,7 @@ function onFS(params, callback) {
     
     root = handleDotFolder(root);
     const rootWin = root.replace('/', '\\');
-    const pathOS  = mellow.pathToWin(name, root);
+    const pathOS = mellow.pathToWin(name, root);
     const pathWeb = path.join(root, name);
     
     if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))
@@ -169,7 +169,7 @@ function onFS(params, callback) {
                 query,
                 request: p.request,
                 response: p.response,
-                data
+                data,
             }, callback);
         });
     
@@ -182,10 +182,10 @@ function onFS(params, callback) {
 
 function onGet(p, callback) {
     let options = {};
-    const isFile  = p.error && p.error.code === 'ENOTDIR';
-    const isStr   = typeof p.data === 'string';
+    const isFile = p.error && p.error.code === 'ENOTDIR';
+    const isStr = typeof p.data === 'string';
     
-    const params  = {
+    const params = {
         gzip: true,
         name: p.path,
         request: p.request,
@@ -200,7 +200,7 @@ function onGet(p, callback) {
             params.gzip = false;
             ponse.sendFile(params);
         });
-        
+    
     if (p.error)
         return callback(p.error, options);
     
@@ -212,9 +212,9 @@ function onGet(p, callback) {
     if (p.name === '/')
         p.name += 'fs';
     
-    options     = {
+    options = {
         name    : p.name + 'fs.json',
-        query   : p.query
+        query   : p.query,
     };
     
     let str;
@@ -239,7 +239,7 @@ function addSlashToEnd(path) {
     if (!path)
         return path;
     
-    const length  = path.length - 1;
+    const length = path.length - 1;
     const isSlash = path[length] === '/';
     
     if (!isSlash)

@@ -9,8 +9,8 @@ module.exports.prefix = (prefix) => {
 
 module.exports.delete = (url, data, callback) => {
     if (!callback && isFunc(data)) {
-        callback    = data;
-        data        = null;
+        callback = data;
+        data = null;
     }
     
     sendRequest({
@@ -23,29 +23,29 @@ module.exports.delete = (url, data, callback) => {
 
 module.exports.patch = (url, data, callback) => {
     if (!callback && isFunc(data)) {
-        callback    = data;
-        data        = null;
+        callback = data;
+        data = null;
     }
     
     sendRequest({
         method      : 'PATCH',
         url         : FS + url,
-        data        : data,
-        callback    : callback
+        data,
+        callback,
     });
 };
 
 module.exports.write = (url, data, callback) => {
     if (!callback && isFunc(data)) {
-        callback    = data;
-        data        = null;
+        callback = data;
+        data = null;
     }
     
     sendRequest({
         method      : 'PUT',
         url         : FS + url,
-        data        : data,
-        callback    : callback
+        data,
+        callback,
     });
 };
 
@@ -53,7 +53,7 @@ module.exports.read = (url, callback) => {
     sendRequest({
         method      : 'GET',
         url         : FS + url,
-        callback    : callback
+        callback,
     });
 };
 

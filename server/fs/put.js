@@ -24,7 +24,7 @@ module.exports = callbackify(async (query, name, readStream) => {
     
     case 'unzip':
         return files.pipe(readStream, name, {
-            gunzip: true
+            gunzip: true,
         });
     }
 });

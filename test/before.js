@@ -15,7 +15,7 @@ const serve = promisify((root, fn) => {
     const server = http.createServer(app);
     
     app.use(restafary({
-        root
+        root,
     }));
     
     const done = () => {

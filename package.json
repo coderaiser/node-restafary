@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "test": "tape 'test/*.js'",
+    "test": "tape 'client/**/*.spec.js' 'test/*.js'",
     "report": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
     "watch:test": "npm run watcher -- npm test",
@@ -61,9 +61,8 @@
     "redrun": "^7.0.0",
     "request": "^2.79.0",
     "serve-once": "^1.6.0",
-    "tape": "^4.5.1",
+    "supertape": "^1.2.1",
     "try-to-catch": "^1.0.2",
-    "try-to-tape": "^1.0.0",
     "webpack": "^4.1.0",
     "webpack-cli": "^3.0.1"
   },

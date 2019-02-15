@@ -69,9 +69,10 @@ function sendRequest({url, data, method, callback}) {
  * when we send ajax request -
  * no need in hash so we escape #
  */
+module.exports._escape = escape;
 function escape(str) {
     return encodeURI(str)
-        .replace('#', '%23');
+        .replace(/#/g, '%23');
 }
 
 function ajax(params, callback) {

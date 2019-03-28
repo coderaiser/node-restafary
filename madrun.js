@@ -22,7 +22,7 @@ module.exports = {
     'fix:lint': () => series(['putout', 'lint:*'], '--fix'),
     'putout': () => 'putout client server test',
     'lint:client': () => 'eslint --env browser client',
-    'lint:server': () => 'eslint -c .eslint-server.json server test .madrun.js webpack.config.js --ignore-pattern "!.madrun.js"',
+    'lint:server': () => 'eslint -c .eslint-server.json server test madrun.js webpack.config.js',
     'clean': () => 'rimraf dist* legacy',
     'legacy:dir': () => 'mkdirp legacy/client',
     'legacy:index': () => 'echo "module.exports = require(\'./restafary\')" > legacy/client/index.js',

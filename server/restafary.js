@@ -141,7 +141,7 @@ function onFS(params, callback) {
     if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
     
-    switch (p.request.method) {
+    switch(p.request.method) {
     case 'OPTIONS':
         p.response.setHeader('Access-Control-Allow-Origin', '*');
         p.response.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');

@@ -76,7 +76,11 @@ function escape(str) {
 }
 
 function ajax(params, callback) {
-    const {url, data, method} = params;
+    const {
+        url,
+        data,
+        method,
+    } = params;
     const request = new XMLHttpRequest();
     
     if (typeof callback !== 'function')

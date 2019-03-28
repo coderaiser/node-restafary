@@ -29,7 +29,7 @@ module.exports = callbackify(async (query, name) => {
         return read(name, {sort, order});
     }
     
-    switch (query) {
+    switch(query) {
     default:
         return read(name);
     
@@ -38,7 +38,7 @@ module.exports = callbackify(async (query, name) => {
     
     case 'size':
         return read(name, 'size');
-        
+    
     case 'time':
         return read(name, 'time raw');
     

@@ -15,7 +15,7 @@ module.exports = callbackify(async (query, name, readStream) => {
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
         .check({query});
-        
+    
     if (query !== 'files')
         return await remove(name);
     

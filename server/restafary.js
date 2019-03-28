@@ -204,7 +204,7 @@ function onGet(p, callback) {
     if (p.error)
         return callback(p.error, options);
     
-    if (/^(size|time|hash|beautify|minify)$/.test(p.query))
+    if (/^(size|time|hash)$/.test(p.query))
         return callback(p.error, options, String(p.data));
     
     p.data.path = addSlashToEnd(p.name);

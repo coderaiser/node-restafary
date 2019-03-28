@@ -25,8 +25,6 @@
 |             |         |`size`         |                   |get file or dir size           |
 |             |         |`time`         |                   |get time of file change        |
 |             |         |`hash`         |                   |get file hash                  |
-|             |         |`beautify`     |                   |beautify js, html, css         |
-|             |         |`minify`       |                   |minify js, html, css           |
 |             |`PUT`    |               |file content       |create/write file              |
 |             |         | `unzip`       |file content       |unzip and create/write file    |
 |             |         | `dir`         |                   |create dir                     |

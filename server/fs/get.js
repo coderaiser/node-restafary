@@ -8,10 +8,8 @@ const {
 const {parse} = require('querystring');
 const readStream = require('fs').createReadStream;
 const check = require ('checkup');
-const minify = promisify(require('minify'));
 const flop = require('flop');
 const ashify = promisify(require('ashify'));
-const beautify = promisify(require('beautifile'));
 
 const read = promisify(flop.read);
 
@@ -41,12 +39,6 @@ module.exports = callbackify(async (query, name) => {
     
     case 'time':
         return read(name, 'time raw');
-    
-    case 'beautify':
-        return beautify(name);
-    
-    case 'minify':
-        return minify(name);
     
     case 'hash':
         return ashify(readStream(name), {algorithm: 'sha1', encoding: 'hex'});

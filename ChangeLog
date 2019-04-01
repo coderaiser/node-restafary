@@ -1,3 +1,11 @@
+2019.04.01, v6.0.0
+
+feature:
+- (restafary) drop support of minify, beauty
+- (package) putout v4.18.0
+- (package) madrun v2.1.2
+
+
 2019.02.15, v5.0.8
 
 fix:

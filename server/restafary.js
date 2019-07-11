@@ -10,14 +10,14 @@ const WIN = process.platform === 'win32';
 const CWD = process.cwd();
 const Fs = {};
 
-[
+for (const name of [
     'get',
     'put',
     'patch',
     'delete',
-].forEach((name) => {
+]) {
     Fs[name] = require(DIR + 'fs/' + name);
-});
+}
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -27,8 +27,10 @@ function middle(options, request, response, next) {
     const req = request;
     const res = response;
     const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
-    const prefix = options.prefix || '/fs';
-    const root = options.root || '/';
+    const {
+        prefix = '/fs',
+        root = '/',
+    } = options;
     
     const params = {
         root,
@@ -128,6 +130,7 @@ function onFS(params, callback) {
     };
     
     let root;
+    
     if (typeof params.root === 'function')
         root = params.root();
     else
@@ -218,6 +221,7 @@ function onGet(p, callback) {
     };
     
     let str;
+    
     if (isStr)
         str = p.data;
     else

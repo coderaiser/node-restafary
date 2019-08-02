@@ -51,7 +51,6 @@ app.use(restafary({
 }));
 
 app.use(express.static(__dirname));
-
 server.listen(port, ip);
 ```
 

@@ -1,8 +1,22 @@
 {
-  "extends": [
-      "plugin:putout/recommended"
-  ],
-  "plugins": [
-      "putout"
-  ]
+    "overrides": [{
+        "files": ["client/**/*.js"],
+        "env": {
+            "browser": true
+        }
+    }, {
+        "files": ["server/**/*.js"],
+        "extends": [
+            "plugin:node/recommended"
+        ],
+        "plugins": [
+            "node"
+        ]
+    }],
+    "extends": [
+        "plugin:putout/recommended"
+    ],
+    "plugins": [
+        "putout"
+    ]
 }

@@ -1,9 +1,6 @@
 'use strict';
 
-const {
-    series,
-    run,
-} = require('madrun');
+const {run} = require('madrun');
 
 module.exports = {
     'test': () => 'tape \'client/**/*.spec.js\' \'test/*.js\'',
@@ -16,13 +13,10 @@ module.exports = {
     'build-progress': () => 'webpack --progress',
     'build:client': () => run('build-progress', '--mode production'),
     'build:client:dev': () => `NODE_ENV=development ${run('build-progress', '--mode development')}`,
-    'build': () => series(['clean', 'legacy:*', 'compile:*', 'build:*']),
-    'wisdom': () => series(['build', 'compile:*']),
-    'lint': () => series(['putout', 'lint:*']),
-    'fix:lint': () => series(['putout', 'lint:*'], '--fix'),
-    'putout': () => 'putout client server test',
-    'lint:client': () => 'eslint --env browser client',
-    'lint:server': () => 'eslint -c .eslint-server.json server test madrun.js webpack.config.js',
+    'build': () => run(['clean', 'legacy:*', 'compile:*', 'build:*']),
+    'wisdom': () => run(['build', 'compile:*']),
+    'lint': () => 'putout client server test madrun.js webpack.config.js',
+    'fix:lint': () => run('lint', '--fix'),
     'clean': () => 'rimraf dist* legacy',
     'legacy:dir': () => 'mkdirp legacy/client',
     'legacy:index': () => 'echo "module.exports = require(\'./restafary\')" > legacy/client/index.js',

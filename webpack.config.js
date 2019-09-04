@@ -23,7 +23,7 @@ const rules = clean([
 module.exports = {
     devtool,
     entry: {
-        restafary: `${dir}/restafary.js`,
+        restafary: `${dir}/index.js`,
     },
     output: {
         library: 'restafary',

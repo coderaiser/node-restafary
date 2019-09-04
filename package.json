@@ -53,7 +53,7 @@
     "coveralls": "^3.0.0",
     "eslint": "^6.0.1",
     "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-putout": "^1.0.3",
+    "eslint-plugin-putout": "^2.0.0",
     "express": "^4.13.4",
     "got": "^9.6.0",
     "madrun": "^2.1.2",

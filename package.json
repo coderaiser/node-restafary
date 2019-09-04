@@ -18,7 +18,6 @@
     "watch:test": "madrun watch:test",
     "watch:lint": "madrun watch:lint",
     "watcher": "madrun watcher",
-    "compile:client": "madrun compile:client",
     "build-progress": "madrun build-progress",
     "build:client": "madrun build:client",
     "build:client:dev": "madrun build:client:dev",
@@ -26,12 +25,7 @@
     "wisdom": "madrun wisdom",
     "lint": "madrun lint",
     "fix:lint": "madrun fix:lint",
-    "putout": "madrun putout",
-    "lint:client": "madrun lint:client",
-    "lint:server": "madrun lint:server",
-    "clean": "madrun clean",
-    "legacy:dir": "madrun legacy:dir",
-    "legacy:index": "madrun legacy:index"
+    "clean": "madrun clean"
   },
   "dependencies": {
     "ashify": "^1.0.0",

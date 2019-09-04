@@ -13,7 +13,7 @@ module.exports = {
     'build:client': () => run('build-progress', '--mode production'),
     'build:client:dev': () => `NODE_ENV=development ${run('build-progress', '--mode development')}`,
     'build': () => run(['clean', 'build:*']),
-    'wisdom': () => run(['build', 'compile:*']),
+    'wisdom': () => run('build'),
     'lint': () => 'putout client server test madrun.js webpack.config.js',
     'fix:lint': () => run('lint', '--fix'),
     'clean': () => 'rimraf dist*',

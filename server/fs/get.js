@@ -9,7 +9,7 @@ const {parse} = require('querystring');
 const readStream = require('fs').createReadStream;
 const check = require ('checkup');
 const flop = require('flop');
-const ashify = promisify(require('ashify'));
+const ashify = require('ashify');
 
 const read = promisify(flop.read);
 

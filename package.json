@@ -55,7 +55,7 @@
     "mock-require": "^3.0.2",
     "nodemon": "^1.11.0",
     "nyc": "^14.1.1",
-    "putout": "^5.11.1",
+    "putout": "^6.1.0",
     "request": "^2.79.0",
     "serve-once": "^1.6.0",
     "supertape": "^1.2.1",

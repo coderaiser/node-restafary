@@ -36,7 +36,7 @@
     "mellow": "^2.0.0",
     "patchfile": "^2.0.0",
     "ponse": "^3.0.1",
-    "pullout": "^3.0.0"
+    "pullout": "^4.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

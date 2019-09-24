@@ -6,6 +6,8 @@ const path = require('path');
 const jonny = require('jonny');
 const mellow = require('mellow');
 const ponse = require('ponse');
+const currify = require('currify');
+
 const WIN = process.platform === 'win32';
 const CWD = process.cwd();
 const Fs = {};
@@ -21,9 +23,7 @@ for (const name of [
 
 const isDev = process.env.NODE_ENV === 'development';
 
-module.exports = (options) => middle.bind(null, options || {});
-
-function middle(options, request, response, next) {
+module.exports = currify((options, request, response, next) => {
     const req = request;
     const res = response;
     const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
@@ -70,7 +70,7 @@ function middle(options, request, response, next) {
         
         ponse.send(data, params);
     });
-}
+});
 
 function sendFile(request, response) {
     const dist = !isDev ? 'dist' : 'dist-dev';

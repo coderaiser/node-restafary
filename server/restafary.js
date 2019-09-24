@@ -1,12 +1,13 @@
 'use strict';
 
 const DIR = './';
-const fs = require('fs');
+const {realpath} = require('fs').promises;
 const path = require('path');
 const jonny = require('jonny');
 const mellow = require('mellow');
 const ponse = require('ponse');
 const currify = require('currify');
+const tryToCatch = require('try-to-catch');
 
 const WIN = process.platform === 'win32';
 const CWD = process.cwd();
@@ -183,7 +184,7 @@ function onFS(params, callback) {
     }
 }
 
-function onGet(p, callback) {
+async function onGet(p, callback) {
     let options = {};
     const isFile = p.error && p.error.code === 'ENOTDIR';
     const isStr = typeof p.data === 'string';
@@ -195,14 +196,17 @@ function onGet(p, callback) {
         response: p.response,
     };
     
-    if (isFile)
-        return fs.realpath(p.path, (error, path) => {
-            if (!error)
-                params.name = path;
-            
-            params.gzip = false;
-            ponse.sendFile(params);
-        });
+    if (isFile) {
+        /*eslint node/no-unsupported-features/node-builtins: 0 */
+        const [error, path] = await tryToCatch(realpath, p.path);
+        
+        if (!error)
+            params.name = path;
+        
+        params.gzip = false;
+        ponse.sendFile(params);
+        return;
+    }
     
     if (p.error)
         return callback(p.error, options);

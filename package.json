@@ -38,7 +38,7 @@
     "patchfile": "^2.0.0",
     "ponse": "^3.0.1",
     "pullout": "^4.0.0",
-    "try-to-catch": "^1.0.2"
+    "try-to-catch": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

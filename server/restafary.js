@@ -52,6 +52,7 @@ module.exports = currify((options, request, response, next) => {
     params.name = name;
     
     onFS(params, (error, options, data) => {
+        options = options || {};
         params.gzip = !error;
         
         if (options.name)
@@ -185,7 +186,6 @@ function onFS(params, callback) {
 }
 
 async function onGet(p, callback) {
-    let options = {};
     const isFile = p.error && p.error.code === 'ENOTDIR';
     const isStr = typeof p.data === 'string';
     
@@ -197,7 +197,6 @@ async function onGet(p, callback) {
     };
     
     if (isFile) {
-        /*eslint node/no-unsupported-features/node-builtins: 0 */
         const [error, path] = await tryToCatch(realpath, p.path);
         
         if (!error)
@@ -209,19 +208,19 @@ async function onGet(p, callback) {
     }
     
     if (p.error)
-        return callback(p.error, options);
+        return callback(p.error);
     
     if (/^(size|time|hash)$/.test(p.query))
-        return callback(p.error, options, String(p.data));
+        return callback(p.error, null, String(p.data));
     
     p.data.path = addSlashToEnd(p.name);
     
     if (p.name === '/')
         p.name += 'fs';
     
-    options = {
-        name    : p.name + 'fs.json',
-        query   : p.query,
+    const options = {
+        name: p.name + 'fs.json',
+        query: p.query,
     };
     
     let str;

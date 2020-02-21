@@ -1,3 +1,11 @@
+2020.02.21, v8.2.4
+
+feature:
+- (package) ponse v5.0.0
+- (package) nyc v15.0.0
+- (package) eslint-plugin-node v11.0.0
+
+
 2019.12.21, v8.2.3
 
 feature:

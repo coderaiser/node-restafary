@@ -1,3 +1,10 @@
+2020.02.25, v8.2.5
+
+feature:
+- (package) try-to-catch v3.0.0
+- (package) serve-once v2.0.0
+
+
 2020.02.21, v8.2.4
 
 feature:

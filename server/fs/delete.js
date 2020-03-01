@@ -1,14 +1,10 @@
 'use strict';
 
 const check = require('checkup');
-const flop = require('flop');
-const {
-    promisify,
-    callbackify,
-} = require('util');
+const {remove} = require('flop');
+const {callbackify} = require('util');
 
 const pullout = require('pullout');
-const remove = promisify(flop.remove);
 
 module.exports = callbackify(async (query, name, readStream) => {
     check

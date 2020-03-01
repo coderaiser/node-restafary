@@ -1,17 +1,12 @@
 'use strict';
 
-const {
-    promisify,
-    callbackify,
-} = require('util');
+const {callbackify} = require('util');
 
 const {parse} = require('querystring');
 const readStream = require('fs').createReadStream;
 const check = require ('checkup');
-const flop = require('flop');
+const {read} = require('flop');
 const ashify = require('ashify');
-
-const read = promisify(flop.read);
 
 module.exports = callbackify(async (query, name) => {
     check

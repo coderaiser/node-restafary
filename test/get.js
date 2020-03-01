@@ -147,9 +147,7 @@ test('restafary: get: sort by name', async (t) => {
         }],
     };
     
-    const read = stub((a, b, f) => {
-        f(null, expected);
-    });
+    const read = stub().returns(expected);
     
     mockRequire('flop', {
         read,
@@ -167,9 +165,7 @@ test('restafary: get: sort by name', async (t) => {
     const order = 'asc';
     const sort = 'name';
     
-    const fn = stub();
-    
-    t.ok(read.calledWith('/bin', {sort, order}, fn), 'should call readify with sort "name"');
+    t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "name"');
     t.end();
 });
 
@@ -179,9 +175,7 @@ test('restafary: get: sort by size', async (t) => {
         files: [],
     };
     
-    const read = stub((a, b, f) => {
-        f(null, expected);
-    });
+    const read = stub().returns(expected);
     
     mockRequire('flop', {
         read,
@@ -198,9 +192,8 @@ test('restafary: get: sort by size', async (t) => {
     
     const order = 'asc';
     const sort = 'size';
-    const fn = stub();
     
-    t.ok(read.calledWith('/bin', {sort, order}, fn), 'should call readify with sort "size"');
+    t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "size"');
     t.end();
 });
 
@@ -210,9 +203,7 @@ test('restafary: get: sort by order', async (t) => {
         files: [],
     };
     
-    const read = stub((a, b, f) => {
-        f(null, expected);
-    });
+    const read = stub().returns(expected);
     
     mockRequire('flop', {
         read,
@@ -229,9 +220,8 @@ test('restafary: get: sort by order', async (t) => {
     
     const sort = 'time';
     const order = 'desc';
-    const fn = stub();
     
-    t.ok(read.calledWith('/bin', {sort, order}, fn), 'should call readify with sort and order');
+    t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort and order');
     t.end();
 });
 

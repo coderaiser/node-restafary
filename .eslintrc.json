@@ -10,10 +10,12 @@
             "node/no-unsupported-features/node-builtins": "off"
         },
         "extends": [
-            "plugin:node/recommended"
+            "plugin:node/recommended",
+            "plugin:putout/recommended"
         ],
         "plugins": [
-            "node"
+            "node",
+            "putout"
         ]
     }],
     "extends": [

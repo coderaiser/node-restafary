@@ -166,8 +166,8 @@ function onFS(params, callback) {
         });
     
     case 'GET':
-        return Fs.get(query, pathOS, (error, data) => {
-            onGet({
+        return Fs.get(query, pathOS, async (error, data) => {
+            await onGet({
                 error,
                 name: p.name,
                 path: pathOS,

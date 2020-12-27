@@ -165,7 +165,7 @@ test('restafary: get: sort by name', async (t) => {
     const order = 'asc';
     const sort = 'name';
     
-    t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "name"');
+    t.calledWith(read, ['/bin', {sort, order}], 'should call readify with sort "name"');
     t.end();
 });
 
@@ -193,7 +193,7 @@ test('restafary: get: sort by size', async (t) => {
     const order = 'asc';
     const sort = 'size';
     
-    t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort "size"');
+    t.calledWith(read, ['/bin', {sort, order}], 'should call readify with sort "size"');
     t.end();
 });
 
@@ -221,7 +221,7 @@ test('restafary: get: sort by order', async (t) => {
     const sort = 'time';
     const order = 'desc';
     
-    t.ok(read.calledWith('/bin', {sort, order}), 'should call readify with sort and order');
+    t.calledWith(read, ['/bin', {sort, order}], 'should call readify with sort and order');
     t.end();
 });
 

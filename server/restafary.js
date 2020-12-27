@@ -8,6 +8,7 @@ const mellow = require('mellow');
 const ponse = require('ponse');
 const currify = require('currify');
 const tryToCatch = require('try-to-catch');
+const archive = require('./archive');
 
 const WIN = process.platform === 'win32';
 const CWD = process.cwd();
@@ -185,6 +186,19 @@ function onFS(params, callback) {
     }
 }
 
+async function sendArchiveListing(path, params) {
+    try {
+        let data = await archive.listArchive(path);
+        let header = `Archive contents for ${path}`;
+        header += `\n${"=".repeat(header.length)}`;
+        data = `${header}\n${data}`;
+        ponse.send(data, params);
+    } catch (ex) {
+        console.log(ex);
+        ponse.sendError('Unable to read archive contents for ' + path, params);
+    }
+}
+
 async function onGet(p, callback) {
     const isFile = p.error && p.error.code === 'ENOTDIR';
     const isStr = typeof p.data === 'string';
@@ -203,7 +217,13 @@ async function onGet(p, callback) {
             params.name = path;
         
         params.gzip = false;
-        ponse.sendFile(params);
+
+        // Only process the archive listing if we are not given a query command
+        if (!p.request.originalUrl.includes('?') && archive.isArchive(path)) {
+            await sendArchiveListing(path, params);
+        } else {
+            ponse.sendFile(params);
+        }
         return;
     }
     

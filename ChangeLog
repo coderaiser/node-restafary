@@ -1,3 +1,16 @@
+2020.12.27, v8.2.8
+
+feature:
+- (package) webpack-cli v4.3.0
+- (package) webpack v5.11.0
+- (package) @cloudcmd/stub v3.3.0
+- (package) eslint v7.16.0
+- (package) supertape v4.1.1
+- (package) eslint-plugin-putout v6.11.0
+- (package) putout v12.9.4
+- (package) madrun v8.2.0
+
+
 2020.03.02, v8.2.7
 
 feature:

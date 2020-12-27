@@ -190,11 +190,10 @@ async function sendArchiveListing(path, params) {
     try {
         let data = await archive.listArchive(path);
         let header = `Archive contents for ${path}`;
-        header += `\n${"=".repeat(header.length)}`;
+        header += `\n${'='.repeat(header.length)}`;
         data = `${header}\n${data}`;
         ponse.send(data, params);
-    } catch (ex) {
-        console.log(ex);
+    } catch {
         ponse.sendError('Unable to read archive contents for ' + path, params);
     }
 }
@@ -217,7 +216,7 @@ async function onGet(p, callback) {
             params.name = path;
         
         params.gzip = false;
-
+        
         // Only process the archive listing if we are not given a query command
         if (!p.request.originalUrl.includes('?') && archive.isArchive(path)) {
             await sendArchiveListing(path, params);

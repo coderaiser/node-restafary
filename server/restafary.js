@@ -1,7 +1,7 @@
 'use strict';
 
 const DIR = './';
-const {realpath} = require('fs').promises;
+const {realpath} = require('fs/promises');
 const path = require('path');
 const jonny = require('jonny');
 const mellow = require('mellow');

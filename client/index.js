@@ -14,8 +14,8 @@ module.exports.delete = (url, data, callback) => {
     }
     
     sendRequest({
-        method      : 'DELETE',
-        url         : FS + url,
+        method: 'DELETE',
+        url: FS + url,
         data,
         callback,
     });
@@ -28,8 +28,8 @@ module.exports.patch = (url, data, callback) => {
     }
     
     sendRequest({
-        method      : 'PATCH',
-        url         : FS + url,
+        method: 'PATCH',
+        url: FS + url,
         data,
         callback,
     });
@@ -42,8 +42,8 @@ module.exports.write = (url, data, callback) => {
     }
     
     sendRequest({
-        method      : 'PUT',
-        url         : FS + url,
+        method: 'PUT',
+        url: FS + url,
         data,
         callback,
     });
@@ -51,8 +51,8 @@ module.exports.write = (url, data, callback) => {
 
 module.exports.read = (url, callback) => {
     sendRequest({
-        method      : 'GET',
-        url         : FS + url,
+        method: 'GET',
+        url: FS + url,
         callback,
     });
 };

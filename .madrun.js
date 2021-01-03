@@ -15,6 +15,8 @@ module.exports = {
     'build': () => run(['clean', 'build:*']),
     'wisdom': () => run('build'),
     'lint': () => 'putout .',
+    'fresh:lint': () => run('lint', '--fresh'),
+    'lint:fresh': () => run('lint', '--fresh'),
     'fix:lint': () => run('lint', '--fix'),
     'clean': () => 'rimraf dist*',
 };

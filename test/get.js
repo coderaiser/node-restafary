@@ -1,5 +1,7 @@
 'use strict';
 
+const tryCatch = require('try-catch');
+
 const fs = require('fs');
 const test = require('supertape');
 const fixture = {
@@ -37,9 +39,9 @@ test('restafary: path traversal', async (t) => {
         },
     });
     
-    const fn = () => JSON.parse(body);
+    const [error] = tryCatch(JSON.parse, body);
     
-    t.doesNotThrow(fn, 'should not throw');
+    t.notOk(error, 'should not throw');
     t.end();
 });
 
@@ -49,9 +51,9 @@ test('restafary: path traversal, not default root', async (t) => {
             root: '/usr',
         },
     });
-    const fn = () => JSON.parse(body);
+    const [error] = tryCatch(JSON.parse, body);
     
-    t.doesNotThrow(fn, 'should not throw');
+    t.notOk(error, 'should not throw');
     t.end();
 });
 

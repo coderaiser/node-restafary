@@ -1,3 +1,9 @@
+2021.01.05, v9.0.0
+
+feature:
+- (restafary) drop support of node < 14
+
+
 2021.01.05, v8.2.10
 
 fix:

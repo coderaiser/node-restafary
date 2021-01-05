@@ -1,3 +1,9 @@
+2021.01.05, v9.0.1
+
+fix:
+- (npmignore) yarn-erro.log
+
+
 2021.01.05, v9.0.0
 
 feature:

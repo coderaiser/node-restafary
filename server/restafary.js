@@ -1,14 +1,15 @@
 'use strict';
 
-const DIR = './';
-const {realpath} = require('fs/promises');
 const path = require('path');
-const jonny = require('jonny');
+
 const mellow = require('mellow');
 const ponse = require('ponse');
 const currify = require('currify');
 const tryToCatch = require('try-to-catch');
+const pipe = require('pipe-io');
+const {contentType} = require('mime-types');
 
+const DIR = './';
 const WIN = process.platform === 'win32';
 const CWD = process.cwd();
 const Fs = {};
@@ -24,7 +25,7 @@ for (const name of [
 
 const isDev = process.env.NODE_ENV === 'development';
 
-module.exports = currify((options, request, response, next) => {
+module.exports = currify(async (options, request, response, next) => {
     const req = request;
     const res = response;
     const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
@@ -51,7 +52,7 @@ module.exports = currify((options, request, response, next) => {
     name = name.replace(prefix, '') || '/';
     params.name = name;
     
-    onFS(params, (error, options, data) => {
+    await onFS(params, (error, options, data) => {
         options = options || {};
         params.gzip = !error;
         
@@ -120,7 +121,7 @@ function checkPath(name, root) {
     return ok;
 }
 
-function onFS(params, callback) {
+async function onFS(params, callback) {
     const pathError = 'Could not write file/create directory in root on windows!';
     const p = params;
     const {name} = p;
@@ -165,72 +166,34 @@ function onFS(params, callback) {
             callback(error, optionsDefaults);
         });
     
-    case 'GET':
-        return Fs.get(query, pathOS, async (error, data) => {
-            await onGet({
-                error,
-                name: p.name,
-                path: pathOS,
-                query,
-                request: p.request,
-                response: p.response,
-                data,
-            }, callback);
-        });
-    
     case 'DELETE':
         return Fs.delete(query, pathOS, p.request, (error) => {
             callback(error, optionsDefaults);
         });
-    }
-}
-
-async function onGet(p, callback) {
-    const isFile = p.error && p.error.code === 'ENOTDIR';
-    const isStr = typeof p.data === 'string';
     
-    const params = {
-        gzip: true,
-        name: p.path,
-        request: p.request,
-        response: p.response,
-    };
-    
-    if (isFile) {
-        const [error, path] = await tryToCatch(realpath, p.path);
+    case 'GET': {
+        const [error, stream] = await tryToCatch(Fs.get, {
+            query,
+            path: pathOS,
+            root,
+        });
         
-        if (!error)
-            params.name = path;
+        if (error)
+            return ponse.sendError(error, params);
         
-        params.gzip = false;
-        ponse.sendFile(params);
-        return;
+        if (!stream.type)
+            p.response.setHeader('Content-Type', 'text/plain');
+        else if (stream.type === 'directory')
+            p.response.setHeader('Content-Type', 'application/json');
+        else if (stream.type === 'file')
+            p.response.setHeader('Content-Type', contentType(pathOS));
+        
+        await pipe([
+            stream,
+            p.response,
+        ]);
     }
-    
-    if (p.error)
-        return callback(p.error);
-    
-    if (/^(size|time|hash)$/.test(p.query))
-        return callback(p.error, null, String(p.data));
-    
-    p.data.path = addSlashToEnd(p.name);
-    
-    if (p.name === '/')
-        p.name += 'fs';
-    
-    const options = {
-        name: p.name + 'fs.json',
-        query: p.query,
-    };
-    
-    let str;
-    
-    if (isStr)
-        str = p.data;
-    else
-        str = jonny.stringify(p.data, null, 4);
-    
-    callback(p.error, options, str);
+    }
 }
 
 function format(msg, name) {
@@ -240,19 +203,6 @@ function format(msg, name) {
         name = '("' + name + '")';
     
     return msg + ': ' + status + name;
-}
-
-function addSlashToEnd(path) {
-    if (!path)
-        return path;
-    
-    const length = path.length - 1;
-    const isSlash = path[length] === '/';
-    
-    if (!isSlash)
-        path += '/';
-    
-    return path;
 }
 
 function handleDotFolder(root) {

@@ -37,9 +37,12 @@
     "flop": "^9.0.0",
     "jonny": "^3.0.0",
     "mellow": "^2.0.0",
+    "mime-types": "^2.1.28",
     "patchfile": "^3.0.0",
+    "pipe-io": "^4.0.1",
     "ponse": "^5.0.0",
     "pullout": "^4.0.0",
+    "redzip": "^1.0.3",
     "try-to-catch": "^3.0.0"
   },
   "devDependencies": {

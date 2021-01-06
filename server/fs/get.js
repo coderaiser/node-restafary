@@ -1,42 +1,46 @@
 'use strict';
 
-const {callbackify} = require('util');
+const {Readable} = require('stream');
 
 const {parse} = require('querystring');
-const readStream = require('fs').createReadStream;
 const check = require ('checkup');
-const {read} = require('flop');
+const flop = require('flop');
 const ashify = require('ashify');
+const {read} = require('redzip');
 
-module.exports = callbackify(async (query, name) => {
+module.exports = async ({query, path, root}) => {
     check
-        .type('name', name, 'string')
+        .type('path', path, 'string')
         .check({query});
     
-    if (/^(sort|order)/.test(query)) {
-        const {
-            sort,
-            order = 'asc',
-        } = parse(query);
-        
-        return read(name, {sort, order});
-    }
+    const {
+        sort = 'name',
+        order = 'asc',
+    } = parse(query);
     
     switch(query) {
     default:
-        return read(name);
+        return await read(path, {
+            sort,
+            order,
+            root,
+        });
     
     case 'raw':
-        return read(name, 'raw');
+        return await read(path, {
+            sort,
+            order,
+            type: 'raw',
+        });
     
     case 'size':
-        return read(name, 'size');
+        return Readable.from(await flop.read(path, 'size'));
     
     case 'time':
-        return read(name, 'time raw');
+        return Readable.from(await flop.read(path, 'time raw'));
     
     case 'hash':
-        return ashify(readStream(name), {algorithm: 'sha1', encoding: 'hex'});
+        return Readable.from(await ashify(await read(path), {algorithm: 'sha1', encoding: 'hex'}));
     }
-});
+};
 

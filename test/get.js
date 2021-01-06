@@ -1,24 +1,28 @@
 'use strict';
 
-const tryCatch = require('try-catch');
-
 const fs = require('fs');
+const {Readable} = require('stream');
+
 const test = require('supertape');
+const tryCatch = require('try-catch');
+const stub = require('@cloudcmd/stub');
+const mockRequire = require('mock-require');
+const serveOnce = require('serve-once');
+
 const fixture = {
     get: require(`${__dirname}/fixture/get`),
     getRaw: require(`${__dirname}/fixture/get-raw`),
 };
 
-const stub = require('@cloudcmd/stub');
-const mockRequire = require('mock-require');
 const {reRequire} = mockRequire;
 
 const restafary = require('..');
 
-const serveOnce = require('serve-once');
 const {request} = serveOnce(restafary, {
     root: __dirname,
 });
+
+const {stringify} = JSON;
 
 test('restafary: path traversal beyond root', async (t) => {
     const root = '/tmp';
@@ -132,26 +136,30 @@ test('restafary: get: body: mode', async (t) => {
 });
 
 test('restafary: get: sort by name', async (t) => {
-    const expected = {
-        path: './',
-        files: [{
-            name: '.readify.js',
-            size: '3.46kb',
-            date: '12.01.2017',
-            owner: 'root',
-            mode: 'rw- rw- r--',
-        }, {
-            name: 'readdir.js',
-            size: '1.59kb',
-            date: '12.01.2017',
-            owner: 'root',
-            mode: 'rw- rw- r--',
-        }],
-    };
+    const path = './';
+    const files = [{
+        name: '.readify.js',
+        size: '3.46kb',
+        date: '12.01.2017',
+        owner: 'root',
+        mode: 'rw- rw- r--',
+    }, {
+        name: 'readdir.js',
+        size: '1.59kb',
+        date: '12.01.2017',
+        owner: 'root',
+        mode: 'rw- rw- r--',
+    }];
     
-    const read = stub().returns(expected);
+    const stream = Readable.from(stringify({
+        path,
+        files,
+    }));
     
-    mockRequire('flop', {
+    stream.type = 'directory';
+    const read = stub().returns(stream);
+    
+    mockRequire('redzip', {
         read,
     });
     
@@ -166,20 +174,25 @@ test('restafary: get: sort by name', async (t) => {
     
     const order = 'asc';
     const sort = 'name';
+    const root = '/';
     
-    t.calledWith(read, ['/bin', {sort, order}], 'should call readify with sort "name"');
+    t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort "name"');
     t.end();
 });
 
 test('restafary: get: sort by size', async (t) => {
-    const expected = {
-        path: '',
-        files: [],
-    };
+    const path = '';
+    const files = [];
     
-    const read = stub().returns(expected);
+    const stream = Readable.from(stringify({
+        path,
+        files,
+    }));
     
-    mockRequire('flop', {
+    stream.type = 'directory';
+    const read = stub().returns(stream);
+    
+    mockRequire('redzip', {
         read,
     });
     
@@ -194,20 +207,26 @@ test('restafary: get: sort by size', async (t) => {
     
     const order = 'asc';
     const sort = 'size';
+    const root = '/';
     
-    t.calledWith(read, ['/bin', {sort, order}], 'should call readify with sort "size"');
+    t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort "size"');
     t.end();
 });
 
 test('restafary: get: sort by order', async (t) => {
-    const expected = {
-        path: '',
-        files: [],
-    };
+    const path = '';
+    const files = [];
     
-    const read = stub().returns(expected);
+    const stream = Readable.from(stringify({
+        path,
+        files,
+    }));
     
-    mockRequire('flop', {
+    stream.type = 'directory';
+    
+    const read = stub().returns(stream);
+    
+    mockRequire('redzip', {
         read,
     });
     
@@ -222,8 +241,34 @@ test('restafary: get: sort by order', async (t) => {
     
     const sort = 'time';
     const order = 'desc';
+    const root = '/';
     
-    t.calledWith(read, ['/bin', {sort, order}], 'should call readify with sort and order');
+    t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort and order');
+    t.end();
+});
+
+test('restafary: path traversal: zip', async (t) => {
+    const {body} = await request.get('/fs/fixture/dir.zip/', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const expected = stringify({
+        path: '/fixture/dir.zip/',
+        files: [
+            {
+                name: 'dir',
+                size: '0b',
+                date: '28.08.2017',
+                owner: 'root',
+                mode: '--- --- ---',
+                type: 'directory',
+            },
+        ],
+    }, null, 4);
+    
+    t.equal(body, expected);
     t.end();
 });
 

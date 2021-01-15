@@ -1,6 +1,10 @@
 'use strict';
 
-const path = require('path');
+const {
+    basename,
+    extname,
+    join,
+} = require('path');
 
 const mellow = require('mellow');
 const ponse = require('ponse');
@@ -77,7 +81,7 @@ module.exports = currify(async (options, request, response, next) => {
 
 function sendFile(request, response) {
     const dist = !isDev ? 'dist' : 'dist-dev';
-    request.url = path.join(__dirname, '..', dist, request.url);
+    request.url = join(__dirname, '..', dist, request.url);
     
     const gzip = true;
     const name = request.url;
@@ -95,7 +99,7 @@ function getMsg(name, req) {
     const query = ponse.getQuery(req);
     const method = req.method.toLowerCase();
     
-    name = path.basename(name);
+    name = basename(name);
     
     if (method !== 'put') {
         msg = method;
@@ -142,7 +146,7 @@ async function onFS(params, callback) {
     root = handleDotFolder(root);
     const rootWin = root.replace('/', '\\');
     const pathOS = mellow.pathToWin(name, root);
-    const pathWeb = path.join(root, name);
+    const pathWeb = join(root, name);
     
     if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
@@ -162,7 +166,7 @@ async function onFS(params, callback) {
         });
     
     case 'PATCH':
-        return Fs.patch(path, p.request, (error) => {
+        return Fs.patch(pathOS, p.request, (error) => {
             callback(error, optionsDefaults);
         });
     
@@ -186,7 +190,7 @@ async function onFS(params, callback) {
         else if (stream.type === 'directory')
             p.response.setHeader('Content-Type', 'application/json');
         else if (stream.type === 'file')
-            p.response.setHeader('Content-Type', contentType(pathOS));
+            p.response.setHeader('Content-Type', contentType(extname(pathOS)));
         
         await pipe([
             stream,

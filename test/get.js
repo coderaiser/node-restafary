@@ -272,3 +272,12 @@ test('restafary: path traversal: zip', async (t) => {
     t.end();
 });
 
+test('restafary: get: content type', async (t) => {
+    const {headers} = await request.get('/fs/fixture/index.html');
+    const contentType = headers.get('Content-Type');
+    const expected = 'text/html; charset=utf-8';
+    
+    t.equal(contentType, expected, 'should set content type');
+    t.end();
+});
+

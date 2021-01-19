@@ -6,7 +6,7 @@ const {parse} = require('querystring');
 const check = require ('checkup');
 const flop = require('flop');
 const ashify = require('ashify');
-const {read} = require('redzip');
+const {read, readSize} = require('redzip');
 
 module.exports = async ({query, path, root}) => {
     check
@@ -34,7 +34,7 @@ module.exports = async ({query, path, root}) => {
         });
     
     case 'size':
-        return Readable.from(await flop.read(path, 'size'));
+        return await readSize(path);
     
     case 'time':
         return Readable.from(await flop.read(path, 'time raw'));

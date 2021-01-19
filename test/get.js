@@ -261,9 +261,9 @@ test('restafary: path traversal: zip', async (t) => {
                 name: 'dir',
                 size: '0b',
                 date: '28.08.2017',
-                owner: 'root',
                 mode: '--- --- ---',
                 type: 'directory',
+                owner: 'root',
             },
         ],
     }, null, 4);
@@ -281,3 +281,28 @@ test('restafary: get: content type', async (t) => {
     t.end();
 });
 
+test('restafary: zip size', async (t) => {
+    const {body} = await request.get('/fs/fixture/dir.zip/dir?size', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const expected = '6b';
+    
+    t.equal(body, expected);
+    t.end();
+});
+
+test('restafary: outer size', async (t) => {
+    const {body} = await request.get('/fs/fixture/dir.zip?size', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const expected = '232b';
+    
+    t.equal(body, expected);
+    t.end();
+});

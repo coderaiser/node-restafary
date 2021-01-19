@@ -1,3 +1,9 @@
+2021.01.19, v9.2.0
+
+feature:
+- (package) redzip v1.3.0: add ability to get size of a directory inside zip archive
+
+
 2021.01.15, v9.1.1
 
 fix:

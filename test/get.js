@@ -159,7 +159,7 @@ test('restafary: get: sort by name', async (t) => {
     stream.type = 'directory';
     const read = stub().returns(stream);
     
-    mockRequire('redzip', {
+    mockRequire('win32', {
         read,
     });
     
@@ -192,7 +192,7 @@ test('restafary: get: sort by size', async (t) => {
     stream.type = 'directory';
     const read = stub().returns(stream);
     
-    mockRequire('redzip', {
+    mockRequire('win32', {
         read,
     });
     
@@ -226,7 +226,7 @@ test('restafary: get: sort by order', async (t) => {
     
     const read = stub().returns(stream);
     
-    mockRequire('redzip', {
+    mockRequire('win32', {
         read,
     });
     
@@ -306,3 +306,4 @@ test('restafary: outer size', async (t) => {
     t.equal(body, expected);
     t.end();
 });
+

@@ -6,7 +6,8 @@ const {parse} = require('querystring');
 const check = require ('checkup');
 const flop = require('flop');
 const ashify = require('ashify');
-const {read, readSize} = require('redzip');
+const {read} = require('win32');
+const {readSize} = require('redzip');
 
 module.exports = async ({query, path, root}) => {
     check

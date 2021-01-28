@@ -256,16 +256,14 @@ test('restafary: path traversal: zip', async (t) => {
     
     const expected = stringify({
         path: '/fixture/dir.zip/',
-        files: [
-            {
-                name: 'dir',
-                size: '0b',
-                date: '28.08.2017',
-                mode: '--- --- ---',
-                type: 'directory',
-                owner: 'root',
-            },
-        ],
+        files: [{
+            name: 'dir',
+            size: '0b',
+            date: '28.08.2017',
+            mode: '--- --- ---',
+            type: 'directory',
+            owner: 'root',
+        }],
     }, null, 4);
     
     t.equal(body, expected);

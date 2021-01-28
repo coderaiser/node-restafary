@@ -6,7 +6,7 @@ const {
     join,
 } = require('path');
 
-const mellow = require('mellow');
+const {webToWin} = require('mellow');
 const ponse = require('ponse');
 const currify = require('currify');
 const tryToCatch = require('try-to-catch');
@@ -145,7 +145,7 @@ async function onFS(params, callback) {
     
     root = handleDotFolder(root);
     const rootWin = root.replace('/', '\\');
-    const pathOS = mellow.pathToWin(name, root);
+    const pathOS = webToWin(name, root);
     const pathWeb = join(root, name);
     
     if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))

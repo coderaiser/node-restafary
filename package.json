@@ -36,7 +36,7 @@
     "files-io": "^4.0.0",
     "flop": "^9.0.0",
     "jonny": "^3.0.0",
-    "mellow": "^2.0.0",
+    "mellow": "^3.0.1",
     "mime-types": "^2.1.28",
     "patchfile": "^3.0.0",
     "pipe-io": "^4.0.1",

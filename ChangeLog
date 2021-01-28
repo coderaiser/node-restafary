@@ -1,3 +1,11 @@
+2021.01.28, v9.2.5
+
+feature:
+- (package) eslint-plugin-putout v7.0.0
+- (package) putout v14.0.1
+- (package) mellow v3.0.1
+
+
 2021.01.25, v9.2.4
 
 feature:

@@ -190,7 +190,7 @@ async function onFS(params, callback) {
         else if (stream.type === 'directory')
             p.response.setHeader('Content-Type', 'application/json');
         else if (stream.type === 'file')
-            p.response.setHeader('Content-Type', contentType(extname(pathOS)));
+            p.response.setHeader('Content-Type', contentType(extname(pathWeb)));
         
         await pipe([
             stream,

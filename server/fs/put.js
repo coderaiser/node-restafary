@@ -3,8 +3,7 @@
 const {callbackify} = require('util');
 
 const check = require('checkup');
-const {create} = require('flop');
-const files = require('files-io');
+const {write} = require('redzip');
 
 module.exports = callbackify(async (query, name, readStream) => {
     check
@@ -14,14 +13,14 @@ module.exports = callbackify(async (query, name, readStream) => {
     
     switch(query) {
     default:
-        return files.pipe(readStream, name);
+        return await write(name, readStream);
     
     case 'dir':
-        return create(name);
+        return await write(name);
     
     case 'unzip':
-        return files.pipe(readStream, name, {
-            gunzip: true,
+        return await write(name, readStream, {
+            unzip: true,
         });
     }
 });

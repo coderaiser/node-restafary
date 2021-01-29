@@ -270,6 +270,19 @@ test('restafary: path traversal: zip', async (t) => {
     t.end();
 });
 
+test('restafary: path traversal: zip: download', async (t) => {
+    const {headers} = await request.get('/fs/fixture/get.zip/hello.txt?download', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const result = headers.get('Content-Disposition');
+    
+    t.equal(result, 'attachment');
+    t.end();
+});
+
 test('restafary: get: content type', async (t) => {
     const {headers} = await request.get('/fs/fixture/index.html');
     const contentType = headers.get('Content-Type');

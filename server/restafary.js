@@ -185,6 +185,8 @@ async function onFS(params, callback) {
         if (error)
             return ponse.sendError(error, params);
         
+        ponse.setHeader(p);
+        
         if (!stream.type)
             p.response.setHeader('Content-Type', 'text/plain');
         else if (stream.type === 'directory')

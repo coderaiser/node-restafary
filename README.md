@@ -25,6 +25,7 @@
 |             |         |`size`         |                   |get file or dir size           |
 |             |         |`time`         |                   |get time of file change        |
 |             |         |`hash`         |                   |get file hash                  |
+|             |         |`download`     |                   |content disposition attachment |
 |             |`PUT`    |               |file content       |create/write file              |
 |             |         | `unzip`       |file content       |unzip and create/write file    |
 |             |         | `dir`         |                   |create dir                     |

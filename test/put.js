@@ -2,6 +2,8 @@
 
 const {Readable} = require('stream');
 const {createGzip} = require('zlib');
+const {join} = require('path');
+const {readFileSync, writeFileSync} = require('fs');
 
 const test = require('supertape');
 const serveOnce = require('serve-once');
@@ -12,6 +14,10 @@ const {request} = serveOnce(restafary, {
     root: __dirname,
 });
 
+const fixturePath = join(__dirname, 'fixture', 'put.zip');
+const fixtureData = readFileSync(fixturePath);
+const restore = () => writeFileSync(fixturePath, fixtureData);
+
 test('restafary: put', async (t) => {
     const {body} = await request.put('/fs/fixture/put.zip/hello', {
         body: 'zzz',
@@ -20,6 +26,7 @@ test('restafary: put', async (t) => {
         },
     });
     
+    restore();
     const expected = 'save: ok("hello")';
     
     t.equal(body, expected);
@@ -42,6 +49,7 @@ test('restafary: put: unzip', async (t) => {
         },
     });
     
+    restore();
     const expected = 'hello';
     
     t.equal(body, expected);
@@ -55,6 +63,7 @@ test('restafary: put: directory', async (t) => {
         },
     });
     
+    restore();
     const expected = 'make dir: ok("hello")';
     
     t.equal(body, expected);

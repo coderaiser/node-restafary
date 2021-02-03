@@ -292,6 +292,24 @@ test('restafary: get: content type', async (t) => {
     t.end();
 });
 
+test('restafary: get: file: content length', async (t) => {
+    const {headers} = await request.get('/fs/fixture/index.html');
+    const contentType = headers.get('Content-Length');
+    const expected = '14';
+    
+    t.equal(contentType, expected, 'should set content length');
+    t.end();
+});
+
+test('restafary: get: dir: content length', async (t) => {
+    const {headers} = await request.get('/fs/fixture/dir.zip');
+    const contentType = headers.get('Content-Length');
+    const expected = '232';
+    
+    t.equal(contentType, expected, 'should set content length');
+    t.end();
+});
+
 test('restafary: zip size', async (t) => {
     const {body} = await request.get('/fs/fixture/dir.zip/dir?size', {
         options: {

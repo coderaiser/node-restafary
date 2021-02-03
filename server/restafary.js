@@ -185,14 +185,16 @@ async function onFS(params, callback) {
         if (error)
             return ponse.sendError(error, params);
         
-        ponse.setHeader(p);
+        const {size, type} = stream;
         
-        if (!stream.type)
-            p.response.setHeader('Content-Type', 'text/plain');
-        else if (stream.type === 'directory')
-            p.response.setHeader('Content-Type', 'application/json');
-        else if (stream.type === 'file')
-            p.response.setHeader('Content-Type', contentType(extname(pathWeb)));
+        ponse.setHeader(p);
+        p.response.setHeader('Content-Type', getContentType({
+            type,
+            pathWeb,
+        }));
+        
+        if (size)
+            p.response.setHeader('Content-Length', size);
         
         await pipe([
             stream,
@@ -215,3 +217,13 @@ function handleDotFolder(root) {
     return root.replace(/^\.(\/|\\|$)/, CWD);
 }
 
+function getContentType({type, pathWeb}) {
+    if (!type)
+        return 'text/plain';
+    
+    if (type === 'directory')
+        return 'application/json';
+    
+    if (type === 'file')
+        return contentType(extname(pathWeb));
+}

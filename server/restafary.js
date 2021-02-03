@@ -152,7 +152,9 @@ async function onFS(params, callback) {
     if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
     
-    switch(p.request.method) {
+    const {method} = p.request;
+    
+    switch(method) {
     case 'OPTIONS':
         p.response.setHeader('Access-Control-Allow-Origin', '*');
         p.response.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
@@ -176,6 +178,7 @@ async function onFS(params, callback) {
             callback(error, optionsDefaults);
         });
     
+    case 'HEAD':
     case 'GET': {
         const [error, stream] = await tryToCatch(Fs.get, {
             query,
@@ -183,8 +186,13 @@ async function onFS(params, callback) {
             root,
         });
         
-        if (error)
-            return ponse.sendError(error, params);
+        if (error) {
+            if (method === 'GET')
+                return ponse.sendError(error, params);
+            
+            p.response.status('404');
+            p.response.end();
+        }
         
         const {size, type} = stream;
         
@@ -199,6 +207,9 @@ async function onFS(params, callback) {
         
         if (size)
             p.response.setHeader('Content-Length', size);
+        
+        if (method === 'HEAD')
+            return p.response.end();
         
         await pipe([
             fileStream,

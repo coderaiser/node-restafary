@@ -292,6 +292,15 @@ test('restafary: get: content type', async (t) => {
     t.end();
 });
 
+test('restafary: get: content type: no extension', async (t) => {
+    const {headers} = await request.get('/fs/fixture/image');
+    const contentType = headers.get('Content-Type');
+    const expected = 'image/x-icon';
+    
+    t.equal(contentType, expected, 'should set content type');
+    t.end();
+});
+
 test('restafary: get: file: content length', async (t) => {
     const {headers} = await request.get('/fs/fixture/index.html');
     const contentType = headers.get('Content-Length');

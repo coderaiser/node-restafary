@@ -12,6 +12,7 @@ const currify = require('currify');
 const tryToCatch = require('try-to-catch');
 const pipe = require('pipe-io');
 const {contentType} = require('mime-types');
+const FileType = require('file-type');
 
 const DIR = './';
 const WIN = process.platform === 'win32';
@@ -188,16 +189,19 @@ async function onFS(params, callback) {
         const {size, type} = stream;
         
         ponse.setHeader(p);
-        p.response.setHeader('Content-Type', getContentType({
+        const [fileStream, contentType] = await getContentType({
             type,
             pathWeb,
-        }));
+            stream,
+        });
+        
+        p.response.setHeader('Content-Type', contentType);
         
         if (size)
             p.response.setHeader('Content-Length', size);
         
         await pipe([
-            stream,
+            fileStream,
             p.response,
         ]);
     }
@@ -217,13 +221,25 @@ function handleDotFolder(root) {
     return root.replace(/^\.(\/|\\|$)/, CWD);
 }
 
-function getContentType({type, pathWeb}) {
+async function getContentType({type, pathWeb, stream}) {
     if (!type)
-        return 'text/plain';
+        return [stream, 'text/plain'];
     
     if (type === 'directory')
-        return 'application/json';
+        return [stream, 'application/json'];
     
-    if (type === 'file')
-        return contentType(extname(pathWeb));
+    const ext = extname(pathWeb);
+    
+    if (ext && type === 'file')
+        return [stream, contentType(ext)];
+    
+    const typeStream = await FileType.stream(stream);
+    const {fileType} = typeStream;
+    
+    if (!fileType)
+        return [typeStream, 'text/plain'];
+    
+    const {mime} = fileType;
+    return [typeStream, mime];
 }
+

@@ -60,8 +60,8 @@ server.listen(port, ip);
 MIT
 
 [NPMIMGURL]: https://img.shields.io/npm/v/restafary.svg?style=flat
-[BuildStatusURL]: https://github.com/coderaiser/putout/actions?query=workflow%3A%22Node+CI%22 "Build Status"
-[BuildStatusIMGURL]: https://github.com/coderaiser/putout/workflows/Node%20CI/badge.svg
+[BuildStatusURL]: https://github.com/coderaiser/node-restafary/actions?query=workflow%3A%22Node+CI%22 "Build Status"
+[BuildStatusIMGURL]: https://github.com/coderaiser/node-restafary/workflows/Node%20CI/badge.svg
 [DependencyStatusIMGURL]: https://img.shields.io/david/coderaiser/node-restafary.svg?style=flat
 [LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
 [NPMURL]: https://npmjs.org/package/restafary "npm"

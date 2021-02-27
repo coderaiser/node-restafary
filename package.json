@@ -64,7 +64,7 @@
     "nyc": "^15.0.0",
     "putout": "^15.3.1",
     "serve-once": "^2.0.0",
-    "supertape": "^4.1.1",
+    "supertape": "^5.0.0",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.3.0"
   },

@@ -1,3 +1,12 @@
+2021.02.27, v9.7.0
+
+feature:
+- feature(restafary) add support of emoji and special characters (coderaiser/cloudcmd#330)
+- feature(package) supertape v5.0.0
+- feature(package) putout v15.3.1
+
+
+
 2021.02.03, v9.6.0
 
 feature:

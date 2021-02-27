@@ -205,8 +205,8 @@ async function onFS(params, callback) {
         
         p.response.setHeader('Content-Type', contentType);
         
-       if (contentLength)
-           p.response.setHeader('Content-Length', contentLength);
+        if (contentLength)
+            p.response.setHeader('Content-Length', contentLength);
         
         if (method === 'HEAD')
             return p.response.end();

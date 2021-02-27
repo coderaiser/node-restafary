@@ -60,10 +60,10 @@ server.listen(port, ip);
 MIT
 
 [NPMIMGURL]: https://img.shields.io/npm/v/restafary.svg?style=flat
-[BuildStatusIMGURL]: https://img.shields.io/travis/coderaiser/node-restafary/master.svg?style=flat
+[BuildStatusURL]: https://github.com/coderaiser/putout/actions?query=workflow%3A%22Node+CI%22 "Build Status"
+[BuildStatusIMGURL]: https://github.com/coderaiser/putout/workflows/Node%20CI/badge.svg
 [DependencyStatusIMGURL]: https://img.shields.io/david/coderaiser/node-restafary.svg?style=flat
 [LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
 [NPMURL]: https://npmjs.org/package/restafary "npm"
-[BuildStatusURL]: https://travis-ci.org/coderaiser/node-restafary "Build Status"
 [DependencyStatusURL]: https://david-dm.org/coderaiser/node-restafary "Dependency Status"
 [LicenseURL]: https://tldrlegal.com/license/mit-license "MIT License"

@@ -274,13 +274,14 @@ test('restafary: path traversal: emoji', async (t) => {
         },
     });
     
+    delete body.files[0].owner;
+    delete body.files[0].mode;
+    
     const expected = {
         path: '/fixture/🎉/',
         files: [{
             date: '27.02.2021',
-            mode: 'rw- r-- r--',
             name: 'hello.txt',
-            owner: 'coderaiser',
             size: '6b',
             type: 'file',
         }],

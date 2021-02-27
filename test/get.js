@@ -247,6 +247,31 @@ test('restafary: get: sort by order', async (t) => {
     t.end();
 });
 
+test('restafary: path traversal: emoji', async (t) => {
+    const url = encodeURI('/fs/fixture/🎉/');
+    const {body} = await request.get(url, {
+        type: 'json',
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const expected = {
+        path: '/fixture/🎉/',
+        files: [{
+            date: '27.02.2021',
+            mode: 'rw- r-- r--',
+            name: 'hello.txt',
+            owner: 'coderaiser',
+            size: '6b',
+            type: 'file',
+        }],
+    };
+    
+    t.deepEqual(body, expected);
+    t.end();
+});
+
 test('restafary: path traversal: zip', async (t) => {
     const {body} = await request.get('/fs/fixture/dir.zip/', {
         options: {
@@ -260,7 +285,7 @@ test('restafary: path traversal: zip', async (t) => {
             name: 'dir',
             size: '0b',
             date: '28.08.2017',
-            mode: '--- --- ---',
+            mode: 'rw- rw- rw-',
             type: 'directory',
             owner: 'root',
         }],

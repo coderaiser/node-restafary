@@ -29,6 +29,7 @@ for (const name of [
 }
 
 const isDev = process.env.NODE_ENV === 'development';
+const {stringify} = JSON;
 
 module.exports = currify(async (options, request, response, next) => {
     const req = request;
@@ -210,6 +211,17 @@ async function onFS(params, callback) {
         
         if (method === 'HEAD')
             return p.response.end();
+        
+        // missing "}" before end without this handling
+        if (type === 'directory') {
+            const {path, files} = fileStream;
+            p.response.send(stringify({
+                path,
+                files,
+            }, null, 4));
+            
+            return;
+        }
         
         await pipe([
             fileStream,

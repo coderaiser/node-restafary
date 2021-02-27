@@ -27,9 +27,9 @@ test('restafary: delete: path: ENOENT', async (t) => {
         options,
     });
     
-    const expected = `ENOENT: no such file or directory, unlink '${root}'`;
+    const expected = `ENOENT: no such file or directory`;
     
-    t.equal(body, expected, 'should return error message');
+    t.ok(body.includes(expected), 'should return error message');
     t.end();
 });
 

@@ -23,6 +23,7 @@ const {request} = serveOnce(restafary, {
 });
 
 const {stringify} = JSON;
+const {assign} = Object;
 
 test('restafary: path traversal beyond root', async (t) => {
     const root = '/tmp';
@@ -151,12 +152,18 @@ test('restafary: get: sort by name', async (t) => {
         mode: 'rw- rw- r--',
     }];
     
-    const stream = Readable.from(stringify({
+    const str = stringify({
         path,
         files,
-    }));
+    });
     
-    stream.type = 'directory';
+    const stream = Readable.from(str);
+    
+    assign(stream, {
+        contentLength: Buffer.byteLength(str),
+        type: 'directory',
+    });
+    
     const read = stub().returns(stream);
     
     mockRequire('win32', {
@@ -184,12 +191,18 @@ test('restafary: get: sort by size', async (t) => {
     const path = '';
     const files = [];
     
-    const stream = Readable.from(stringify({
+    const str = stringify({
         path,
         files,
-    }));
+    });
     
-    stream.type = 'directory';
+    const stream = Readable.from(str);
+    
+    assign(stream, {
+        type: 'directory',
+        contentLength: Buffer.byteLength(str),
+    });
+    
     const read = stub().returns(stream);
     
     mockRequire('win32', {
@@ -217,12 +230,17 @@ test('restafary: get: sort by order', async (t) => {
     const path = '';
     const files = [];
     
-    const stream = Readable.from(stringify({
+    const str = stringify({
         path,
         files,
-    }));
+    });
     
-    stream.type = 'directory';
+    const stream = Readable.from(str);
+    
+    assign(stream, {
+        contentLength: Buffer.byteLength(str),
+        type: 'directory',
+    });
     
     const read = stub().returns(stream);
     

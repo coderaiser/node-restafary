@@ -47,8 +47,8 @@ const port = 1337;
 const ip = '0.0.0.0';
 
 app.use(restafary({
-    prefix: '/fs',  /* default                              */
-    root: '/',       /* default, coud be string or function  */
+    prefix: '/fs',  // default
+    root: '/',      // default, can be string or function
 }));
 
 app.use(express.static(__dirname));

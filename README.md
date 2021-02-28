@@ -23,7 +23,6 @@
 |             |         |               |                   |`asc` or `desc`                |
 |             |         |`raw`          |                   |get file or raw dir content    |
 |             |         |`size`         |                   |get file or dir size           |
-|             |         |`time`         |                   |get time of file change        |
 |             |         |`hash`         |                   |get file hash                  |
 |             |         |`download`     |                   |content disposition attachment |
 |             |`PUT`    |               |file content       |create/write file              |

@@ -37,9 +37,6 @@ module.exports = async ({query, path, root}) => {
     case 'size':
         return await readSize(path);
     
-    case 'time':
-        return Readable.from(await flop.read(path, 'time raw'));
-    
     case 'hash':
         return Readable.from(await ashify(await read(path), {algorithm: 'sha1', encoding: 'hex'}));
     }

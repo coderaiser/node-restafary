@@ -389,3 +389,30 @@ test('restafary: outer size', async (t) => {
     t.end();
 });
 
+test('restafary: zip: hash', async (t) => {
+    const {body} = await request.get('/fs/fixture/dir.zip/dir?hash', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const expected = '6954ccbe9d8161cf02c8a2dd7bb0f10da71b8a60';
+    
+    t.equal(body, expected);
+    t.end();
+});
+
+test('restafary: zip: hash: content length', async (t) => {
+    const {headers} = await request.get('/fs/fixture/dir.zip/dir?hash', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    const result = headers.get('content-length');
+    const expected = '40';
+    
+    t.equal(result, expected);
+    t.end();
+});
+

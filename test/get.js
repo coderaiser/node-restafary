@@ -276,11 +276,11 @@ test('restafary: path traversal: emoji', async (t) => {
     
     delete body.files[0].owner;
     delete body.files[0].mode;
+    delete body.files[0].date;
     
     const expected = {
         path: '/fixture/🎉/',
         files: [{
-            date: '27.02.2021',
             name: 'hello.txt',
             size: '6b',
             type: 'file',
@@ -396,7 +396,7 @@ test('restafary: zip: hash', async (t) => {
         },
     });
     
-    const expected = '6954ccbe9d8161cf02c8a2dd7bb0f10da71b8a60';
+    const expected = 'ce5a6d585669be2da407f6b2616128b3bc755c62';
     
     t.equal(body, expected);
     t.end();

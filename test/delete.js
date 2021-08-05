@@ -13,7 +13,7 @@ test('restafary: delete: no fs', async (t) => {
         options,
     });
     
-    t.ok(body.includes('Cannot DELETE /123'), 'should return error message');
+    t.match(body, /Cannot DELETE \/123/, 'should return error message');
     t.end();
 });
 
@@ -29,7 +29,7 @@ test('restafary: delete: path: ENOENT', async (t) => {
     
     const expected = `ENOENT: no such file or directory`;
     
-    t.ok(body.includes(expected), 'should return error message');
+    t.match(body, RegExp(expected), 'should return error message');
     t.end();
 });
 

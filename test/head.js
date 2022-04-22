@@ -18,12 +18,20 @@ test('restafary: head: content type', async (t) => {
     t.end();
 });
 
-test('restafary: get: file: content length', async (t) => {
+test('restafary: head: file: content length', async (t) => {
     const {headers} = await request('head', '/fs/fixture/index.html');
     const contentType = headers.get('Content-Length');
     const expected = '14';
     
     t.equal(contentType, expected, 'should set content length');
+    t.end();
+});
+
+test('restafary: head: file: not found', async (t) => {
+    const {status} = await request('head', '/fs/not found');
+    const expected = 404;
+    
+    t.equal(status, expected, 'should set status 404');
     t.end();
 });
 

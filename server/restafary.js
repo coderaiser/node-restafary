@@ -188,13 +188,8 @@ async function onFS(params, callback) {
             root,
         });
         
-        if (error) {
-            if (method === 'GET')
-                return ponse.sendError(error, params);
-            
-            p.response.status('404');
-            p.response.end();
-        }
+        if (error)
+            return ponse.sendError(error, params);
         
         const {type, contentLength} = stream;
         

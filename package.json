@@ -1,6 +1,7 @@
 {
   "name": "restafary",
   "version": "10.1.1",
+  "type": "commonjs",
   "description": "REST for CRUD file operations",
   "main": "server/restafary.js",
   "engines": {
@@ -35,7 +36,7 @@
     "currify": "^4.0.0",
     "file-type": "^16.2.0",
     "files-io": "^4.0.0",
-    "flop": "^10.0.0",
+    "flop": "^11.0.0",
     "jonny": "^3.0.0",
     "mellow": "^3.0.1",
     "mime-types": "^2.1.28",

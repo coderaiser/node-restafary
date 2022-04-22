@@ -4,7 +4,7 @@
   "description": "REST for CRUD file operations",
   "main": "server/restafary.js",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "babel": {
     "presets": [

@@ -42,7 +42,7 @@
     "mime-types": "^2.1.28",
     "patchfile": "^3.0.0",
     "pipe-io": "^4.0.1",
-    "ponse": "^6.0.0",
+    "ponse": "^7.0.0",
     "pullout": "^4.0.0",
     "redzip": "^2.1.0",
     "try-to-catch": "^3.0.0",

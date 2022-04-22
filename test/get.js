@@ -425,3 +425,14 @@ test('restafary: zip: hash: content length', async (t) => {
     t.end();
 });
 
+test('restafary: get: nbsp', async (t) => {
+    const {body} = await request.get('/fs/hello&nbsp;world', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    t.match(body, '\xa0');
+    t.end();
+});
+

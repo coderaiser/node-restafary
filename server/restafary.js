@@ -1,5 +1,7 @@
 'use strict';
 
+const isFn = (a) => typeof a === 'function';
+
 const {
     basename,
     extname,
@@ -139,7 +141,7 @@ async function onFS(params, callback) {
     
     let root;
     
-    if (typeof params.root === 'function')
+    if (isFn(params.root))
         root = params.root();
     else
         root = params.root;

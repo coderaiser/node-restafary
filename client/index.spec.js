@@ -9,7 +9,7 @@ test('cloudcmd: client: rest: replaceHash', (t) => {
     const result = _escape(url);
     const expected = '/hello/%23%23%23%23world';
     
-    t.equal(result, expected, 'should equal');
+    t.equal(result, expected);
     t.end();
 });
 

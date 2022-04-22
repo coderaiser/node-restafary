@@ -1,7 +1,7 @@
 import {run} from 'madrun';
 
 export default {
-    'test': () => 'tape \'client/**/*.spec.js\' \'test/*.js\'',
+    'test': () => `tape 'client/**/*.spec.js' 'test/*.js'`,
     'report': () => 'c8 report --reporter=lcov',
     'coverage': () => 'c8 npm test',
     'watch:test': async () => await run('watcher', await run('test')),

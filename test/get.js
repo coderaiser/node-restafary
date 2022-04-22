@@ -14,7 +14,10 @@ const fixture = {
     getRaw: require(`${__dirname}/fixture/get-raw`),
 };
 
-const {reRequire} = mockRequire;
+const {
+    reRequire,
+    stopAll,
+} = mockRequire;
 
 const restafary = require('..');
 
@@ -183,6 +186,8 @@ test('restafary: get: sort by name', async (t) => {
     const sort = 'name';
     const root = '/';
     
+    stopAll();
+    
     t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort "name"');
     t.end();
 });
@@ -222,6 +227,8 @@ test('restafary: get: sort by size', async (t) => {
     const sort = 'size';
     const root = '/';
     
+    stopAll();
+    
     t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort "size"');
     t.end();
 });
@@ -260,6 +267,8 @@ test('restafary: get: sort by order', async (t) => {
     const sort = 'time';
     const order = 'desc';
     const root = '/';
+    
+    stopAll();
     
     t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort and order');
     t.end();

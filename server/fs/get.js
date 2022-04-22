@@ -3,7 +3,7 @@
 const {Readable} = require('stream');
 
 const {parse} = require('querystring');
-const check = require ('checkup');
+const check = require('checkup');
 const ashify = require('ashify');
 const {read} = require('win32');
 const {readSize} = require('redzip');

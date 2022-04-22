@@ -1,3 +1,17 @@
+2022.04.22, v11.0.0
+
+feature:
+- (package) flop v11.0.0
+- (package) eslint v8.13.0
+- (package) putout v25.15.0
+- (package) madrun v9.0.2
+- (package) eslint-plugin-putout v14.11.0
+- (restafary) drop support of node < 16
+- (package) win32 v7.0.0
+- (package) eslint-plugin-putout v8.1.0
+- (package) putout v18.9.1
+
+
 2021.03.02, v10.1.1
 
 feature:

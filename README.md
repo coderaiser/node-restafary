@@ -1,4 +1,4 @@
-# Restafary [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL]
+# Restafary [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL]
 
 **REST** for **CRUD** file operations.
 
@@ -46,8 +46,8 @@ const port = 1337;
 const ip = '0.0.0.0';
 
 app.use(restafary({
-    prefix: '/fs',  // default
-    root: '/',      // default, can be string or function
+    prefix: '/fs', // default
+    root: '/', // default, can be string or function
 }));
 
 app.use(express.static(__dirname));
@@ -61,8 +61,6 @@ MIT
 [NPMIMGURL]: https://img.shields.io/npm/v/restafary.svg?style=flat
 [BuildStatusURL]: https://github.com/coderaiser/node-restafary/actions?query=workflow%3A%22Node+CI%22 "Build Status"
 [BuildStatusIMGURL]: https://github.com/coderaiser/node-restafary/workflows/Node%20CI/badge.svg
-[DependencyStatusIMGURL]: https://img.shields.io/david/coderaiser/node-restafary.svg?style=flat
 [LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
 [NPMURL]: https://npmjs.org/package/restafary "npm"
-[DependencyStatusURL]: https://david-dm.org/coderaiser/node-restafary "Dependency Status"
 [LicenseURL]: https://tldrlegal.com/license/mit-license "MIT License"

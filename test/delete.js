@@ -13,7 +13,7 @@ test('restafary: delete: no fs', async (t) => {
         options,
     });
     
-    t.match(body, /Cannot DELETE \/123/, 'should return error message');
+    t.match(body, 'Cannot DELETE /123', 'should return error message');
     t.end();
 });
 

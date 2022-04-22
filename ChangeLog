@@ -1,3 +1,9 @@
+2022.04.22, v11.0.1
+
+fix:
+- (restafary) head: crash on file not found
+
+
 2022.04.22, v11.0.0
 
 feature:

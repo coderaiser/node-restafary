@@ -17,7 +17,7 @@ test('restafary: http method: options', async (t) => {
         'OPTIONS',
     ].join(', ')];
     
-    t.deepEqual(methods, expected, 'should equal');
+    t.deepEqual(methods, expected);
     t.end();
 });
 

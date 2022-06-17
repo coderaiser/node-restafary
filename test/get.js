@@ -3,23 +3,25 @@
 const fs = require('fs');
 const {Readable} = require('stream');
 
-const test = require('supertape');
+const {
+    test,
+    stub,
+} = require('supertape');
 const tryCatch = require('try-catch');
-const stub = require('@cloudcmd/stub');
 const mockRequire = require('mock-require');
 const serveOnce = require('serve-once');
 
-const fixture = {
-    get: require(`${__dirname}/fixture/get`),
-    getRaw: require(`${__dirname}/fixture/get-raw`),
-};
+const restafary = require('..');
 
 const {
     reRequire,
     stopAll,
 } = mockRequire;
 
-const restafary = require('..');
+const fixture = {
+    get: require(`${__dirname}/fixture/get`),
+    getRaw: require(`${__dirname}/fixture/get-raw`),
+};
 
 const {request} = serveOnce(restafary, {
     root: __dirname,

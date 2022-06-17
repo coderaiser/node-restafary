@@ -152,7 +152,7 @@ feature:
 2021.01.05, v9.0.1
 
 fix:
-- (npmignore) yarn-erro.log
+- (npmignore) yarn-error.log
 
 
 2021.01.05, v9.0.0
@@ -558,7 +558,7 @@ fix:
 2016.04.21, v1.6.4
 
 fix:
-- (restafary) onFS: beyound root on windows
+- (restafary) onFS: beyond root on windows
 
 feature:
 - (package) jscs v3.0.3
@@ -579,7 +579,7 @@ fix:
 2016.03.25, v1.6.1
 
 fix:
-- (restafary) path beyound root
+- (restafary) path beyond root
 
 
 2016.02.20, v1.6.0
@@ -724,7 +724,7 @@ feature:
 2015.04.14, v1.2.9
 
 fix:
-- (restafary) when slash at the end response type text insted of json
+- (restafary) when slash at the end response type text instead of json
 
 
 2015.04.07, v1.2.8

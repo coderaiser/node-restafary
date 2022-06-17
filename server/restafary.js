@@ -1,7 +1,5 @@
 'use strict';
 
-const isFn = (a) => typeof a === 'function';
-
 const {
     basename,
     extname,
@@ -9,12 +7,14 @@ const {
 } = require('path');
 
 const {webToWin} = require('mellow');
+
 const ponse = require('ponse');
 const currify = require('currify');
 const tryToCatch = require('try-to-catch');
 const pipe = require('pipe-io');
 const {contentType} = require('mime-types');
 const FileType = require('file-type');
+const isFn = (a) => typeof a === 'function';
 
 const DIR = './';
 const WIN = process.platform === 'win32';

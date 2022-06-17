@@ -147,7 +147,7 @@ async function onFS(params, callback) {
         root = params.root;
     
     root = handleDotFolder(root);
-    const rootWin = root.replace('/', '\\');
+    const rootWin = root.replace(/\//g, '\\');
     const pathOS = webToWin(name, root);
     const pathWeb = join(root, name);
     

@@ -13,7 +13,6 @@ const currify = require('currify');
 const tryToCatch = require('try-to-catch');
 const pipe = require('pipe-io');
 const {contentType} = require('mime-types');
-const FileType = require('file-type');
 
 const isFn = (a) => typeof a === 'function';
 

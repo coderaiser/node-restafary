@@ -438,3 +438,25 @@ test('restafary: get: nbsp', async (t) => {
     t.end();
 });
 
+test('restafary: get: error: EACCESS', async (t) => {
+    const error = Error('EACCESS');
+    const tryToCatch = stub().resolves([error]);
+    
+    mockRequire('try-to-catch', tryToCatch);
+    
+    const restafary = reRequire('..');
+    const {request} = serveOnce(restafary, {
+        root: __dirname,
+    });
+    
+    const {body} = await request.get('/fs/hello', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    stopAll();
+    
+    t.equal(body, 'EACCESS');
+    t.end();
+});

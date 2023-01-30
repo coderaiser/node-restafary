@@ -14,6 +14,7 @@ const tryToCatch = require('try-to-catch');
 const pipe = require('pipe-io');
 const {contentType} = require('mime-types');
 const FileType = require('file-type');
+
 const isFn = (a) => typeof a === 'function';
 
 const DIR = './';
@@ -187,25 +188,28 @@ async function onFS(params, callback) {
             path: pathOS,
             root,
         });
-        
+
         if (error)
             return ponse.sendError(error, params);
-        
+
         const {type, contentLength} = stream;
-        
-        ponse.setHeader(p);
-        const [fileStream, contentType] = await getContentType({
+
+        const [streamError, fileStream, contentType] = await getContentType({
             type,
             pathWeb,
             stream,
         });
-        
+
+        if (streamError)
+            return ponse.sendError(error, params);
+
+        ponse.setHeader(p);
         p.response.setHeader('Content-Type', contentType);
         p.response.setHeader('Content-Length', contentLength);
-        
+
         if (method === 'HEAD')
             return p.response.end();
-        
+
         await pipe([
             fileStream,
             p.response,
@@ -228,24 +232,30 @@ function handleDotFolder(root) {
 }
 
 async function getContentType({type, pathWeb, stream}) {
+    const {fileTypeStream} = await import('file-type');
+    
     if (!type)
-        return [stream, 'text/plain'];
+        return [null, stream, 'text/plain'];
     
     if (type === 'directory')
-        return [stream, 'application/json'];
+        return [null, stream, 'application/json'];
     
     const ext = extname(pathWeb);
     
     if (ext && type === 'file')
-        return [stream, contentType(ext)];
+        return [null, stream, contentType(ext)];
     
-    const typeStream = await FileType.stream(stream);
+    const [error, typeStream] = await tryToCatch(fileTypeStream, stream);
+    
+    if (error)
+        return [error];
+    
     const {fileType} = typeStream;
     
     if (!fileType)
-        return [typeStream, 'text/plain'];
+        return [null, typeStream, 'text/plain'];
     
     const {mime} = fileType;
-    return [typeStream, mime];
+    return [null, typeStream, mime];
 }
 

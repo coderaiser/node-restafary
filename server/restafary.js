@@ -187,28 +187,28 @@ async function onFS(params, callback) {
             path: pathOS,
             root,
         });
-
+        
         if (error)
             return ponse.sendError(error, params);
-
+        
         const {type, contentLength} = stream;
-
+        
         const [streamError, fileStream, contentType] = await getContentType({
             type,
             pathWeb,
             stream,
         });
-
+        
         if (streamError)
             return ponse.sendError(error, params);
-
+        
         ponse.setHeader(p);
         p.response.setHeader('Content-Type', contentType);
         p.response.setHeader('Content-Length', contentLength);
-
+        
         if (method === 'HEAD')
             return p.response.end();
-
+        
         await pipe([
             fileStream,
             p.response,
@@ -221,9 +221,9 @@ function format(msg, name) {
     const status = 'ok';
     
     if (name)
-        name = '("' + name + '")';
+        name = `("${name}")`;
     
-    return msg + ': ' + status + name;
+    return `${msg}: ${status}${name}`;
 }
 
 function handleDotFolder(root) {

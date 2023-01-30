@@ -1,24 +1,10 @@
 {
-    "overrides": [{
-        "files": ["client/**/*.js"],
-        "env": {
-            "browser": true
-        }
-    }, {
-        "files": ["server/**/*.js"],
-        "extends": [
-            "plugin:putout/safe+align",
-            "plugin:n/recommended"
-        ],
-        "plugins": [
-            "n",
-            "putout"
-        ]
-    }],
     "extends": [
+        "plugin:n/recommended",
         "plugin:putout/safe+align"
     ],
     "plugins": [
-        "putout"
+        "putout",
+        "n"
     ]
 }

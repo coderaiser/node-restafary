@@ -1,3 +1,17 @@
+2023.01.30, v11.2.0
+
+fix:
+- get: crash on EACCESS
+
+feature:
+- (package) babel-loader v9.1.2
+- (package) file-type v18.2.0
+- (package) eslint-plugin-putout v16.3.0
+- (package) webpack-cli v5.0.1
+- (package) putout v28.10.0
+- (package) @cloudcmd/stub v4.0.1
+- (package) supertape v8.2.0
+
 2022.04.23, v11.1.0
 
 feature:

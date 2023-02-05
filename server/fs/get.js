@@ -38,6 +38,11 @@ module.exports = async ({query, path, root}) => {
     case 'size':
         return await readSize(path);
     
+    case 'raw-size':
+        return await readSize(path, {
+            type: 'raw',
+        });
+    
     case 'hash': {
         const hash = await ashify(await read(path), {algorithm: 'sha1', encoding: 'hex'});
         const stream = Readable.from(hash);

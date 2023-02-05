@@ -94,11 +94,18 @@ test('restafary: get: "raw": body: name', async (t) => {
     t.end();
 });
 
-test('restafary: get: "raw": body: size', async (t) => {
+test('restafary: get: "raw": directory: size', async (t) => {
     const {body} = await request.get('/fs/fixture/get-raw?raw');
     const [{size}] = JSON.parse(body).files;
     
     t.equal(size, 6, 'should return raw data');
+    t.end();
+});
+
+test('restafary: get: "raw": directory: raw-size', async (t) => {
+    const {body} = await request.get('/fs/fixture/get-raw/hello.txt?raw-size');
+    
+    t.equal(body, '6', 'should return raw data');
     t.end();
 });
 

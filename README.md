@@ -18,11 +18,12 @@
 |:------------|:--------|:--------------|:------------------|:------------------------------|
 |`fs`         |`GET`    |               |                   |get file or dir content        |
 |             |         |`sort`         |                   |sort dir content by `name`,    |
-|             |         |               |                   |`size` or `time`              |
+|             |         |               |                   |`size` or `time`               |
 |             |         |`order`        |                   |order of sorting, can be:      |
 |             |         |               |                   |`asc` or `desc`                |
 |             |         |`raw`          |                   |get file or raw dir content    |
 |             |         |`size`         |                   |get file or dir size           |
+|             |         |`raw-size      |                   |get raw size                   |
 |             |         |`hash`         |                   |get file hash                  |
 |             |         |`download`     |                   |content disposition attachment |
 |             |`PUT`    |               |file content       |create/write file              |

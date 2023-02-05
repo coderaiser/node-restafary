@@ -90,7 +90,7 @@ test('restafary: get: "raw": body: name', async (t) => {
     const {body} = await request.get('/fs/fixture/get-raw?raw');
     const [{name}] = JSON.parse(body).files;
     
-    t.deepEqual(name, 'hello.txt', 'should return raw data');
+    t.equal(name, 'hello.txt', 'should return raw data');
     t.end();
 });
 
@@ -98,7 +98,7 @@ test('restafary: get: "raw": body: size', async (t) => {
     const {body} = await request.get('/fs/fixture/get-raw?raw');
     const [{size}] = JSON.parse(body).files;
     
-    t.deepEqual(size, 6, 'should return raw data');
+    t.equal(size, 6, 'should return raw data');
     t.end();
 });
 

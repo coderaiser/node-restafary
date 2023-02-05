@@ -26,9 +26,9 @@
 |             |         |`raw-size      |                   |get raw size                   |
 |             |         |`hash`         |                   |get file hash                  |
 |             |         |`download`     |                   |content disposition attachment |
-|             |`PUT`    |               |file content       |create/write file              |
-|             |         | `unzip`       |file content       |unzip and create/write file    |
-|             |         | `dir`         |                   |create dir                     |
+|             |`PUT`   |               |file content       |create/write file              |
+|             |         |`unzip`      |file content       |unzip and create/write file    |
+|             |         |`dir`         |                   |create dir                     |
 |             |`PATCH`  |               |diff               |patch file                     |
 |             |`DELETE` |               |                   |delete file                    |
 |             |         |`files`        |Array of names     |delete files                   |

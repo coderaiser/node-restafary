@@ -1,3 +1,9 @@
+2023.02.05, v11.3.0
+
+feature:
+- restafary: get
+- package: try-catch v3.0.1
+
 2023.01.30, v11.2.0
 
 fix:

@@ -1,3 +1,11 @@
+2023.06.14, v11.4.0
+
+feature:
+- 1834c4d package: putout v29.13.5
+- 132df42 package: eslint-plugin-n v16.0.0
+- b1cf55b package: eslint-plugin-putout v17.7.0
+- c3407e6 restafary: GET: root: improve support of dot dir
+
 2023.02.05, v11.3.0
 
 feature:

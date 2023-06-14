@@ -3,9 +3,6 @@
 const {join} = require('path');
 
 module.exports.handleDotFolder = (root, cwd) => {
-    if (root.startsWith('./') && cwd.endsWith('/'))
-        return root.replace('./', cwd);
-    
     if (root.startsWith('./')) {
         root = root.replace('./', '');
         return join(cwd, root);
@@ -19,4 +16,3 @@ module.exports.handleDotFolder = (root, cwd) => {
     
     return join(cwd, root);
 };
-

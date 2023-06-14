@@ -27,7 +27,10 @@ const {request} = serveOnce(restafary, {
     root: __dirname,
 });
 
-const {stringify} = JSON;
+const {
+    stringify,
+    parse,
+} = JSON;
 const {assign} = Object;
 
 test('restafary: path traversal beyond root', async (t) => {
@@ -469,3 +472,17 @@ test('restafary: get: error: EACCESS', async (t) => {
     t.equal(body, 'EACCESS');
     t.end();
 });
+
+test('restafary: get: ./fixture', async (t) => {
+    const {body} = await request.get('/fs/get.json', {
+        options: {
+            root: './test/fixture/',
+        },
+    });
+    
+    const [error] = tryCatch(parse, body);
+    
+    t.notOk(error);
+    t.end();
+});
+

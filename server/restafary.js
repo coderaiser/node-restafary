@@ -13,6 +13,7 @@ const currify = require('currify');
 const tryToCatch = require('try-to-catch');
 const pipe = require('pipe-io');
 const {contentType} = require('mime-types');
+const {handleDotFolder} = require('./handle-dot-dir');
 
 const isFn = (a) => typeof a === 'function';
 
@@ -146,7 +147,7 @@ async function onFS(params, callback) {
     else
         root = params.root;
     
-    root = handleDotFolder(root);
+    root = handleDotFolder(root, CWD);
     const rootWin = root.replace('/', '\\');
     const pathOS = webToWin(name, root);
     const pathWeb = join(root, name);
@@ -224,10 +225,6 @@ function format(msg, name) {
         name = `("${name}")`;
     
     return `${msg}: ${status}${name}`;
-}
-
-function handleDotFolder(root) {
-    return root.replace(/^\.(\/|\\|$)/, CWD);
 }
 
 async function getContentType({type, pathWeb, stream}) {

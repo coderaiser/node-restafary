@@ -19,6 +19,7 @@ test('restafary: delete: no fs', async (t) => {
 
 test('restafary: delete: path: ENOENT', async (t) => {
     const root = `/${Math.random()}`;
+    
     const options = {
         root,
     };
@@ -36,6 +37,7 @@ test('restafary: delete: path: ENOENT', async (t) => {
 test('restafary: delete: files: parse error', async (t) => {
     const root = `/${Math.random()}`;
     const body = '{a: b}';
+    
     const options = {
         root,
     };
@@ -44,9 +46,9 @@ test('restafary: delete: files: parse error', async (t) => {
         options,
         body,
     });
+    
     const expected = 'xpected';
     
     t.match(res.body, expected, 'should return error message');
     t.end();
 });
-

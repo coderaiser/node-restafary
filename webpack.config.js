@@ -42,4 +42,3 @@ function devtoolModuleFilenameTemplate(info) {
     const resource = info.absoluteResourcePath.replace(__dirname + path.sep, '');
     return `file://restafary/${resource}`;
 }
-

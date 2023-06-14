@@ -10,7 +10,9 @@ module.exports = callbackify(async (query, name, readStream) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
-        .check({query});
+        .check({
+            query,
+        });
     
     if (query !== 'files')
         return await remove(name);
@@ -26,4 +28,3 @@ async function getBody(readStream) {
     
     return json;
 }
-

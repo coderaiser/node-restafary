@@ -2,7 +2,6 @@
   "name": "restafary",
   "version": "11.3.0",
   "type": "commonjs",
-  "commitType": "colon",
   "description": "REST for CRUD file operations",
   "main": "server/restafary.js",
   "engines": {
@@ -57,7 +56,6 @@
     "@iocmd/wait": "^2.1.0",
     "babel-loader": "^9.1.2",
     "c8": "^7.6.0",
-    "coveralls": "^3.0.0",
     "eslint": "^8.13.0",
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-putout": "^17.7.0",

@@ -37,10 +37,8 @@ module.exports = currify(async (options, request, response, next) => {
     const req = request;
     const res = response;
     const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
-    const {
-        prefix = '/fs',
-        root = '/',
-    } = options;
+    
+    const {prefix = '/fs', root = '/'} = options;
     
     const params = {
         root,
@@ -85,6 +83,7 @@ module.exports = currify(async (options, request, response, next) => {
 
 function sendFile(request, response) {
     const dist = !isDev ? 'dist' : 'dist-dev';
+    
     request.url = join(__dirname, '..', dist, request.url);
     
     const gzip = true;
@@ -192,7 +191,10 @@ async function onFS(params, callback) {
         if (error)
             return ponse.sendError(error, params);
         
-        const {type, contentLength} = stream;
+        const {
+            type,
+            contentLength,
+        } = stream;
         
         const [streamError, fileStream, contentType] = await getContentType({
             type,
@@ -244,7 +246,9 @@ async function getContentType({type, pathWeb, stream}) {
     const [error, typeStream] = await tryToCatch(fileTypeStream, stream);
     
     if (error)
-        return [error];
+        return [
+            error,
+        ];
     
     const {fileType} = typeStream;
     
@@ -252,6 +256,6 @@ async function getContentType({type, pathWeb, stream}) {
         return [null, typeStream, 'text/plain'];
     
     const {mime} = fileType;
+    
     return [null, typeStream, mime];
 }
-

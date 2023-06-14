@@ -12,4 +12,3 @@ test('cloudcmd: client: rest: replaceHash', (t) => {
     t.equal(result, expected);
     t.end();
 });
-

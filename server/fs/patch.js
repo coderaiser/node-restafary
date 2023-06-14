@@ -15,4 +15,3 @@ module.exports = callbackify(async (name, readStream, options) => {
     
     return patch(name, data, options);
 });
-

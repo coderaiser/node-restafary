@@ -18,4 +18,3 @@ export default {
     'fix:lint': () => run('lint', '--fix'),
     'clean': () => 'rimraf dist*',
 };
-

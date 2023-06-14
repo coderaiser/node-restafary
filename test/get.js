@@ -3,10 +3,8 @@
 const fs = require('fs');
 const {Readable} = require('stream');
 
-const {
-    test,
-    stub,
-} = require('supertape');
+const {test, stub} = require('supertape');
+
 const tryCatch = require('try-catch');
 const mockRequire = require('mock-require');
 const serveOnce = require('serve-once');
@@ -31,10 +29,12 @@ const {
     stringify,
     parse,
 } = JSON;
+
 const {assign} = Object;
 
 test('restafary: path traversal beyond root', async (t) => {
     const root = '/tmp';
+    
     const {body} = await request.get('/fs..%2f..%2fetc/passwd', {
         options: {
             root,
@@ -64,6 +64,7 @@ test('restafary: path traversal, not default root', async (t) => {
             root: '/usr',
         },
     });
+    
     const [error] = tryCatch(JSON.parse, body);
     
     t.notOk(error, 'should not throw');
@@ -72,7 +73,9 @@ test('restafary: path traversal, not default root', async (t) => {
 
 test('restafary: path traversal: "."', async (t) => {
     const notRoot = (_) => !/^\./.test(_);
-    const path = fs.readdirSync(__dirname)
+    
+    const path = fs
+        .readdirSync(__dirname)
         .filter(notRoot)
         .pop();
     
@@ -114,8 +117,9 @@ test('restafary: get: "raw": directory: raw-size', async (t) => {
 
 test('restafary: get: "raw": body: mode', async (t) => {
     const {body} = await request.get('/fs/fixture/get-raw?raw');
+    const expected = JSON.parse(body).mode;
     
-    t.deepEqual(fixture.getRaw.mode, JSON.parse(body).mode, 'should return raw data');
+    t.deepEqual(fixture.getRaw.mode, expected, 'should return raw data');
     t.end();
 });
 
@@ -155,6 +159,7 @@ test('restafary: get: body: mode', async (t) => {
 
 test('restafary: get: sort by name', async (t) => {
     const path = './';
+    
     const files = [{
         name: '.readify.js',
         size: '3.46kb',
@@ -190,6 +195,7 @@ test('restafary: get: sort by name', async (t) => {
     reRequire('../server/fs/get');
     
     const restafary = reRequire('..');
+    
     const {request} = serveOnce(restafary, {
         root: '/',
     });
@@ -202,7 +208,11 @@ test('restafary: get: sort by name', async (t) => {
     
     stopAll();
     
-    t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort "name"');
+    t.calledWith(read, ['/bin', {
+        sort,
+        order,
+        root,
+    }], 'should call readify with sort "name"');
     t.end();
 });
 
@@ -231,6 +241,7 @@ test('restafary: get: sort by size', async (t) => {
     reRequire('../server/fs/get');
     
     const restafary = reRequire('..');
+    
     const {request} = serveOnce(restafary, {
         root: '/',
     });
@@ -243,7 +254,11 @@ test('restafary: get: sort by size', async (t) => {
     
     stopAll();
     
-    t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort "size"');
+    t.calledWith(read, ['/bin', {
+        sort,
+        order,
+        root,
+    }], 'should call readify with sort "size"');
     t.end();
 });
 
@@ -272,6 +287,7 @@ test('restafary: get: sort by order', async (t) => {
     reRequire('../server/fs/get');
     
     const restafary = reRequire('..');
+    
     const {request} = serveOnce(restafary, {
         root: '/',
     });
@@ -284,12 +300,17 @@ test('restafary: get: sort by order', async (t) => {
     
     stopAll();
     
-    t.calledWith(read, ['/bin', {sort, order, root}], 'should call readify with sort and order');
+    t.calledWith(read, ['/bin', {
+        sort,
+        order,
+        root,
+    }], 'should call readify with sort and order');
     t.end();
 });
 
 test('restafary: path traversal: emoji', async (t) => {
     const url = encodeURI('/fs/fixture/🎉/');
+    
     const {body} = await request.get(url, {
         type: 'json',
         options: {
@@ -457,6 +478,7 @@ test('restafary: get: error: EACCESS', async (t) => {
     mockRequire('try-to-catch', tryToCatch);
     
     const restafary = reRequire('..');
+    
     const {request} = serveOnce(restafary, {
         root: __dirname,
     });
@@ -485,4 +507,3 @@ test('restafary: get: ./fixture', async (t) => {
     t.notOk(error);
     t.end();
 });
-

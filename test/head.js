@@ -34,4 +34,3 @@ test('restafary: head: file: not found', async (t) => {
     t.equal(status, expected, 'should set status 404');
     t.end();
 });
-

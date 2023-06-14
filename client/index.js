@@ -1,7 +1,6 @@
 'use strict';
 
 /* global XMLHttpRequest */
-
 let FS = '/api/v1/fs';
 const isFunc = (a) => typeof a === 'function';
 
@@ -60,11 +59,7 @@ module.exports.read = (url, callback) => {
 };
 
 function sendRequest({url, data, method, callback}) {
-    ajax({
-        method,
-        data,
-        url: escape(url),
-    }, callback);
+    ajax({method, data, url: escape(url)}, callback);
 }
 
 /*
@@ -73,8 +68,7 @@ function sendRequest({url, data, method, callback}) {
  */
 module.exports._escape = escape;
 function escape(str) {
-    return encodeURI(str)
-        .replace(/#/g, '%23');
+    return encodeURI(str).replace(/#/g, '%23');
 }
 
 function ajax(params, callback) {
@@ -83,6 +77,7 @@ function ajax(params, callback) {
         data,
         method,
     } = params;
+    
     const request = new XMLHttpRequest();
     
     if (typeof callback !== 'function')
@@ -101,4 +96,3 @@ function ajax(params, callback) {
     
     request.send(data);
 }
-

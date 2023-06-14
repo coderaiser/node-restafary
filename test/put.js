@@ -3,7 +3,11 @@
 const {Readable} = require('stream');
 const {createGzip} = require('zlib');
 const {join} = require('path');
-const {readFileSync, writeFileSync} = require('fs');
+
+const {
+    readFileSync,
+    writeFileSync,
+} = require('fs');
 
 const test = require('supertape');
 const serveOnce = require('serve-once');
@@ -34,7 +38,9 @@ test('restafary: put', async (t) => {
 });
 
 test('restafary: put: unzip', async (t) => {
-    const data = Readable.from('hello').pipe(createGzip());
+    const data = Readable
+        .from('hello')
+        .pipe(createGzip());
     
     await request.put('/fs/fixture/put.zip/hello?unzip', {
         body: data,
@@ -69,4 +75,3 @@ test('restafary: put: directory', async (t) => {
     t.equal(body, expected);
     t.end();
 });
-

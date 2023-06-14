@@ -9,7 +9,9 @@ module.exports = callbackify(async (query, name, readStream) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
-        .check({query});
+        .check({
+            query,
+        });
     
     switch(query) {
     default:
@@ -24,4 +26,3 @@ module.exports = callbackify(async (query, name, readStream) => {
         });
     }
 });
-

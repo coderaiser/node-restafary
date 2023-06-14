@@ -13,12 +13,11 @@ const {assign} = Object;
 module.exports = async ({query, path, root}) => {
     check
         .type('path', path, 'string')
-        .check({query});
+        .check({
+            query,
+        });
     
-    const {
-        sort = 'name',
-        order = 'asc',
-    } = parse(query);
+    const {sort = 'name', order = 'asc'} = parse(query);
     
     switch(query) {
     default:
@@ -44,7 +43,11 @@ module.exports = async ({query, path, root}) => {
         });
     
     case 'hash': {
-        const hash = await ashify(await read(path), {algorithm: 'sha1', encoding: 'hex'});
+        const hash = await ashify(await read(path), {
+            algorithm: 'sha1',
+            encoding: 'hex',
+        });
+        
         const stream = Readable.from(hash);
         
         assign(stream, {
@@ -55,4 +58,3 @@ module.exports = async ({query, path, root}) => {
     }
     }
 };
-

@@ -60,7 +60,7 @@
     "coveralls": "^3.0.0",
     "eslint": "^8.13.0",
     "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-putout": "^16.3.0",
+    "eslint-plugin-putout": "^17.7.0",
     "express": "^4.13.4",
     "madrun": "^9.0.2",
     "mock-require": "^3.0.2",

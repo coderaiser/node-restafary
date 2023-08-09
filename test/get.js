@@ -11,10 +11,7 @@ const serveOnce = require('serve-once');
 
 const restafary = require('..');
 
-const {
-    reRequire,
-    stopAll,
-} = mockRequire;
+const {reRequire, stopAll} = mockRequire;
 
 const fixture = {
     get: require(`${__dirname}/fixture/get`),
@@ -25,10 +22,7 @@ const {request} = serveOnce(restafary, {
     root: __dirname,
 });
 
-const {
-    stringify,
-    parse,
-} = JSON;
+const {stringify, parse} = JSON;
 
 const {assign} = Object;
 

@@ -4,10 +4,7 @@ const {Readable} = require('stream');
 const {createGzip} = require('zlib');
 const {join} = require('path');
 
-const {
-    readFileSync,
-    writeFileSync,
-} = require('fs');
+const {readFileSync, writeFileSync} = require('fs');
 
 const test = require('supertape');
 const serveOnce = require('serve-once');

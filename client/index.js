@@ -2,14 +2,14 @@
 
 /* global XMLHttpRequest */
 let FS = '/api/v1/fs';
-const isFunc = (a) => typeof a === 'function';
+const isFn = (a) => typeof a === 'function';
 
 module.exports.prefix = (prefix) => {
     FS = prefix;
 };
 
 module.exports.delete = (url, data, callback) => {
-    if (!callback && isFunc(data)) {
+    if (!callback && isFn(data)) {
         callback = data;
         data = null;
     }
@@ -23,7 +23,7 @@ module.exports.delete = (url, data, callback) => {
 };
 
 module.exports.patch = (url, data, callback) => {
-    if (!callback && isFunc(data)) {
+    if (!callback && isFn(data)) {
         callback = data;
         data = null;
     }
@@ -37,7 +37,7 @@ module.exports.patch = (url, data, callback) => {
 };
 
 module.exports.write = (url, data, callback) => {
-    if (!callback && isFunc(data)) {
+    if (!callback && isFn(data)) {
         callback = data;
         data = null;
     }
@@ -80,7 +80,7 @@ function ajax(params, callback) {
     
     const request = new XMLHttpRequest();
     
-    if (typeof callback !== 'function')
+    if (!isFn(callback))
         throw Error('Callback should be function!');
     
     const load = () => {

@@ -123,9 +123,7 @@ function checkPath(name, root) {
     const isRoot = root === '/';
     const isDrive = /^[a-z]$/i.test(drive);
     
-    const ok = !WIN || !isRoot || isDrive;
-    
-    return ok;
+    return !WIN || !isRoot || isDrive;
 }
 
 async function onFS(params, callback) {
@@ -191,10 +189,7 @@ async function onFS(params, callback) {
         if (error)
             return ponse.sendError(error, params);
         
-        const {
-            type,
-            contentLength,
-        } = stream;
+        const {type, contentLength} = stream;
         
         const [streamError, fileStream, contentType] = await getContentType({
             type,
@@ -246,9 +241,7 @@ async function getContentType({type, pathWeb, stream}) {
     const [error, typeStream] = await tryToCatch(fileTypeStream, stream);
     
     if (error)
-        return [
-            error,
-        ];
+        return [error];
     
     const {fileType} = typeStream;
     

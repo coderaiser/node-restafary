@@ -1,3 +1,14 @@
+2024.02.02, v12.0.0
+
+feature:
+- 0e505ef restafary: file-type v19.0.0
+- a11c37a restafary: supertape v10.0.0
+- dd9b5b9 restafary: madrun v10.0.1
+- 66644c9 restafary: eslint-plugin-putout v22.3.1
+- 55e7a68 restafary: putout v35.0.4
+- b611e9a restafary: c8 v9.1.0
+- 866e1a6 drop support of node < 18
+
 2023.08.09, v11.5.1
 
 feature:

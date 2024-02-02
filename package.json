@@ -13,6 +13,7 @@
     ]
   },
   "exports": {
+    ".": "./server/restafary.js",
     "./client": "./client/index.js"
   },
   "scripts": {

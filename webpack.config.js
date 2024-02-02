@@ -1,9 +1,9 @@
 'use strict';
 
 const path = require('path');
-const dir = './client';
 
-const {env} = process;
+const {env} = require('node:process');
+const dir = './client';
 const isDev = env.NODE_ENV === 'development';
 
 const dist = path.resolve(__dirname, 'dist');

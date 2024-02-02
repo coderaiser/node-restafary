@@ -1,5 +1,6 @@
 'use strict';
 
+const process = require('node:process');
 const {
     basename,
     extname,
@@ -104,14 +105,12 @@ function getMsg(name, req) {
     
     name = basename(name);
     
-    if (method !== 'put') {
+    if (method !== 'put')
         msg = method;
-    } else {
-        if (query === 'dir')
-            msg = 'make dir';
-        else
-            msg = 'save';
-    }
+    else if (query === 'dir')
+        msg = 'make dir';
+    else
+        msg = 'save';
     
     msg = format(msg, name);
     

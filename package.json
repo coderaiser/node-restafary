@@ -12,6 +12,9 @@
       "@babel/preset-env"
     ]
   },
+  "exports": {
+    "./client": "./client/index.js"
+  },
   "scripts": {
     "test": "madrun test",
     "report": "madrun report",

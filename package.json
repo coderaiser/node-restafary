@@ -55,7 +55,7 @@
     "@cloudcmd/stub": "^4.0.1",
     "@iocmd/wait": "^2.1.0",
     "babel-loader": "^9.1.2",
-    "c8": "^8.0.1",
+    "c8": "^9.1.0",
     "eslint": "^8.13.0",
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-putout": "^19.0.3",

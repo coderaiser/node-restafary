@@ -1,10 +1,17 @@
-import {run} from 'madrun';
+import {
+    run,
+    cutEnv,
+} from 'madrun';
+
+const env = {
+    SUPERTAPE_TIMEOUT: 7000,
+};
 
 export default {
-    'test': () => `tape '{client,server}/**/*.spec.js' 'test/*.js'`,
+    'test': () => [env, `tape '{client,server}/**/*.spec.js' 'test/*.js'`],
     'report': () => 'c8 report --reporter=lcov',
-    'coverage': () => 'c8 npm test',
-    'watch:test': async () => await run('watcher', await run('test')),
+    'coverage': async () => [env, `c8 ${await cutEnv('test')}`],
+    'watch:test': async () => [env, await run('watcher', await cutEnv('test'))],
     'watch:lint': async () => await run('watcher', await run('lint')),
     'watcher': () => 'nodemon -w test -w server --exec',
     'build-progress': () => 'webpack --progress',

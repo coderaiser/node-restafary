@@ -7,18 +7,16 @@ const {request} = require('serve-once')(restafary);
 
 test('restafary: http method: options', async (t) => {
     const {headers} = await request('options', '/fs');
-    const methods = headers.raw()['access-control-allow-methods'];
+    const methods = headers.get('Access-Control-Allow-Methods');
     
     const expected = [
-        [
-            'POST',
-            'GET',
-            'PUT',
-            'DELETE',
-            'OPTIONS',
-        ].join(', '),
-    ];
+        'POST',
+        'GET',
+        'PUT',
+        'DELETE',
+        'OPTIONS',
+    ].join(', ');
     
-    t.deepEqual(methods, expected);
+    t.equal(methods, expected);
     t.end();
 });

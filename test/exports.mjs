@@ -7,4 +7,3 @@ test('restafary: exports: client', async (t) => {
     t.equal(external, internal);
     t.end();
 });
-

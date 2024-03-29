@@ -1,0 +1,4 @@
+[files]
+extend-exclude= ["ChangeLog"]
+[default.extend-words]
+reate= "reate"

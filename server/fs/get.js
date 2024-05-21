@@ -1,8 +1,8 @@
 'use strict';
 
-const {Readable} = require('stream');
+const {Readable} = require('node:stream');
 
-const {parse} = require('querystring');
+const {parse} = require('node:querystring');
 const check = require('checkup');
 const ashify = require('ashify');
 const {read} = require('win32');

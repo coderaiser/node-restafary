@@ -1,6 +1,6 @@
 'use strict';
 
-const {callbackify} = require('util');
+const {callbackify} = require('node:util');
 
 const check = require('checkup');
 const pullout = require('pullout');

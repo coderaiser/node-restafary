@@ -1,6 +1,6 @@
 'use strict';
 
-const {join} = require('path');
+const {join} = require('node:path');
 
 module.exports.handleDotFolder = (root, cwd) => {
     if (root.startsWith('./')) {

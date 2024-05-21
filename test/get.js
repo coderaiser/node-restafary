@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const {Readable} = require('stream');
+const fs = require('node:fs');
+const {Readable} = require('node:stream');
 
 const {test, stub} = require('supertape');
 

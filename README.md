@@ -37,7 +37,7 @@
 
 ```js
 const restafary = require('restafary');
-const http = require('http');
+const http = require('node:http');
 const express = require('express');
 
 const app = express();

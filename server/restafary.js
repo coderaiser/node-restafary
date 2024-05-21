@@ -5,7 +5,7 @@ const {
     basename,
     extname,
     join,
-} = require('path');
+} = require('node:path');
 
 const {webToWin} = require('mellow');
 

@@ -68,7 +68,7 @@
     "mock-require": "^3.0.2",
     "nodemon": "^3.0.1",
     "putout": "^41.16.0",
-    "redlint": "^3.15.1",
+    "redlint": "^5.4.0",
     "serve-once": "^3.0.2",
     "supertape": "^10.0.0",
     "try-catch": "^3.0.1",

@@ -1,3 +1,26 @@
+2026.01.31, v13.0.0
+
+feature:
+- decce23 restafary: drop support of node < 22
+- 1212faa restafary: try-to-catch v4.0.4
+- 3d7534f restafary: try-catch v4.0.9
+- fbe5a9e restafary: supertape v12.2.0
+- 1d4b6c4 restafary: redzip v4.0.0
+- 8d055a5 restafary: redlint v5.4.0
+- d36663f restafary: putout v41.16.0
+- 1e78022 restafary: mime-types v3.0.2
+- 980c339 restafary: madrun v12.1.3
+- 0eccfa8 restafary: file-type v21.3.0
+- 1b2b342 restafary: express v5.2.1
+- 5ccc6a4 restafary: eslint-plugin-putout v30.0.2
+- fe047b3 restafary: babel-loader v10.0.0
+- 2dcdc5c restafary: @cloudcmd/stub v5.0.0
+- 4bd8430 restafary: putout v37.4.0
+- 776e201 restafary: webpack-cli v6.0.0
+- 11d696f restafary: eslint-plugin-putout v23.3.0
+- 494074e restafary: putout v36.0.4
+- d802f00 restafary: c8 v10.1.2
+
 2024.05.21, v12.1.4
 
 feature:

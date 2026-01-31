@@ -49,7 +49,7 @@
     "ponse": "^7.0.0",
     "pullout": "^5.0.1",
     "redzip": "^4.0.0",
-    "try-to-catch": "^3.0.0",
+    "try-to-catch": "^4.0.4",
     "win32": "^7.0.0"
   },
   "devDependencies": {

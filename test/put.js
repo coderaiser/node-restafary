@@ -6,7 +6,7 @@ const {join} = require('node:path');
 
 const {readFileSync, writeFileSync} = require('node:fs');
 
-const test = require('supertape');
+const {test} = require('supertape');
 const serveOnce = require('serve-once');
 
 const restafary = require('..');

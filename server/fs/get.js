@@ -1,5 +1,6 @@
 'use strict';
 
+const {Buffer} = require('node:buffer');
 const {Readable} = require('node:stream');
 
 const {parse} = require('node:querystring');

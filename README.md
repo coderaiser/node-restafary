@@ -36,8 +36,9 @@
 ## How to use?
 
 ```js
-const restafary = require('restafary');
 const http = require('node:http');
+const restafary = require('restafary');
+
 const express = require('express');
 
 const app = express();

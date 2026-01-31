@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('supertape');
+const {test} = require('supertape');
 const restafary = require('.');
 
 test('cloudcmd: client: rest: replaceHash', (t) => {

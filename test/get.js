@@ -1,11 +1,12 @@
 'use strict';
 
+const {Buffer} = require('node:buffer');
 const fs = require('node:fs');
 const {Readable} = require('node:stream');
 
 const {test, stub} = require('supertape');
 
-const tryCatch = require('try-catch');
+const {tryCatch} = require('try-catch');
 const mockRequire = require('mock-require');
 const serveOnce = require('serve-once');
 
@@ -66,7 +67,7 @@ test('restafary: path traversal, not default root', async (t) => {
 });
 
 test('restafary: path traversal: "."', async (t) => {
-    const notRoot = (_) => !/^\./.test(_);
+    const notRoot = (_) => !_.startsWith('.');
     
     const path = fs
         .readdirSync(__dirname)
@@ -469,12 +470,9 @@ test('restafary: get: error: EACCESS', async (t) => {
     const error = Error('EACCESS');
     const tryToCatch = stub().resolves([error]);
     
-    mockRequire('try-to-catch', tryToCatch);
-    
-    const restafary = reRequire('..');
-    
     const {request} = serveOnce(restafary, {
         root: __dirname,
+        tryToCatch,
     });
     
     const {body} = await request.get('/fs/hello', {
@@ -482,8 +480,6 @@ test('restafary: get: error: EACCESS', async (t) => {
             root: __dirname,
         },
     });
-    
-    stopAll();
     
     t.equal(body, 'EACCESS');
     t.end();

@@ -1,8 +1,8 @@
 'use strict';
 
+const {callbackify} = require('node:util');
 const check = require('checkup');
 const {remove} = require('flop');
-const {callbackify} = require('node:util');
 
 const pullout = require('pullout');
 

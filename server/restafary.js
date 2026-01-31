@@ -1,6 +1,7 @@
 'use strict';
 
 const process = require('node:process');
+
 const {
     basename,
     extname,
@@ -11,11 +12,11 @@ const {webToWin} = require('mellow');
 
 const ponse = require('ponse');
 const currify = require('currify');
-const tryToCatch = require('try-to-catch');
+const {tryToCatch: _tryToCatch} = require('try-to-catch');
 const pipe = require('pipe-io');
 const {contentType} = require('mime-types');
 const {handleDotFolder} = require('./handle-dot-dir');
-
+const isUndefined = (a) => typeof a === 'undefined';
 const isFn = (a) => typeof a === 'function';
 
 const DIR = './';
@@ -39,12 +40,17 @@ module.exports = currify(async (options, request, response, next) => {
     const res = response;
     const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
     
-    const {prefix = '/fs', root = '/'} = options;
+    const {
+        prefix = '/fs',
+        root = '/',
+        tryToCatch = _tryToCatch,
+    } = options;
     
     const params = {
         root,
         request,
         response,
+        tryToCatch,
     };
     
     let name = ponse.getPathName(req);
@@ -66,7 +72,7 @@ module.exports = currify(async (options, request, response, next) => {
         if (options.name)
             params.name = options.name;
         
-        if (options.gzip !== undefined)
+        if (!isUndefined(options.gzip))
             params.gzip = options.gzip;
         
         if (options.query)
@@ -118,7 +124,7 @@ function getMsg(name, req) {
 }
 
 function checkPath(name, root) {
-    const drive = name.split('/')[1];
+    const [, drive] = name.split('/');
     const isRoot = root === '/';
     const isDrive = /^[a-z]$/i.test(drive);
     
@@ -126,6 +132,7 @@ function checkPath(name, root) {
 }
 
 async function onFS(params, callback) {
+    const {tryToCatch} = params;
     const pathError = 'Could not write file/create directory in root on windows!';
     const p = params;
     const {name} = p;
@@ -141,7 +148,7 @@ async function onFS(params, callback) {
     if (isFn(params.root))
         root = params.root();
     else
-        root = params.root;
+        ({root} = params);
     
     root = handleDotFolder(root, CWD);
     const rootWin = root.replace('/', '\\');
@@ -194,6 +201,7 @@ async function onFS(params, callback) {
             type,
             pathWeb,
             stream,
+            tryToCatch,
         });
         
         if (streamError)
@@ -223,7 +231,7 @@ function format(msg, name) {
     return `${msg}: ${status}${name}`;
 }
 
-async function getContentType({type, pathWeb, stream}) {
+async function getContentType({type, pathWeb, stream, tryToCatch}) {
     const {fileTypeStream} = await import('file-type');
     
     if (!type)

@@ -1,6 +1,5 @@
 'use strict';
 
-/* global XMLHttpRequest */
 let FS = '/api/v1/fs';
 const isFn = (a) => typeof a === 'function';
 

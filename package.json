@@ -69,6 +69,7 @@
     "nodemon": "^3.0.1",
     "putout": "^41.16.0",
     "redlint": "^5.4.0",
+    "rimraf": "^6.1.2",
     "serve-once": "^3.0.2",
     "supertape": "^12.2.0",
     "try-catch": "^4.0.9",

@@ -71,7 +71,7 @@
     "redlint": "^5.4.0",
     "serve-once": "^3.0.2",
     "supertape": "^12.2.0",
-    "try-catch": "^3.0.1",
+    "try-catch": "^4.0.9",
     "webpack": "^5.11.0",
     "webpack-cli": "^6.0.0"
   },

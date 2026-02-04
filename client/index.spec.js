@@ -1,7 +1,5 @@
-'use strict';
-
-const {test} = require('supertape');
-const restafary = require('.');
+import {test} from 'supertape';
+import * as restafary from './index.js';
 
 test('cloudcmd: client: rest: replaceHash', (t) => {
     const {_escape} = restafary;

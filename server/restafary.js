@@ -1,41 +1,41 @@
-'use strict';
-
-const process = require('node:process');
-
-const {
+import process from 'node:process';
+import {fileURLToPath} from 'node:url';
+import {
     basename,
     extname,
     join,
-} = require('node:path');
+    dirname,
+} from 'node:path';
+import {webToWin} from 'mellow';
+import ponse from 'ponse';
+import currify from 'currify';
+import {tryToCatch as _tryToCatch} from 'try-to-catch';
+import pipe from 'pipe-io';
+import {contentType} from 'mime-types';
+import {fileTypeStream} from 'file-type';
+import {handleDotFolder} from './handle-dot-dir.js';
+import {get} from './fs/get.js';
+import {put} from './fs/put.js';
+import {patch} from './fs/patch.js';
+import {remove} from './fs/remove.js';
 
-const {webToWin} = require('mellow');
-
-const ponse = require('ponse');
-const currify = require('currify');
-const {tryToCatch: _tryToCatch} = require('try-to-catch');
-const pipe = require('pipe-io');
-const {contentType} = require('mime-types');
-const {handleDotFolder} = require('./handle-dot-dir');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const isUndefined = (a) => typeof a === 'undefined';
 const isFn = (a) => typeof a === 'function';
-
-const DIR = './';
 const WIN = process.platform === 'win32';
 const CWD = process.cwd();
-const Fs = {};
 
-for (const name of [
-    'get',
-    'put',
-    'patch',
-    'delete',
-]) {
-    Fs[name] = require(DIR + 'fs/' + name);
-}
+const Fs = {
+    get,
+    put,
+    patch,
+    remove,
+};
 
 const isDev = process.env.NODE_ENV === 'development';
 
-module.exports = currify(async (options, request, response, next) => {
+export const restafary = currify(async (options, request, response, next) => {
     const req = request;
     const res = response;
     const isFile = /^\/restafary\.js(\.map)?$/.test(req.url);
@@ -44,6 +44,7 @@ module.exports = currify(async (options, request, response, next) => {
         prefix = '/fs',
         root = '/',
         tryToCatch = _tryToCatch,
+        read,
     } = options;
     
     const params = {
@@ -51,6 +52,7 @@ module.exports = currify(async (options, request, response, next) => {
         request,
         response,
         tryToCatch,
+        read,
     };
     
     let name = ponse.getPathName(req);
@@ -132,7 +134,7 @@ function checkPath(name, root) {
 }
 
 async function onFS(params, callback) {
-    const {tryToCatch} = params;
+    const {tryToCatch, read} = params;
     const pathError = 'Could not write file/create directory in root on windows!';
     const p = params;
     const {name} = p;
@@ -179,10 +181,12 @@ async function onFS(params, callback) {
             callback(error, optionsDefaults);
         });
     
-    case 'DELETE':
-        return Fs.delete(query, pathOS, p.request, (error) => {
-            callback(error, optionsDefaults);
-        });
+    case 'DELETE': {
+        const [error] = await tryToCatch(Fs.remove, query, pathOS, p.request);
+        
+        callback(error, optionsDefaults);
+        return;
+    }
     
     case 'HEAD':
     case 'GET': {
@@ -190,6 +194,7 @@ async function onFS(params, callback) {
             query,
             path: pathOS,
             root,
+            read,
         });
         
         if (error)
@@ -232,8 +237,6 @@ function format(msg, name) {
 }
 
 async function getContentType({type, pathWeb, stream, tryToCatch}) {
-    const {fileTypeStream} = await import('file-type');
-    
     if (!type)
         return [null, stream, 'text/plain'];
     

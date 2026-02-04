@@ -1,9 +1,11 @@
-'use strict';
+import {fileURLToPath} from 'node:url';
+import {dirname} from 'node:path';
+import {test} from 'supertape';
+import serveOnce from 'serve-once';
+import {restafary} from '../server/restafary.js';
 
-const {test} = require('supertape');
-const serveOnce = require('serve-once');
-
-const restafary = require('..');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const {request} = serveOnce(restafary, {
     root: __dirname,

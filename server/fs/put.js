@@ -1,11 +1,8 @@
-'use strict';
+import {callbackify} from 'node:util';
+import check from 'checkup';
+import {write} from 'redzip';
 
-const {callbackify} = require('node:util');
-
-const check = require('checkup');
-const {write} = require('redzip');
-
-module.exports = callbackify(async (query, name, readStream) => {
+export const put = callbackify(async (query, name, readStream) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')

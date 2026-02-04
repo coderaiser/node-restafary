@@ -1,7 +1,5 @@
-'use strict';
-
-const {test} = require('supertape');
-const {handleDotFolder} = require('./handle-dot-dir');
+import {test} from 'supertape';
+import {handleDotFolder} from './handle-dot-dir.js';
 
 test('restafary: handle-dot-dir: .', (t) => {
     const result = handleDotFolder('.', '/hello');

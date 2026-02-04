@@ -1,5 +1,12 @@
 # Restafary [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL]
 
+[NPMIMGURL]: https://img.shields.io/npm/v/restafary.svg?style=flat
+[BuildStatusURL]: https://github.com/coderaiser/node-restafary/actions?query=workflow%3A%22Node+CI%22 "Build Status"
+[BuildStatusIMGURL]: https://github.com/coderaiser/node-restafary/workflows/Node%20CI/badge.svg
+[LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPMURL]: https://npmjs.org/package/restafary "npm"
+[LicenseURL]: https://tldrlegal.com/license/mit-license "MIT License"
+
 **REST** for **CRUD** file operations.
 
 ## What is it?
@@ -36,10 +43,9 @@
 ## How to use?
 
 ```js
-const http = require('node:http');
-const restafary = require('restafary');
-
-const express = require('express');
+import http from 'node:http';
+import {restafary} from 'restafary';
+import express from 'express';
 
 const app = express();
 const server = http.createServer(app);
@@ -59,10 +65,3 @@ server.listen(port, ip);
 ## License
 
 MIT
-
-[NPMIMGURL]: https://img.shields.io/npm/v/restafary.svg?style=flat
-[BuildStatusURL]: https://github.com/coderaiser/node-restafary/actions?query=workflow%3A%22Node+CI%22 "Build Status"
-[BuildStatusIMGURL]: https://github.com/coderaiser/node-restafary/workflows/Node%20CI/badge.svg
-[LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
-[NPMURL]: https://npmjs.org/package/restafary "npm"
-[LicenseURL]: https://tldrlegal.com/license/mit-license "MIT License"

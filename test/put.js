@@ -1,15 +1,14 @@
-'use strict';
+import {Readable} from 'node:stream';
+import {createGzip} from 'node:zlib';
+import {join, dirname} from 'node:path';
+import {readFileSync, writeFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {test} from 'supertape';
+import serveOnce from 'serve-once';
+import {restafary} from '../server/restafary.js';
 
-const {Readable} = require('node:stream');
-const {createGzip} = require('node:zlib');
-const {join} = require('node:path');
-
-const {readFileSync, writeFileSync} = require('node:fs');
-
-const {test} = require('supertape');
-const serveOnce = require('serve-once');
-
-const restafary = require('..');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const {request} = serveOnce(restafary, {
     root: __dirname,

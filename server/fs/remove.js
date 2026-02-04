@@ -1,12 +1,8 @@
-'use strict';
+import check from 'checkup';
+import {remove as flopRemove} from 'flop';
+import pullout from 'pullout';
 
-const {callbackify} = require('node:util');
-const check = require('checkup');
-const {remove} = require('flop');
-
-const pullout = require('pullout');
-
-module.exports = callbackify(async (query, name, readStream) => {
+export const remove = async (query, name, readStream) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object')
@@ -15,12 +11,12 @@ module.exports = callbackify(async (query, name, readStream) => {
         });
     
     if (query !== 'files')
-        return await remove(name);
+        return await flopRemove(name);
     
     const files = await getBody(readStream);
     
-    await remove(name, files);
-});
+    await flopRemove(name, files);
+};
 
 async function getBody(readStream) {
     const data = await pullout(readStream, 'string');

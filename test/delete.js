@@ -1,8 +1,8 @@
-'use strict';
+import {test} from 'supertape';
+import serveOnce from 'serve-once';
+import {restafary} from '../server/restafary.js';
 
-const {test} = require('supertape');
-const restafary = require('..');
-const {request} = require('serve-once')(restafary);
+const {request} = serveOnce(restafary);
 
 test('restafary: delete: no fs', async (t) => {
     const options = {

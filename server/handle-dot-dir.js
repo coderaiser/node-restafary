@@ -1,8 +1,6 @@
-'use strict';
+import {join} from 'node:path';
 
-const {join} = require('node:path');
-
-module.exports.handleDotFolder = (root, cwd) => {
+export const handleDotFolder = (root, cwd) => {
     if (root.startsWith('./')) {
         root = root.replace('./', '');
         return join(cwd, root);

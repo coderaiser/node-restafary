@@ -1,24 +1,31 @@
-'use strict';
-
-const {Buffer} = require('node:buffer');
-const {Readable} = require('node:stream');
-
-const {parse} = require('node:querystring');
-const check = require('checkup');
-const ashify = require('ashify');
-const {read} = require('win32');
-const {readSize} = require('redzip');
+import {Buffer} from 'node:buffer';
+import {Readable} from 'node:stream';
+import {parse} from 'node:querystring';
+import check from 'checkup';
+import ashify from 'ashify';
+import {read as _read} from 'win32';
+import {readSize} from 'redzip';
 
 const {assign} = Object;
 
-module.exports = async ({query, path, root}) => {
+export const get = async (overrides = {}) => {
+    const {
+        query,
+        path,
+        root,
+        read = _read,
+    } = overrides;
+    
     check
         .type('path', path, 'string')
         .check({
             query,
         });
     
-    const {sort = 'name', order = 'asc'} = parse(query);
+    const {
+        sort = 'name',
+        order = 'asc',
+    } = parse(query);
     
     switch(query) {
     default:

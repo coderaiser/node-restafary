@@ -1,13 +1,11 @@
-'use strict';
-
 let FS = '/api/v1/fs';
 const isFn = (a) => typeof a === 'function';
 
-module.exports.prefix = (prefix) => {
+export const prefix = (prefix) => {
     FS = prefix;
 };
 
-module.exports.delete = (url, data, callback) => {
+export const remove = (url, data, callback) => {
     if (!callback && isFn(data)) {
         callback = data;
         data = null;
@@ -21,7 +19,7 @@ module.exports.delete = (url, data, callback) => {
     });
 };
 
-module.exports.patch = (url, data, callback) => {
+export const patch = (url, data, callback) => {
     if (!callback && isFn(data)) {
         callback = data;
         data = null;
@@ -35,7 +33,7 @@ module.exports.patch = (url, data, callback) => {
     });
 };
 
-module.exports.write = (url, data, callback) => {
+export const write = (url, data, callback) => {
     if (!callback && isFn(data)) {
         callback = data;
         data = null;
@@ -49,7 +47,7 @@ module.exports.write = (url, data, callback) => {
     });
 };
 
-module.exports.read = (url, callback) => {
+export const read = (url, callback) => {
     sendRequest({
         method: 'GET',
         url: FS + url,
@@ -65,7 +63,8 @@ function sendRequest({url, data, method, callback}) {
  * when we send ajax request -
  * no need in hash so we escape #
  */
-module.exports._escape = escape;
+export const _escape = escape;
+
 function escape(str) {
     return encodeURI(str).replace(/#/g, '%23');
 }

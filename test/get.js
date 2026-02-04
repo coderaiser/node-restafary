@@ -1,18 +1,17 @@
-'use strict';
+import {Buffer} from 'node:buffer';
+import fs from 'node:fs';
+import {Readable} from 'node:stream';
+import {fileURLToPath} from 'node:url';
+import {dirname} from 'node:path';
+import {createRequire} from 'node:module';
+import {test, stub} from 'supertape';
+import {tryCatch} from 'try-catch';
+import serveOnce from 'serve-once';
+import {restafary} from '../server/restafary.js';
 
-const {Buffer} = require('node:buffer');
-const fs = require('node:fs');
-const {Readable} = require('node:stream');
-
-const {test, stub} = require('supertape');
-
-const {tryCatch} = require('try-catch');
-const mockRequire = require('mock-require');
-const serveOnce = require('serve-once');
-
-const restafary = require('..');
-
-const {reRequire, stopAll} = mockRequire;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
 
 const fixture = {
     get: require(`${__dirname}/fixture/get`),
@@ -154,7 +153,6 @@ test('restafary: get: body: mode', async (t) => {
 
 test('restafary: get: sort by name', async (t) => {
     const path = './';
-    
     const files = [{
         name: '.readify.js',
         size: '3.46kb',
@@ -183,16 +181,9 @@ test('restafary: get: sort by name', async (t) => {
     
     const read = stub().returns(stream);
     
-    mockRequire('win32', {
-        read,
-    });
-    
-    reRequire('../server/fs/get');
-    
-    const restafary = reRequire('..');
-    
     const {request} = serveOnce(restafary, {
         root: '/',
+        read,
     });
     
     await request.get('/fs/bin?sort=name');
@@ -200,8 +191,6 @@ test('restafary: get: sort by name', async (t) => {
     const order = 'asc';
     const sort = 'name';
     const root = '/';
-    
-    stopAll();
     
     t.calledWith(read, ['/bin', {
         sort,
@@ -229,16 +218,9 @@ test('restafary: get: sort by size', async (t) => {
     
     const read = stub().returns(stream);
     
-    mockRequire('win32', {
-        read,
-    });
-    
-    reRequire('../server/fs/get');
-    
-    const restafary = reRequire('..');
-    
     const {request} = serveOnce(restafary, {
         root: '/',
+        read,
     });
     
     await request.get('/fs/bin?sort=size');
@@ -246,8 +228,6 @@ test('restafary: get: sort by size', async (t) => {
     const order = 'asc';
     const sort = 'size';
     const root = '/';
-    
-    stopAll();
     
     t.calledWith(read, ['/bin', {
         sort,
@@ -275,16 +255,9 @@ test('restafary: get: sort by order', async (t) => {
     
     const read = stub().returns(stream);
     
-    mockRequire('win32', {
-        read,
-    });
-    
-    reRequire('../server/fs/get');
-    
-    const restafary = reRequire('..');
-    
     const {request} = serveOnce(restafary, {
         root: '/',
+        read,
     });
     
     await request.get('/fs/bin?order=desc&sort=time');
@@ -292,8 +265,6 @@ test('restafary: get: sort by order', async (t) => {
     const sort = 'time';
     const order = 'desc';
     const root = '/';
-    
-    stopAll();
     
     t.calledWith(read, ['/bin', {
         sort,

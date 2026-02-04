@@ -1,17 +1,14 @@
-'use strict';
+import {callbackify} from 'node:util';
+import check from 'checkup';
+import pullout from 'pullout';
+import patchfile from 'patchfile';
 
-const {callbackify} = require('node:util');
-
-const check = require('checkup');
-const pullout = require('pullout');
-const patch = require('patchfile');
-
-module.exports = callbackify(async (name, readStream, options) => {
+export const patch = callbackify(async (name, readStream, options) => {
     check
         .type('name', name, 'string')
         .type('readStream', readStream, 'object');
     
     const data = await pullout(readStream, 'string');
     
-    return patch(name, data, options);
+    return patchfile(name, data, options);
 });

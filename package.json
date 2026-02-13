@@ -1,6 +1,6 @@
 {
   "name": "restafary",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "type": "module",
   "description": "REST for CRUD file operations",
   "main": "server/restafary.js",

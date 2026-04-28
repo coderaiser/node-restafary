@@ -293,6 +293,7 @@ test('restafary: path traversal: emoji', async (t) => {
         files: [{
             name: 'hello.txt',
             size: '6b',
+            time: '11:28:48',
             type: 'file',
         }],
     };
@@ -317,6 +318,7 @@ test('restafary: path traversal: zip', async (t) => {
             mode: 'rw- rw- rw-',
             type: 'directory',
             owner: 'root',
+            time: '00:00:00',
         }],
     }, null, 4);
     

@@ -7,7 +7,7 @@ import {
     dirname,
 } from 'node:path';
 import {webToWin} from 'mellow';
-import ponse from 'ponse';
+import * as ponse from 'ponse';
 import currify from 'currify';
 import {tryToCatch as _tryToCatch} from 'try-to-catch';
 import pipe from 'pipe-io';

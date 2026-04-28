@@ -1,9 +1,11 @@
-.*
 *.spec.js
+*.config.*
+*.log
+*.lock
+
+.*
+
+webpack.config.js
 
 test
-webpack.config.js
-yarn-error.log
-
 coverage
-*.config.*

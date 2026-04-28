@@ -30,7 +30,7 @@ jobs:
         run: redrun fix:lint
       - name: Install Rust
         run: rustup update
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/bin/
@@ -47,7 +47,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         continue-on-error: true
         with:
-          message: "chore: ${{ env.NAME }}: lint using actions ☘️"
+          message: "chore: ${{ env.NAME }}: actions: lint ☘️"
       - name: Coverage
         run: redrun coverage report
       - name: Coveralls

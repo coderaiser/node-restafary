@@ -60,7 +60,7 @@
     "@cloudcmd/stub": "^5.0.0",
     "@iocmd/wait": "^2.1.0",
     "babel-loader": "^10.0.0",
-    "eslint": "^9.3.0",
+    "eslint": "^10.2.1",
     "eslint-plugin-putout": "^30.0.2",
     "express": "^5.2.1",
     "madrun": "^12.1.3",

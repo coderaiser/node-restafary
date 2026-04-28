@@ -1,3 +1,15 @@
+2026.04.28, v13.0.4
+
+feature:
+- e2e712e restafary: webpack-cli v7.0.2
+- 2d0429e restafary: redlint v6.4.1
+- 9636d20 restafary: putout v42.4.6
+- a159f7d restafary: ponse v8.0.1
+- c5762bc restafary: madrun v13.0.1
+- db72a47 restafary: eslint-plugin-putout v31.1.2
+- 0cdb968 restafary: eslint v10.2.1
+- 0641023 restafary: superc8 v12.3.1
+
 2026.02.13, v13.0.3
 
 feature:

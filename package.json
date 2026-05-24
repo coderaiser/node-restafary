@@ -71,7 +71,7 @@
     "rimraf": "^6.1.2",
     "serve-once": "^3.0.2",
     "superc8": "^12.3.1",
-    "supertape": "^12.2.0",
+    "supertape": "^13.2.0",
     "try-catch": "^4.0.9",
     "webpack": "^5.11.0",
     "webpack-cli": "^7.0.2"

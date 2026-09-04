@@ -6,7 +6,7 @@ import {dirname} from 'node:path';
 import {createRequire} from 'node:module';
 import {test, stub} from 'supertape';
 import {tryCatch} from 'try-catch';
-import serveOnce from 'serve-once';
+import { serveOnce } from 'serve-once';
 import {restafary} from '../server/restafary.js';
 
 const __filename = fileURLToPath(import.meta.url);

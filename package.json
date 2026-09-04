@@ -69,7 +69,7 @@
     "putout": "^42.4.6",
     "redlint": "^6.4.1",
     "rimraf": "^6.1.2",
-    "serve-once": "^3.0.2",
+    "serve-once": "^4.0.1",
     "superc8": "^12.3.1",
     "supertape": "^13.2.0",
     "try-catch": "^4.0.9",

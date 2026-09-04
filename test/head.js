@@ -1,7 +1,7 @@
 import {fileURLToPath} from 'node:url';
 import {dirname} from 'node:path';
 import {test} from 'supertape';
-import serveOnce from 'serve-once';
+import { serveOnce } from 'serve-once';
 import {restafary} from '../server/restafary.js';
 
 const __filename = fileURLToPath(import.meta.url);

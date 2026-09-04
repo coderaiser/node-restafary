@@ -1,5 +1,5 @@
 import {test} from 'supertape';
-import serveOnce from 'serve-once';
+import { serveOnce } from 'serve-once';
 import {restafary} from '../server/restafary.js';
 
 const {request} = serveOnce(restafary);

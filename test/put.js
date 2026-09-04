@@ -4,7 +4,7 @@ import {join, dirname} from 'node:path';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {test} from 'supertape';
-import serveOnce from 'serve-once';
+import { serveOnce } from 'serve-once';
 import {restafary} from '../server/restafary.js';
 
 const __filename = fileURLToPath(import.meta.url);

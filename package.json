@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/cli": "^8.0.4",
     "@babel/core": "^8.0.1",
-    "@babel/eslint-parser": "^7.24.5",
+    "@babel/eslint-parser": "^8.0.1",
     "@babel/preset-env": "^7.0.0",
     "@cloudcmd/stub": "^5.0.0",
     "@iocmd/wait": "^2.1.0",

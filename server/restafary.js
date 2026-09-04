@@ -5,6 +5,7 @@ import {
     extname,
     join,
     dirname,
+    sep,
 } from 'node:path';
 import {webToWin} from 'mellow';
 import * as ponse from 'ponse';
@@ -157,7 +158,14 @@ async function onFS(params, callback) {
     const pathOS = webToWin(name, root);
     const pathWeb = join(root, name);
     
-    if (WIN && pathWeb.indexOf(rootWin) || !WIN && pathWeb.indexOf(root))
+    const rootWithSep = root.endsWith(sep) ? root : root + sep;
+    const rootWinWithSep = rootWin.endsWith(sep) ? rootWin : rootWin + sep;
+    
+    const beyondRoot = WIN
+        ? pathWeb !== rootWin && !pathWeb.startsWith(rootWinWithSep)
+        : pathWeb !== root && !pathWeb.startsWith(rootWithSep);
+    
+    if (beyondRoot)
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
     
     const {method} = p.request;

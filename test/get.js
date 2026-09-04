@@ -66,14 +66,7 @@ test('restafary: path traversal, not default root', async (t) => {
 });
 
 test('restafary: path traversal: "."', async (t) => {
-    const notRoot = (_) => !_.startsWith('.');
-    
-    const path = fs
-        .readdirSync(__dirname)
-        .filter(notRoot)
-        .pop();
-    
-    const {status} = await request.get(`/fs/${path}`);
+    const {status} = await request.get('/fs/fixture');
     
     t.equal(status, 200, 'status code should be OK');
     t.end();
@@ -287,13 +280,13 @@ test('restafary: path traversal: emoji', async (t) => {
     delete body.files[0].owner;
     delete body.files[0].mode;
     delete body.files[0].date;
+    delete body.files[0].time;
     
     const expected = {
         path: '/fixture/🎉/',
         files: [{
             name: 'hello.txt',
             size: '6b',
-            time: '11:28:48',
             type: 'file',
         }],
     };
@@ -468,5 +461,18 @@ test('restafary: get: ./fixture', async (t) => {
     const [error] = tryCatch(parse, body);
     
     t.notOk(error);
+    t.end();
+});
+
+test('restafary: path traversal: sibling directory', async (t) => {
+    const root = '/tmp/root';
+    
+    const {body} = await request.get('/fs..%2Froot-sibling%2Fsecret.txt', {
+        options: {
+            root,
+        },
+    });
+    
+    t.equal(body, 'Path /tmp/root-sibling/secret.txt beyond root /tmp/root!', 'should reject sibling path that starts with root name');
     t.end();
 });

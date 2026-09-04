@@ -56,7 +56,7 @@
     "@babel/cli": "^8.0.4",
     "@babel/core": "^8.0.1",
     "@babel/eslint-parser": "^8.0.1",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^8.0.2",
     "@cloudcmd/stub": "^5.0.0",
     "@iocmd/wait": "^2.1.0",
     "babel-loader": "^10.0.0",

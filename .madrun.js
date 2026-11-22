@@ -11,7 +11,7 @@ export default {
     'watch:test': async () => [env, await run('watcher', await cutEnv('test'))],
     'watch:lint': async () => await run('watcher', await run('lint')),
     'watcher': () => 'nodemon -w test -w server --exec',
-    'build-progress': () => 'webpack --progress',
+    'build-progress': () => 'rspack build',
     'build:client': () => run('build-progress', '--mode production'),
     'build:client:dev': async () => `NODE_ENV=development ${await run('build-progress', '--mode development')}`,
     'build': () => run(['clean', 'build:*']),

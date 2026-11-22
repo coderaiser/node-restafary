@@ -1,12 +1,11 @@
 import {Buffer} from 'node:buffer';
-import fs from 'node:fs';
 import {Readable} from 'node:stream';
 import {fileURLToPath} from 'node:url';
 import {dirname} from 'node:path';
 import {createRequire} from 'node:module';
 import {test, stub} from 'supertape';
 import {tryCatch} from 'try-catch';
-import { serveOnce } from 'serve-once';
+import {serveOnce} from 'serve-once';
 import {restafary} from '../server/restafary.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -474,5 +473,50 @@ test('restafary: path traversal: sibling directory', async (t) => {
     });
     
     t.equal(body, 'Path /tmp/root-sibling/secret.txt beyond root /tmp/root!', 'should reject sibling path that starts with root name');
+    t.end();
+});
+
+test('restafary: get: root: function', async (t) => {
+    const {status} = await request.get('/fs/fixture/index.html', {
+        options: {
+            root: () => __dirname,
+        },
+    });
+    
+    t.equal(status, 200);
+    t.end();
+});
+
+test('restafary: get: content type: detect error', async (t) => {
+    let count = 0;
+    
+    const tryToCatch = async (fn, ...args) => {
+        if (++count === 2)
+            return [
+                Error('type error'),
+            ];
+        
+        return [null, await fn(...args)];
+    };
+    
+    const {body} = await request.get('/fs/fixture/image', {
+        options: {
+            root: __dirname,
+            tryToCatch,
+        },
+    });
+    
+    t.match(body, 'type error');
+    t.end();
+});
+
+test('restafary: get: restafary.js', async (t) => {
+    const {body} = await request.get('/restafary.js', {
+        options: {
+            root: __dirname,
+        },
+    });
+    
+    t.notMatch(body, 'Cannot GET', 'should not pass client file to next');
     t.end();
 });

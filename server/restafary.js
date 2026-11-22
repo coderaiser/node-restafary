@@ -1,4 +1,5 @@
 import process from 'node:process';
+import {Readable} from 'node:stream';
 import {fileURLToPath} from 'node:url';
 import {
     basename,
@@ -14,6 +15,7 @@ import {tryToCatch as _tryToCatch} from 'try-to-catch';
 import pipe from 'pipe-io';
 import {contentType} from 'mime-types';
 import {fileTypeStream} from 'file-type';
+import {checkPath} from './check-path.js';
 import {handleDotFolder} from './handle-dot-dir.js';
 import {get} from './fs/get.js';
 import {put} from './fs/put.js';
@@ -69,7 +71,6 @@ export const restafary = currify(async (options, request, response, next) => {
     params.name = name;
     
     await onFS(params, (error, options, data) => {
-        options = options || {};
         params.gzip = !error;
         
         if (options.name)
@@ -77,9 +78,6 @@ export const restafary = currify(async (options, request, response, next) => {
         
         if (!isUndefined(options.gzip))
             params.gzip = options.gzip;
-        
-        if (options.query)
-            params.query = options.query;
         
         if (error)
             return ponse.sendError(error, params);
@@ -126,14 +124,6 @@ function getMsg(name, req) {
     return msg;
 }
 
-function checkPath(name, root) {
-    const [, drive] = name.split('/');
-    const isRoot = root === '/';
-    const isDrive = /^[a-z]$/i.test(drive);
-    
-    return !WIN || !isRoot || isDrive;
-}
-
 async function onFS(params, callback) {
     const {tryToCatch, read} = params;
     const pathError = 'Could not write file/create directory in root on windows!';
@@ -165,10 +155,13 @@ async function onFS(params, callback) {
         ? pathWeb !== rootWin && !pathWeb.startsWith(rootWinWithSep)
         : pathWeb !== root && !pathWeb.startsWith(rootWithSep);
     
+    const {method} = p.request;
+    
+    if (method === 'PUT' && !checkPath({name, root, win: WIN}))
+        return callback(pathError, optionsDefaults);
+    
     if (beyondRoot)
         return callback(Error('Path ' + pathWeb + ' beyond root ' + root + '!'), optionsDefaults);
-    
-    const {method} = p.request;
     
     switch(method) {
     case 'OPTIONS':
@@ -177,9 +170,6 @@ async function onFS(params, callback) {
         return callback(null, optionsDefaults);
     
     case 'PUT':
-        if (!checkPath(name, root))
-            return callback(pathError, optionsDefaults);
-        
         return Fs.put(query, pathOS, p.request, (error) => {
             callback(error, optionsDefaults);
         });
@@ -218,7 +208,7 @@ async function onFS(params, callback) {
         });
         
         if (streamError)
-            return ponse.sendError(error, params);
+            return ponse.sendError(streamError, params);
         
         ponse.setHeader(p);
         p.response.setHeader('Content-Type', contentType);
@@ -256,12 +246,13 @@ async function getContentType({type, pathWeb, stream, tryToCatch}) {
     if (ext && type === 'file')
         return [null, stream, contentType(ext)];
     
-    const [error, typeStream] = await tryToCatch(fileTypeStream, stream);
+    const [error, webStream] = await tryToCatch(fileTypeStream, Readable.toWeb(stream));
     
     if (error)
         return [error];
     
-    const {fileType} = typeStream;
+    const {fileType} = webStream;
+    const typeStream = Readable.fromWeb(webStream);
     
     if (!fileType)
         return [null, typeStream, 'text/plain'];

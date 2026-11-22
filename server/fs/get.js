@@ -27,30 +27,22 @@ export const get = async (overrides = {}) => {
         order = 'asc',
     } = parse(query);
     
-    switch(query) {
-    default:
-        return await read(path, {
-            sort,
-            order,
-            root,
-        });
-    
-    case 'raw':
+    if (query === 'raw')
         return await read(path, {
             sort,
             order,
             type: 'raw',
         });
     
-    case 'size':
+    if (query === 'size')
         return await readSize(path);
     
-    case 'raw-size':
+    if (query === 'raw-size')
         return await readSize(path, {
             type: 'raw',
         });
     
-    case 'hash': {
+    if (query === 'hash') {
         const hash = await ashify(await read(path), {
             algorithm: 'sha1',
             encoding: 'hex',
@@ -64,5 +56,10 @@ export const get = async (overrides = {}) => {
         
         return stream;
     }
-    }
+    
+    return await read(path, {
+        sort,
+        order,
+        root,
+    });
 };

@@ -10,16 +10,13 @@ export const put = callbackify(async (query, name, readStream) => {
             query,
         });
     
-    switch(query) {
-    default:
-        return await write(name, readStream);
-    
-    case 'dir':
+    if (query === 'dir')
         return await write(name);
     
-    case 'unzip':
+    if (query === 'unzip')
         return await write(name, readStream, {
             unzip: true,
         });
-    }
+    
+    return await write(name, readStream);
 });

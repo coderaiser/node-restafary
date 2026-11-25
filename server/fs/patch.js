@@ -1,6 +1,6 @@
 import {callbackify} from 'node:util';
 import check from 'checkup';
-import pullout from 'pullout';
+import {pullout} from 'pullout';
 import {patchfile} from 'patchfile';
 
 export const patch = callbackify(async (name, readStream, options) => {

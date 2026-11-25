@@ -1,6 +1,6 @@
 import check from 'checkup';
 import {remove as flopRemove} from 'flop';
-import pullout from 'pullout';
+import {pullout} from 'pullout';
 
 export const remove = async (query, name, readStream) => {
     check

@@ -42,7 +42,7 @@
     "patchfile": "^5.0.0",
     "pipe-io": "^4.0.1",
     "ponse": "^8.0.2",
-    "pullout": "^5.0.1",
+    "pullout": "^6.1.0",
     "redzip": "^4.6.1",
     "try-to-catch": "^4.1.0",
     "win32": "^8.1.0"

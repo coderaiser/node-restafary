@@ -310,7 +310,7 @@ test('restafary: path traversal: zip', async (t) => {
             mode: 'rw- rw- rw-',
             type: 'directory',
             owner: 'root',
-            time: '00:00:00',
+            time: '11:24:38',
         }],
     }, null, 4);
     

@@ -16,6 +16,7 @@ const createXHR = (overrides = {}) => {
         status = 200,
         responseText = 'hello',
     } = overrides;
+    
     const listeners = {};
     
     const xhr = {
